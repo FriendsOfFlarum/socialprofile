@@ -1,0 +1,36 @@
+{
+    "name": "davis/flarum-socialprofile",
+    "description": "Allows addition of Social Media buttons to profile",
+    "type": "flarum-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Connor Davis",
+            "email": "cdavis@produes.co"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/connor0095/flarum-social-profile/issues",
+        "source": "https://github.com/connor0095/flarum-social-profile"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "davis\\socialprofile\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Social Profile",
+            "icon": {
+                "image": "icon.jpg",
+                "backgroundColor": "#000",
+                "backgroundSize": "100%",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "center"
+            }
+        }
+    }
+}
