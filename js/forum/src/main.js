@@ -1,3 +1,4 @@
+alert();
 import app from 'flarum/app';
 import { extend } from 'flarum/extend';
 import UserCard from 'flarum/components/UserCard';
@@ -21,7 +22,7 @@ var socialaccs = {
         url: "https://github.com",
     },
 };
-app.initializers.add('davis-socialprofile', function() {
+app.initializers.add('davis-socialprofile-forum', function() {
     extend(UserCard.prototype, 'infoItems', function(items) {
         
         for (var k in socialaccs) {

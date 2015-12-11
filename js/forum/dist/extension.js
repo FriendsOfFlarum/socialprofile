@@ -1,121 +1,4 @@
-System.register('connor0095/socialprofile/main', ['flarum/app', 'flarum/extend', 'flarum/components/UserCard', 'flarum/components/Badge', 'connor0095/socialprofile/components/SocialButtonsModal'], function (_export) {
-    'use strict';
-
-    var app, extend, UserCard, Badge, SocialButtonsModal, socialaccs;
-    return {
-        setters: [function (_flarumApp) {
-            app = _flarumApp['default'];
-        }, function (_flarumExtend) {
-            extend = _flarumExtend.extend;
-        }, function (_flarumComponentsUserCard) {
-            UserCard = _flarumComponentsUserCard['default'];
-        }, function (_flarumComponentsBadge) {
-            Badge = _flarumComponentsBadge['default'];
-        }, function (_connor0095SocialprofileComponentsSocialButtonsModal) {
-            SocialButtonsModal = _connor0095SocialprofileComponentsSocialButtonsModal['default'];
-        }],
-        execute: function () {
-            socialaccs = {
-                0: {
-                    icon: "twitter",
-                    label: "Twitter",
-                    url: "https://twitter.com"
-                },
-                1: {
-                    icon: "facebook",
-                    label: "Facebook",
-                    url: "https://facebook.com"
-                },
-                2: {
-                    icon: "github",
-                    label: "Github",
-                    url: "https://github.com"
-                }
-            };
-
-            app.initializers.add('connor0095-socialprofile', function () {
-                extend(UserCard.prototype, 'infoItems', function (items) {
-
-                    for (var k in socialaccs) {
-                        if (socialaccs.hasOwnProperty(k)) {
-                            (function () {
-                                var curaccount = socialaccs[k];
-                                items.add(curaccount["icon"] + ' social-button', Badge.component({
-                                    type: "social",
-                                    icon: curaccount["icon"],
-                                    label: curaccount["label"],
-                                    onclick: function onclick() {
-                                        window.open(curaccount["url"], '_blank');
-                                    }
-                                }));
-                            })();
-                        }
-                    }
-                    if (app.session.user === app.current.user) {
-                        items.add('settings' + ' social-button', Badge.component({
-                            type: "social social-settings",
-                            icon: "cog",
-                            label: "Settings",
-                            onclick: function onclick() {
-                                app.modal.show(new SocialButtonsModal());
-                            }
-                        }), -1);
-                    }
-                });
-            });
-        }
-    };
-});;
-System.register('connor0095/socialprofile/components/SocialButtonsSettingsModal', ['flarum/components/SettingsModal'], function (_export) {
-  'use strict';
-
-  var Modal, SocialButtonsSettingsModal;
-  return {
-    setters: [function (_flarumComponentsSettingsModal) {
-      Modal = _flarumComponentsSettingsModal['default'];
-    }],
-    execute: function () {
-      SocialButtonsSettingsModal = (function (_Modal) {
-        babelHelpers.inherits(SocialButtonsSettingsModal, _Modal);
-
-        function SocialButtonsSettingsModal() {
-          babelHelpers.classCallCheck(this, SocialButtonsSettingsModal);
-          babelHelpers.get(Object.getPrototypeOf(SocialButtonsSettingsModal.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        babelHelpers.createClass(SocialButtonsSettingsModal, [{
-          key: 'className',
-          value: function className() {
-            return 'SocialButtonsSettingsModal Modal--small';
-          }
-        }, {
-          key: 'title',
-          value: function title() {
-            return 'Social Buttons Settings';
-          }
-        }, {
-          key: 'form',
-          value: function form() {
-            return [m(
-              'div',
-              { className: 'Form-group' },
-              m(
-                'label',
-                null,
-                'Imgur Client ID'
-              ),
-              m('input', { className: 'FormControl', bidi: this.setting('matpompili.imgur-upload.clientID') })
-            )];
-          }
-        }]);
-        return SocialButtonsSettingsModal;
-      })(Modal);
-
-      _export('default', SocialButtonsSettingsModal);
-    }
-  };
-});;
-System.register('connor0095/socialprofile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button'], function (_export) {
+System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button'], function (_export) {
   'use strict';
 
   var Modal, Button, SocialButtonsModal;
@@ -224,4 +107,73 @@ System.register('connor0095/socialprofile/components/SocialButtonsModal', ['flar
       _export('default', SocialButtonsModal);
     }
   };
+});;
+System.register('davis/socialprofile/main', ['flarum/app', 'flarum/extend', 'flarum/components/UserCard', 'flarum/components/Badge', 'davis/socialprofile/components/SocialButtonsModal'], function (_export) {
+    'use strict';
+
+    var app, extend, UserCard, Badge, SocialButtonsModal, socialaccs;
+    return {
+        setters: [function (_flarumApp) {
+            app = _flarumApp['default'];
+        }, function (_flarumExtend) {
+            extend = _flarumExtend.extend;
+        }, function (_flarumComponentsUserCard) {
+            UserCard = _flarumComponentsUserCard['default'];
+        }, function (_flarumComponentsBadge) {
+            Badge = _flarumComponentsBadge['default'];
+        }, function (_davisSocialprofileComponentsSocialButtonsModal) {
+            SocialButtonsModal = _davisSocialprofileComponentsSocialButtonsModal['default'];
+        }],
+        execute: function () {
+            alert();
+            socialaccs = {
+                0: {
+                    icon: "twitter",
+                    label: "Twitter",
+                    url: "https://twitter.com"
+                },
+                1: {
+                    icon: "facebook",
+                    label: "Facebook",
+                    url: "https://facebook.com"
+                },
+                2: {
+                    icon: "github",
+                    label: "Github",
+                    url: "https://github.com"
+                }
+            };
+
+            app.initializers.add('davis-socialprofile-forum', function () {
+                extend(UserCard.prototype, 'infoItems', function (items) {
+
+                    for (var k in socialaccs) {
+                        if (socialaccs.hasOwnProperty(k)) {
+                            (function () {
+                                var curaccount = socialaccs[k];
+                                items.add(curaccount["icon"] + ' social-button', Badge.component({
+                                    type: "social",
+                                    icon: curaccount["icon"],
+                                    label: curaccount["label"],
+                                    onclick: function onclick() {
+                                        window.open(curaccount["url"], '_blank');
+                                    }
+                                }));
+                            })();
+                        }
+                    }
+                    if (app.session.user === app.current.user) {
+                        items.add('settings' + ' social-button', Badge.component({
+                            type: "social social-settings",
+                            icon: "cog",
+                            label: "Settings",
+                            onclick: function onclick() {
+                                app.modal.show(new SocialButtonsModal());
+                            }
+                        }), -1);
+                    }
+                });
+            });
+        }
+    };
 });

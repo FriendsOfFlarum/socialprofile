@@ -2,7 +2,7 @@ var flarum = require('flarum-gulp');
 
 flarum({
   modules: {
-    'connor0095/socialprofile': [
+    'davis/socialprofile': [
       'src/**/*.js'
     ]
   }
