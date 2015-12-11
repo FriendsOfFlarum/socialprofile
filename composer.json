@@ -2,6 +2,7 @@
     "name": "davis/flarum-socialprofile",
     "description": "Allows addition of Social Media buttons to profile",
     "type": "flarum-extension",
+    "version": "v0.1.0beta",
     "license": "MIT",
     "authors": [
         {
