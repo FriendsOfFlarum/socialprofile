@@ -1,4 +1,4 @@
-alert();
+import SocialButtons from 'davis/socialprofile/models/SocialButtons';
 import app from 'flarum/app';
 import { extend } from 'flarum/extend';
 import UserCard from 'flarum/components/UserCard';
@@ -23,6 +23,9 @@ var socialaccs = {
     },
 };
 app.initializers.add('davis-socialprofile-forum', function() {
+    
+   app.store.models.socialbuttons = SocialButtons;
+    
     extend(UserCard.prototype, 'infoItems', function(items) {
         
         for (var k in socialaccs) {
