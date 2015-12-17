@@ -235,7 +235,7 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                         items.add('settings' + ' social-button', Badge.component({
                             type: "social social-settings",
                             icon: "cog",
-                            label: "Settings",
+                            label: app.translator.trans('davis-socialprofile.forum.test'),
                             onclick: function onclick() {
                                 app.modal.show(new SocialButtonsModal());
                             }

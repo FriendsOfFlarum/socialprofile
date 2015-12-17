@@ -17,7 +17,7 @@ class SocialButtons extends AbstractModel
     /**
      * {@inheritdoc}
      */
-    protected $dates = ['last_time'];
+    protected $dates = ['read_time'];
     /**
      * {@inheritdoc}
      */
@@ -39,10 +39,10 @@ class SocialButtons extends AbstractModel
      * @param bool $isHidden
      * @return static
      */
-    public static function build($user, $label, $url, $icon)
+    public static function build($user_id, $label, $url, $icon)
     {
         $social = new static;
-        $social->user       = $user;
+        $social->user_id       = $user_id;
         $social->label      = $label;
         $social->url        = $url;
         $social->icon       = $icon;

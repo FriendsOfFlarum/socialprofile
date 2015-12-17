@@ -45,7 +45,7 @@ app.initializers.add('davis-socialprofile-forum', function() {
             items.add('settings' + ' social-button', Badge.component({
                 type: "social social-settings",
                 icon: "cog",
-                label: "Settings",
+                label: app.translator.trans('davis-socialprofile.forum.test'),
                 onclick: function(){app.modal.show(new SocialButtonsModal())}
             }), -1);
         }
