@@ -176,7 +176,8 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                 app.store.models.socialbuttons = SocialButtons;
 
                 extend(UserCard.prototype, 'infoItems', function (items) {
-
+                    var user = this.props.user;
+                    //console.log(user.data.id);
                     for (var k in socialaccs) {
                         if (socialaccs.hasOwnProperty(k)) {
                             (function () {
@@ -192,11 +193,23 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                             })();
                         }
                     }
+                    var settingsclass;
+                    var settingsicon;
+                    var settingslabel;
+                    if (typeof socialaccs !== 'undefined') {
+                        settingsclass = 'social-settings';
+                        settingsicon = 'cog';
+                        settingslabel = app.translator.trans('davis-socialprofile.forum.edit');
+                    } else {
+                        settingsclass = 'null-social-settings';
+                        settingsicon = 'plus';
+                        settingslabel = app.translator.trans('davis-socialprofile.forum.add');
+                    }
                     if (app.session.user === app.current.user) {
                         items.add('settings' + ' social-button', Badge.component({
-                            type: "social social-settings",
-                            icon: "cog",
-                            label: app.translator.trans('davis-socialprofile.forum.test'),
+                            type: "social " + settingsclass,
+                            icon: settingsicon,
+                            label: settingslabel,
                             onclick: function onclick() {
                                 app.modal.show(new SocialButtonsModal());
                             }
