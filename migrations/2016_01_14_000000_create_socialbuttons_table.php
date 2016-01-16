@@ -8,6 +8,7 @@ class CreateSocialbuttonsTable extends AbstractMigration
     public function up()
     {
         $this->schema->create('socialbuttons', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('buttons');
         });

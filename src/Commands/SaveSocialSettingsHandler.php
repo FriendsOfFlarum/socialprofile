@@ -29,7 +29,8 @@ class SaveSocialSettingsHandler
 
     public function handle(SaveSocialSettings $command)
     {
-        $buttons = new buttons();
+        $buttons = buttons::where('user_id', $command->actor->id)->firstOrFail();
+        
         $buttons->user_id = $command->actor->id;
         $buttons->buttons = $command->buttons;
 
