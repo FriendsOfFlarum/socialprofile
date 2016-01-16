@@ -1,29 +1,29 @@
 System.register('davis/socialprofile/components/SocialProfileSettingsModal', ['flarum/components/SettingsModal'], function (_export) {
   'use strict';
 
-  var SettingsModal, SocialProfileSettingsModal;
+  var SettingsModal, AnimatedTagSettingsModal;
   return {
     setters: [function (_flarumComponentsSettingsModal) {
       SettingsModal = _flarumComponentsSettingsModal['default'];
     }],
     execute: function () {
-      SocialProfileSettingsModal = (function (_SettingsModal) {
-        babelHelpers.inherits(SocialProfileSettingsModal, _SettingsModal);
+      AnimatedTagSettingsModal = (function (_SettingsModal) {
+        babelHelpers.inherits(AnimatedTagSettingsModal, _SettingsModal);
 
-        function SocialProfileSettingsModal() {
-          babelHelpers.classCallCheck(this, SocialProfileSettingsModal);
-          babelHelpers.get(Object.getPrototypeOf(SocialProfileSettingsModal.prototype), 'constructor', this).apply(this, arguments);
+        function AnimatedTagSettingsModal() {
+          babelHelpers.classCallCheck(this, AnimatedTagSettingsModal);
+          babelHelpers.get(Object.getPrototypeOf(AnimatedTagSettingsModal.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        babelHelpers.createClass(SocialProfileSettingsModal, [{
+        babelHelpers.createClass(AnimatedTagSettingsModal, [{
           key: 'className',
           value: function className() {
-            return 'SocialProfileSettingsModal Modal--small';
+            return 'AnimatedTagSettingsModal Modal--small';
           }
         }, {
           key: 'title',
           value: function title() {
-            return 'Social Profile Settings';
+            return app.translator.trans('davis-socialprofile.admin.test');
           }
         }, {
           key: 'form',
@@ -34,16 +34,16 @@ System.register('davis/socialprofile/components/SocialProfileSettingsModal', ['f
               m(
                 'label',
                 null,
-                'Limit Number of Websites'
+                app.translator.trans('davis-socialprofile.admin.test')
               ),
-              m('input', { className: 'FormControl', bidi: this.setting('davis.socialprofile.limit') })
+              m('input', { type: 'text', className: 'FormControl', bidi: this.setting('davis.socialprofile.test') })
             )];
           }
         }]);
-        return SocialProfileSettingsModal;
+        return AnimatedTagSettingsModal;
       })(SettingsModal);
 
-      _export('default', SocialProfileSettingsModal);
+      _export('default', AnimatedTagSettingsModal);
     }
   };
 });;

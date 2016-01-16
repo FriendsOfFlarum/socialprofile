@@ -45,7 +45,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
             return this.name() ? tagLabel({
               name: this.name,
               color: this.color
-            }) : app.translator.trans('flarum-tags.admin.edit_tag.title');
+            }) : app.translator.trans('davis-socialprofile.forum.test');
           }
         }, {
           key: 'content',
@@ -64,56 +64,12 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                   m(
                     'label',
                     null,
-                    app.translator.trans('flarum-tags.admin.edit_tag.name_label')
+                    app.translator.trans('davis-socialprofile.forum.test')
                   ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('flarum-tags.admin.edit_tag.name_placeholder'), value: this.name(), oninput: function (e) {
+                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.test'), value: this.name(), oninput: function (e) {
                       _this.name(e.target.value);
                       _this.slug(slug(e.target.value));
                     } })
-                ),
-                m(
-                  'div',
-                  { className: 'Form-group' },
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('flarum-tags.admin.edit_tag.slug_label')
-                  ),
-                  m('input', { className: 'FormControl', value: this.slug(), oninput: m.withAttr('value', this.slug) })
-                ),
-                m(
-                  'div',
-                  { className: 'Form-group' },
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('flarum-tags.admin.edit_tag.description_label')
-                  ),
-                  m('textarea', { className: 'FormControl', value: this.description(), oninput: m.withAttr('value', this.description) })
-                ),
-                m(
-                  'div',
-                  { className: 'Form-group' },
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('flarum-tags.admin.edit_tag.color_label')
-                  ),
-                  m('input', { className: 'FormControl', placeholder: '#aaaaaa', value: this.color(), oninput: m.withAttr('value', this.color) })
-                ),
-                m(
-                  'div',
-                  { className: 'Form-group' },
-                  m(
-                    'div',
-                    null,
-                    m(
-                      'label',
-                      { className: 'checkbox' },
-                      m('input', { type: 'checkbox', value: '1', checked: this.isHidden(), onchange: m.withAttr('checked', this.isHidden) }),
-                      app.translator.trans('flarum-tags.admin.edit_tag.hide_label')
-                    )
-                  )
                 ),
                 m(
                   'div',
@@ -122,12 +78,12 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                     type: 'submit',
                     className: 'Button Button--primary EditTagModal-save',
                     loading: this.loading,
-                    children: app.translator.trans('flarum-tags.admin.edit_tag.submit_button')
+                    children: app.translator.trans('davis-socialprofile.forum.test')
                   }),
                   this.tag.exists ? m(
                     'button',
                     { type: 'button', className: 'Button EditTagModal-delete', onclick: this['delete'].bind(this) },
-                    app.translator.trans('flarum-tags.admin.edit_tag.delete_tag_button')
+                    app.translator.trans('davis-socialprofile.forum.test')
                   ) : ''
                 )
               )
@@ -142,12 +98,17 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
 
             this.loading = true;
 
-            this.tag.save({
-              name: this.name(),
-              slug: this.slug(),
-              description: this.description(),
-              color: this.color(),
-              isHidden: this.isHidden()
+            var testData = this.name();
+            var data = new FormData();
+            data.append('buttons', testData);
+
+            app.request({
+              method: 'POST',
+              url: app.forum.attribute('apiUrl') + '/profile/socialbuttons',
+              serialize: function serialize(raw) {
+                return raw;
+              },
+              data: data
             }).then(function () {
               return _this2.hide();
             }, function (response) {

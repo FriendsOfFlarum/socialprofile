@@ -27,7 +27,7 @@ export default class SocialButtonsModal extends Modal {
         name: this.name,
         color: this.color
       })
-      : app.translator.trans('flarum-tags.admin.edit_tag.title');
+      : app.translator.trans('davis-socialprofile.forum.test');
   }
 
   content() {
@@ -35,47 +35,24 @@ export default class SocialButtonsModal extends Modal {
       <div className="Modal-body">
         <div className="Form">
           <div className="Form-group">
-            <label>{app.translator.trans('flarum-tags.admin.edit_tag.name_label')}</label>
-            <input className="FormControl" placeholder={app.translator.trans('flarum-tags.admin.edit_tag.name_placeholder')} value={this.name()} oninput={e => {
+            <label>{app.translator.trans('davis-socialprofile.forum.test')}</label>
+            <input className="FormControl" placeholder={app.translator.trans('davis-socialprofile.forum.test')} value={this.name()} oninput={e => {
               this.name(e.target.value);
               this.slug(slug(e.target.value));
             }}/>
           </div>
 
-          <div className="Form-group">
-            <label>{app.translator.trans('flarum-tags.admin.edit_tag.slug_label')}</label>
-            <input className="FormControl" value={this.slug()} oninput={m.withAttr('value', this.slug)}/>
-          </div>
-
-          <div className="Form-group">
-            <label>{app.translator.trans('flarum-tags.admin.edit_tag.description_label')}</label>
-            <textarea className="FormControl" value={this.description()} oninput={m.withAttr('value', this.description)}/>
-          </div>
-
-          <div className="Form-group">
-            <label>{app.translator.trans('flarum-tags.admin.edit_tag.color_label')}</label>
-            <input className="FormControl" placeholder="#aaaaaa" value={this.color()} oninput={m.withAttr('value', this.color)}/>
-          </div>
-
-          <div className="Form-group">
-            <div>
-              <label className="checkbox">
-                <input type="checkbox" value="1" checked={this.isHidden()} onchange={m.withAttr('checked', this.isHidden)}/>
-                {app.translator.trans('flarum-tags.admin.edit_tag.hide_label')}
-              </label>
-            </div>
-          </div>
 
           <div className="Form-group">
             {Button.component({
               type: 'submit',
               className: 'Button Button--primary EditTagModal-save',
               loading: this.loading,
-              children: app.translator.trans('flarum-tags.admin.edit_tag.submit_button')
+              children: app.translator.trans('davis-socialprofile.forum.test')
             })}
             {this.tag.exists ? (
               <button type="button" className="Button EditTagModal-delete" onclick={this.delete.bind(this)}>
-                {app.translator.trans('flarum-tags.admin.edit_tag.delete_tag_button')}
+                {app.translator.trans('davis-socialprofile.forum.test')}
               </button>
             ) : ''}
           </div>
@@ -85,23 +62,28 @@ export default class SocialButtonsModal extends Modal {
   }
 
   onsubmit(e) {
-    e.preventDefault();
+      
+      e.preventDefault();
 
-    this.loading = true;
+      this.loading = true;
+    
+      var testData = this.name();
+      const data = new FormData();
+      data.append('buttons', testData);
 
-    this.tag.save({
-      name: this.name(),
-      slug: this.slug(),
-      description: this.description(),
-      color: this.color(),
-      isHidden: this.isHidden()
-    }).then(
-      () => this.hide(),
-      response => {
-        this.loading = false;
-        this.handleErrors(response);
-      }
-    );
+      app.request({
+          method: 'POST',
+          url: app.forum.attribute('apiUrl') + '/profile/socialbuttons',
+          serialize: raw => raw,
+          data
+      }).then(
+          () => this.hide(),
+          response => {
+            this.loading = false;
+            this.handleErrors(response);
+          }
+      );
+
   }
 
   delete() {

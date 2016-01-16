@@ -1,19 +1,19 @@
 import SettingsModal from 'flarum/components/SettingsModal';
 
-export default class SocialProfileSettingsModal extends SettingsModal {
+export default class AnimatedTagSettingsModal extends SettingsModal {
   className() {
-    return 'SocialProfileSettingsModal Modal--small';
+    return 'AnimatedTagSettingsModal Modal--small';
   }
 
   title() {
-    return 'Social Profile Settings';
+    return app.translator.trans('davis-socialprofile.admin.test');
   }
 
   form() {
     return [
       <div className="Form-group">
-        <label>Limit Number of Websites</label>
-        <input className="FormControl" bidi={this.setting('davis.socialprofile.limit')}/>
+        <label>{app.translator.trans('davis-socialprofile.admin.test')}</label>
+        <input type="text" className="FormControl" bidi={this.setting('davis.socialprofile.test')}></input>
       </div>
     ];
   }
