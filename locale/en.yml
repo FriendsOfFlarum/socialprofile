@@ -13,6 +13,6 @@ davis-socialprofile:
       icon:
         m: "Icon"
         pl: "e.g. twitter"
-      submit: "Submit"
+      submit: "Save"
   admin:
     test: "Test"
