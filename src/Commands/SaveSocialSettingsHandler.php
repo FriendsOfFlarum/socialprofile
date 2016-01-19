@@ -29,15 +29,18 @@ class SaveSocialSettingsHandler
 
     public function handle(SaveSocialSettings $command)
     {
-        $buttons = buttons::where('user_id', $command->actor->id)->firstOrFail();
-        
+        if (buttons::where('user_id', $command->actor->id)->exists()) {
+            $buttons = buttons::where('user_id', $command->actor->id)->first();
+        } else {
+            $buttons = new buttons;
+        }
         $buttons->user_id = $command->actor->id;
         $buttons->buttons = $command->buttons;
 
        $this->events->fire(
             new SocialProfileEditted($command->actor, $command->buttons)
         );
-        
+
         $buttons->save();
 
         return $buttons;

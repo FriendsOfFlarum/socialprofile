@@ -1,7 +1,7 @@
-System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string', 'flarum/tags/helpers/tagLabel'], function (_export) {
+System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string'], function (_export) {
   'use strict';
 
-  var Modal, Button, slug, tagLabel, SocialButtonsModal;
+  var Modal, Button, slug, SocialButtonsModal;
   return {
     setters: [function (_flarumComponentsModal) {
       Modal = _flarumComponentsModal['default'];
@@ -9,8 +9,6 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
       Button = _flarumComponentsButton['default'];
     }, function (_flarumUtilsString) {
       slug = _flarumUtilsString.slug;
-    }, function (_flarumTagsHelpersTagLabel) {
-      tagLabel = _flarumTagsHelpersTagLabel['default'];
     }],
     execute: function () {
       SocialButtonsModal = (function (_Modal) {
@@ -26,13 +24,12 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
           value: function init() {
             babelHelpers.get(Object.getPrototypeOf(SocialButtonsModal.prototype), 'init', this).call(this);
 
-            this.tag = this.props.tag || app.store.createRecord('tags');
+            //this.social = this.props.social || app.store.createRecord('tags');
 
-            this.name = m.prop(this.tag.name() || '');
-            this.slug = m.prop(this.tag.slug() || '');
-            this.description = m.prop(this.tag.description() || '');
-            this.color = m.prop(this.tag.color() || '');
-            this.isHidden = m.prop(this.tag.isHidden() || false);
+            //this.name = m.prop(this.social.name() || '');
+            this.urltitle = m.prop('');
+            this.url = m.prop('');
+            this.icon = m.prop('');
           }
         }, {
           key: 'className',
@@ -42,15 +39,11 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'title',
           value: function title() {
-            return this.name() ? tagLabel({
-              name: this.name,
-              color: this.color
-            }) : app.translator.trans('davis-socialprofile.forum.test');
+            return app.translator.trans('davis-socialprofile.forum.edit.headtitle');
           }
         }, {
           key: 'content',
           value: function content() {
-            var _this = this;
 
             return m(
               'div',
@@ -64,27 +57,31 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                   m(
                     'label',
                     null,
-                    app.translator.trans('davis-socialprofile.forum.test')
+                    app.translator.trans('davis-socialprofile.forum.edit.title.m')
                   ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.test'), value: this.name(), oninput: function (e) {
-                      _this.name(e.target.value);
-                      _this.slug(slug(e.target.value));
-                    } })
+                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title.pl'), value: this.urltitle(), oninput: m.withAttr('value', this.urltitle) }),
+                  m(
+                    'label',
+                    null,
+                    app.translator.trans('davis-socialprofile.forum.edit.url.m')
+                  ),
+                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url.pl'), value: this.url(), oninput: m.withAttr('value', this.url) }),
+                  m(
+                    'label',
+                    null,
+                    app.translator.trans('davis-socialprofile.forum.edit.icon.m')
+                  ),
+                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.icon.pl'), value: this.icon(), oninput: m.withAttr('value', this.icon) })
                 ),
                 m(
                   'div',
-                  { className: 'Form-group' },
+                  { className: 'Form-group', id: 'submit-button-group' },
                   Button.component({
                     type: 'submit',
-                    className: 'Button Button--primary EditTagModal-save',
+                    className: 'Button Button--primary EditSocialButtons-save',
                     loading: this.loading,
-                    children: app.translator.trans('davis-socialprofile.forum.test')
-                  }),
-                  this.tag.exists ? m(
-                    'button',
-                    { type: 'button', className: 'Button EditTagModal-delete', onclick: this['delete'].bind(this) },
-                    app.translator.trans('davis-socialprofile.forum.test')
-                  ) : ''
+                    children: app.translator.trans('davis-socialprofile.forum.edit.submit')
+                  })
                 )
               )
             );
@@ -92,16 +89,20 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'onsubmit',
           value: function onsubmit(e) {
-            var _this2 = this;
+            var _this = this;
 
             e.preventDefault();
 
             this.loading = true;
-
-            var testData = this.name();
+            var buttonData = {};
+            buttonData[0] = {
+              "title": this.urltitle(),
+              "url": this.url(),
+              "icon": this.icon()
+            };
+            buttonData = JSON.stringify(buttonData);
             var data = new FormData();
-            data.append('buttons', testData);
-
+            data.append('buttons', buttonData);
             app.request({
               method: 'POST',
               url: app.forum.attribute('apiUrl') + '/profile/socialbuttons',
@@ -110,21 +111,11 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               },
               data: data
             }).then(function () {
-              return _this2.hide();
+              return _this.hide();
             }, function (response) {
-              _this2.loading = false;
-              _this2.handleErrors(response);
+              _this.loading = false;
+              _this.handleErrors(response);
             });
-          }
-        }, {
-          key: 'delete',
-          value: function _delete() {
-            if (confirm(app.translator.trans('flarum-tags.admin.edit_tag.delete_tag_confirmation'))) {
-              this.tag['delete']().then(function () {
-                return m.redraw();
-              });
-              this.hide();
-            }
           }
         }]);
         return SocialButtonsModal;
@@ -199,11 +190,11 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                     if (typeof socialaccs !== 'undefined') {
                         settingsclass = 'social-settings';
                         settingsicon = 'cog';
-                        settingslabel = app.translator.trans('davis-socialprofile.forum.edit');
+                        settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');
                     } else {
                         settingsclass = 'null-social-settings';
                         settingsicon = 'plus';
-                        settingslabel = app.translator.trans('davis-socialprofile.forum.add');
+                        settingslabel = app.translator.trans('davis-socialprofile.forum.edit.add');
                     }
                     if (app.session.user === app.current.user) {
                         items.add('settings' + ' social-button', Badge.component({

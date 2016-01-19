@@ -1,5 +1,18 @@
 davis-socialprofile:
   forum:
-    test: "this is a TEST"
+    edit:
+      edit: "Edit"
+      add: "Add"
+      headtitle: "Edit Buttons"
+      title:
+        m: "Title"
+        pl: "e.g. Twitter"
+      url:
+        m: "Url"
+        pl: "e.g. https://twitter.com/Flarum"
+      icon:
+        m: "Icon"
+        pl: "e.g. twitter"
+      submit: "Submit"
   admin:
     test: "Test"

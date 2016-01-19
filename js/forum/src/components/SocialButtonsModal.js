@@ -2,19 +2,16 @@ import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 import { slug } from 'flarum/utils/string';
 
-import tagLabel from 'flarum/tags/helpers/tagLabel';
-
 export default class SocialButtonsModal extends Modal {
   init() {
     super.init();
 
-    this.tag = this.props.tag || app.store.createRecord('tags');
+    //this.social = this.props.social || app.store.createRecord('tags');
 
-    this.name = m.prop(this.tag.name() || '');
-    this.slug = m.prop(this.tag.slug() || '');
-    this.description = m.prop(this.tag.description() || '');
-    this.color = m.prop(this.tag.color() || '');
-    this.isHidden = m.prop(this.tag.isHidden() || false);
+    //this.name = m.prop(this.social.name() || '');
+    this.urltitle = m.prop('');
+    this.url = m.prop('');
+    this.icon = m.prop('');
   }
 
   className() {
@@ -22,39 +19,35 @@ export default class SocialButtonsModal extends Modal {
   }
 
   title() {
-    return this.name()
-      ? tagLabel({
-        name: this.name,
-        color: this.color
-      })
-      : app.translator.trans('davis-socialprofile.forum.test');
+    return app.translator.trans('davis-socialprofile.forum.edit.headtitle');
   }
 
   content() {
+    
     return (
       <div className="Modal-body">
         <div className="Form">
           <div className="Form-group">
-            <label>{app.translator.trans('davis-socialprofile.forum.test')}</label>
-            <input className="FormControl" placeholder={app.translator.trans('davis-socialprofile.forum.test')} value={this.name()} oninput={e => {
-              this.name(e.target.value);
-              this.slug(slug(e.target.value));
-            }}/>
+            
+            <label>{app.translator.trans('davis-socialprofile.forum.edit.title.m')}</label>
+            <input className="FormControl" placeholder={app.translator.trans('davis-socialprofile.forum.edit.title.pl')} value={this.urltitle()} oninput={m.withAttr('value', this.urltitle)}/>
+            
+            <label>{app.translator.trans('davis-socialprofile.forum.edit.url.m')}</label>
+            <input className="FormControl" placeholder={app.translator.trans('davis-socialprofile.forum.edit.url.pl')} value={this.url()} oninput={m.withAttr('value', this.url)}/>
+            
+            <label>{app.translator.trans('davis-socialprofile.forum.edit.icon.m')}</label>
+            <input className="FormControl" placeholder={app.translator.trans('davis-socialprofile.forum.edit.icon.pl')} value={this.icon()} oninput={m.withAttr('value', this.icon)}/>
+            
           </div>
 
 
-          <div className="Form-group">
+          <div className="Form-group" id="submit-button-group">
             {Button.component({
               type: 'submit',
-              className: 'Button Button--primary EditTagModal-save',
+              className: 'Button Button--primary EditSocialButtons-save',
               loading: this.loading,
-              children: app.translator.trans('davis-socialprofile.forum.test')
+              children: app.translator.trans('davis-socialprofile.forum.edit.submit')
             })}
-            {this.tag.exists ? (
-              <button type="button" className="Button EditTagModal-delete" onclick={this.delete.bind(this)}>
-                {app.translator.trans('davis-socialprofile.forum.test')}
-              </button>
-            ) : ''}
           </div>
         </div>
       </div>
@@ -66,11 +59,15 @@ export default class SocialButtonsModal extends Modal {
       e.preventDefault();
 
       this.loading = true;
-    
-      var testData = this.name();
+      var buttonData = {};
+      buttonData[0] = {
+          "title": this.urltitle(),
+          "url": this.url(),
+          "icon": this.icon(),
+      };
+      buttonData = JSON.stringify(buttonData);
       const data = new FormData();
-      data.append('buttons', testData);
-
+      data.append('buttons', buttonData);
       app.request({
           method: 'POST',
           url: app.forum.attribute('apiUrl') + '/profile/socialbuttons',
@@ -84,12 +81,5 @@ export default class SocialButtonsModal extends Modal {
           }
       );
 
-  }
-
-  delete() {
-    if (confirm(app.translator.trans('flarum-tags.admin.edit_tag.delete_tag_confirmation'))) {
-      this.tag.delete().then(() => m.redraw());
-      this.hide();
-    }
   }
 }

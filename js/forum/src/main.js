@@ -48,12 +48,12 @@ app.initializers.add('davis-socialprofile-forum', function() {
         if (typeof socialaccs !== 'undefined') {
             settingsclass = 'social-settings';
             settingsicon = 'cog';
-            settingslabel = app.translator.trans('davis-socialprofile.forum.edit');
+            settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');
             
         } else {
             settingsclass = 'null-social-settings';
             settingsicon = 'plus';
-            settingslabel = app.translator.trans('davis-socialprofile.forum.add');
+            settingslabel = app.translator.trans('davis-socialprofile.forum.edit.add');
         }
         if (app.session.user === app.current.user) {
             items.add('settings' + ' social-button', Badge.component({
