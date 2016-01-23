@@ -244,49 +244,50 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
 
                 extend(UserCard.prototype, 'infoItems', function (items) {
                     var user = this.props.user;
-                    $.get(app.forum.attribute('apiUrl') + '/profile/socialbutton/' + user.data.id, function (data) {
-                        var socialaccs = JSON.parse(data.data.attributes.buttons);
+                    var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + user.data.id;
+                    var socialaccs = m.prop("");
+                    m.request({ method: "GET", url: url }).then(socialaccs);
+                    var socialaccs = JSON.parse(socialaccs().data.attributes.buttons);
 
-                        var _loop = function () {
-                            var curaccount = socialaccs[k];
-                            if (curaccount["icon"] !== "") {
-                                items.add(curaccount["icon"] + ' social-button', Badge.component({
-                                    type: "social",
-                                    icon: curaccount["icon"],
-                                    label: curaccount["label"],
-                                    onclick: function onclick() {
-                                        window.open(curaccount["url"], '_blank');
-                                    }
-                                }));
-                            }
-                        };
-
-                        for (var k in socialaccs) {
-                            _loop();
-                        }
-                        var settingsclass;
-                        var settingsicon;
-                        var settingslabel;
-                        if (typeof socialaccs !== 'undefined') {
-                            settingsclass = 'social-settings';
-                            settingsicon = 'cog';
-                            settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');
-                        } else {
-                            settingsclass = 'null-social-settings';
-                            settingsicon = 'plus';
-                            settingslabel = app.translator.trans('davis-socialprofile.forum.edit.add');
-                        }
-                        if (app.session.user === app.current.user) {
-                            items.add('settings' + ' social-button', Badge.component({
-                                type: "social " + settingsclass,
-                                icon: settingsicon,
-                                label: settingslabel,
+                    var _loop = function () {
+                        var curaccount = socialaccs[k];
+                        if (curaccount["icon"] !== "") {
+                            items.add(curaccount["icon"] + ' social-button', Badge.component({
+                                type: "social",
+                                icon: curaccount["icon"],
+                                label: curaccount["label"],
                                 onclick: function onclick() {
-                                    app.modal.show(new SocialButtonsModal());
+                                    window.open(curaccount["url"], '_blank');
                                 }
-                            }), -1);
+                            }));
                         }
-                    });
+                    };
+
+                    for (var k in socialaccs) {
+                        _loop();
+                    }
+                    var settingsclass;
+                    var settingsicon;
+                    var settingslabel;
+                    if (typeof socialaccs !== 'undefined') {
+                        settingsclass = 'social-settings';
+                        settingsicon = 'cog';
+                        settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');
+                    } else {
+                        settingsclass = 'null-social-settings';
+                        settingsicon = 'plus';
+                        settingslabel = app.translator.trans('davis-socialprofile.forum.edit.add');
+                    }
+                    if (app.session.user === app.current.user) {
+                        items.add('settings' + ' social-button', Badge.component({
+                            type: "social " + settingsclass,
+                            icon: settingsicon,
+                            label: settingslabel,
+                            onclick: function onclick() {
+                                app.modal.show(new SocialButtonsModal());
+                            }
+                        }), -1);
+                    }
                 });
             });
         }

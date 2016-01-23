@@ -11,8 +11,10 @@ app.initializers.add('davis-socialprofile-forum', function() {
     
     extend(UserCard.prototype, 'infoItems', function(items) {
         const user = this.props.user;
-        $.get( app.forum.attribute('apiUrl') + '/profile/socialbutton/'+user.data.id, function(data){
-            var socialaccs = JSON.parse(data.data.attributes.buttons);
+            var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+user.data.id;
+            var socialaccs = m.prop("");
+            m.request({method: "GET", url: url}).then(socialaccs);
+            var socialaccs = JSON.parse(socialaccs().data.attributes.buttons);
             for (var k in socialaccs) {
                 const curaccount = socialaccs[k];
                 if (curaccount["icon"] !== "") {
@@ -47,6 +49,5 @@ app.initializers.add('davis-socialprofile-forum', function() {
                     onclick: function(){app.modal.show(new SocialButtonsModal())}
                 }), -1);
             }
-        });
     });
 });
