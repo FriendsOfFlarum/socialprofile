@@ -62,9 +62,7 @@ System.register('davis/socialprofile/main', ['flarum/extend', 'flarum/app', 'dav
     execute: function () {
 
       app.initializers.add('davis-socialprofile', function (app) {
-        app.extensionSettings['davis-socialprofile'] = function () {
-          return app.modal.show(new SocialProfileSettingsModal());
-        };
+        //app.extensionSettings['davis-socialprofile'] = () => app.modal.show(new SocialProfileSettingsModal());
       });
     }
   };
