@@ -10,10 +10,10 @@ app.initializers.add('davis-socialprofile-forum', function() {
    app.store.models.socialbuttons = SocialButtons;
    
     extend(UserCard.prototype, 'init', function() {
-      var user = this.props.user;
-      var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+user.data.id;
+      var theuser = this.props.user;
+      var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+theuser.data.id;
       this.socialaccs = null;
-      m.request({method: "GET", url: url}).then(result => {
+      app.request({method: "GET", url: theurl}).then(result => {
         if(result.data.attributes.hasOwnProperty("buttons")) {
             this.socialaccs = JSON.parse(result.data.attributes.buttons);
         } else {
@@ -43,7 +43,7 @@ app.initializers.add('davis-socialprofile-forum', function() {
         var settingsclass;
         var settingsicon;
         var settingslabel;
-        if (typeof this.socialaccs !== 'undefined') {
+        if (this.socialaccs["0"]["icon"] !== '' || this.socialaccs["1"]["icon"] !== '' || this.socialaccs["2"]["icon"] !== '' || this.socialaccs["3"]["icon"] !== '') {
             settingsclass = 'social-settings';
             settingsicon = 'cog';
             settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');

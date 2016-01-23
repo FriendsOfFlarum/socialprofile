@@ -53,8 +53,6 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               }
               m.redraw();
             });
-
-            //this.name = m.prop(this.social.name() || '');
             this.urltitle1 = m.prop('');
             this.url1 = m.prop('');
             this.icon1 = m.prop('');
@@ -273,10 +271,10 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                 extend(UserCard.prototype, 'init', function () {
                     var _this = this;
 
-                    var user = this.props.user;
-                    var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + user.data.id;
+                    var theuser = this.props.user;
+                    var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + theuser.data.id;
                     this.socialaccs = null;
-                    m.request({ method: "GET", url: url }).then(function (result) {
+                    app.request({ method: "GET", url: theurl }).then(function (result) {
                         if (result.data.attributes.hasOwnProperty("buttons")) {
                             _this.socialaccs = JSON.parse(result.data.attributes.buttons);
                         } else {
@@ -312,7 +310,7 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                     var settingsclass;
                     var settingsicon;
                     var settingslabel;
-                    if (typeof this.socialaccs !== 'undefined') {
+                    if (this.socialaccs["0"]["icon"] !== '' || this.socialaccs["1"]["icon"] !== '' || this.socialaccs["2"]["icon"] !== '' || this.socialaccs["3"]["icon"] !== '') {
                         settingsclass = 'social-settings';
                         settingsicon = 'cog';
                         settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');

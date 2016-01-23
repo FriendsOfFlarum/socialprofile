@@ -33,8 +33,6 @@ export default class SocialButtonsModal extends Modal {
         }
         m.redraw();
     });
-    
-    //this.name = m.prop(this.social.name() || '');
     this.urltitle1 = m.prop('');
     this.url1 = m.prop('');
     this.icon1 = m.prop('');
