@@ -13,7 +13,11 @@ class UserSocialRepository
     
     public function findOrFail($id, User $actor = null)
     {
-        $this->query = buttons::where('user_id', $id);
-        return $this->query->firstOrFail();
+        if (buttons::where('user_id', $id)->exists()) {
+            $this->query = buttons::where('user_id', $id);
+            return $this->query->first();
+        } else {
+            return false;
+        }
     }
 }

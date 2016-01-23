@@ -22,9 +22,37 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
         babelHelpers.createClass(SocialButtonsModal, [{
           key: 'init',
           value: function init() {
+            var _this = this;
+
             babelHelpers.get(Object.getPrototypeOf(SocialButtonsModal.prototype), 'init', this).call(this);
 
-            //this.social = this.props.social || app.store.createRecord('tags');
+            var curuserid = app.current.user.data.id;
+            var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + curuserid;
+            this.socialaccs = null;
+            m.request({ method: "GET", url: url }).then(function (result) {
+              if (result.data.attributes.hasOwnProperty("buttons")) {
+                _this.socialaccs = JSON.parse(result.data.attributes.buttons);
+
+                _this.urltitle1 = m.prop(_this.socialaccs["0"]["title"]);
+                _this.url1 = m.prop(_this.socialaccs["0"]["url"]);
+                _this.icon1 = m.prop(_this.socialaccs["0"]["icon"]);
+
+                _this.urltitle2 = m.prop(_this.socialaccs["1"]["title"]);
+                _this.url2 = m.prop(_this.socialaccs["1"]["url"]);
+                _this.icon2 = m.prop(_this.socialaccs["1"]["icon"]);
+
+                _this.urltitle3 = m.prop(_this.socialaccs["2"]["title"]);
+                _this.url3 = m.prop(_this.socialaccs["2"]["url"]);
+                _this.icon3 = m.prop(_this.socialaccs["2"]["icon"]);
+
+                _this.urltitle4 = m.prop(_this.socialaccs["3"]["title"]);
+                _this.url4 = m.prop(_this.socialaccs["3"]["url"]);
+                _this.icon4 = m.prop(_this.socialaccs["3"]["icon"]);
+              } else {
+                _this.socialaccs = "";
+              }
+              m.redraw();
+            });
 
             //this.name = m.prop(this.social.name() || '');
             this.urltitle1 = m.prop('');
@@ -166,7 +194,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'onsubmit',
           value: function onsubmit(e) {
-            var _this = this;
+            var _this2 = this;
 
             e.preventDefault();
 
@@ -204,10 +232,10 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               },
               data: data
             }).then(function () {
-              return _this.hide();
+              return _this2.hide();
             }, function (response) {
-              _this.loading = false;
-              _this.handleErrors(response);
+              _this2.loading = false;
+              _this2.handleErrors(response);
             });
           }
         }]);
@@ -242,20 +270,35 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
 
                 app.store.models.socialbuttons = SocialButtons;
 
-                extend(UserCard.prototype, 'infoItems', function (items) {
+                extend(UserCard.prototype, 'init', function () {
+                    var _this = this;
+
                     var user = this.props.user;
                     var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + user.data.id;
-                    var socialaccs = m.prop("");
-                    m.request({ method: "GET", url: url }).then(socialaccs);
-                    var socialaccs = JSON.parse(socialaccs().data.attributes.buttons);
+                    this.socialaccs = null;
+                    m.request({ method: "GET", url: url }).then(function (result) {
+                        if (result.data.attributes.hasOwnProperty("buttons")) {
+                            _this.socialaccs = JSON.parse(result.data.attributes.buttons);
+                        } else {
+                            _this.socialaccs = "";
+                        }
+                        m.redraw();
+                    });
+                });
 
-                    var _loop = function () {
-                        var curaccount = socialaccs[k];
+                extend(UserCard.prototype, 'infoItems', function (items) {
+                    var _this2 = this;
+
+                    // If request hasn't loaded yet, don't add any items.
+                    if (!this.socialaccs) return;
+
+                    var _loop = function (k) {
+                        var curaccount = _this2.socialaccs[k];
                         if (curaccount["icon"] !== "") {
                             items.add(curaccount["icon"] + ' social-button', Badge.component({
                                 type: "social",
                                 icon: curaccount["icon"],
-                                label: curaccount["label"],
+                                label: curaccount["title"],
                                 onclick: function onclick() {
                                     window.open(curaccount["url"], '_blank');
                                 }
@@ -263,13 +306,13 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                         }
                     };
 
-                    for (var k in socialaccs) {
-                        _loop();
+                    for (var k in this.socialaccs) {
+                        _loop(k);
                     }
                     var settingsclass;
                     var settingsicon;
                     var settingslabel;
-                    if (typeof socialaccs !== 'undefined') {
+                    if (typeof this.socialaccs !== 'undefined') {
                         settingsclass = 'social-settings';
                         settingsicon = 'cog';
                         settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');

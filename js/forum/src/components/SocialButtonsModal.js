@@ -6,8 +6,34 @@ export default class SocialButtonsModal extends Modal {
   init() {
     super.init();
 
-    //this.social = this.props.social || app.store.createRecord('tags');
-
+    const curuserid = app.current.user.data.id;
+    var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+curuserid;
+      this.socialaccs = null;
+      m.request({method: "GET", url: url}).then(result => {
+        if(result.data.attributes.hasOwnProperty("buttons")) {
+            this.socialaccs = JSON.parse(result.data.attributes.buttons);
+            
+            this.urltitle1 = m.prop(this.socialaccs["0"]["title"]);
+            this.url1 = m.prop(this.socialaccs["0"]["url"]);
+            this.icon1 = m.prop(this.socialaccs["0"]["icon"]);
+            
+            this.urltitle2 = m.prop(this.socialaccs["1"]["title"]);
+            this.url2 = m.prop(this.socialaccs["1"]["url"]);
+            this.icon2 = m.prop(this.socialaccs["1"]["icon"]);
+            
+            this.urltitle3 = m.prop(this.socialaccs["2"]["title"]);
+            this.url3 = m.prop(this.socialaccs["2"]["url"]);
+            this.icon3 = m.prop(this.socialaccs["2"]["icon"]);
+            
+            this.urltitle4 = m.prop(this.socialaccs["3"]["title"]);
+            this.url4 = m.prop(this.socialaccs["3"]["url"]);
+            this.icon4 = m.prop(this.socialaccs["3"]["icon"]);
+        } else {
+            this.socialaccs = "";
+        }
+        m.redraw();
+    });
+    
     //this.name = m.prop(this.social.name() || '');
     this.urltitle1 = m.prop('');
     this.url1 = m.prop('');
