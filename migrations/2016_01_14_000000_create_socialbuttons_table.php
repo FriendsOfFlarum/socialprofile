@@ -1,5 +1,4 @@
 <?php namespace davis\socialprofile\Migration;
-
 use Flarum\Database\AbstractMigration;
 use Illuminate\Database\Schema\Blueprint;
 class CreateSocialbuttonsTable extends AbstractMigration
@@ -9,7 +8,7 @@ class CreateSocialbuttonsTable extends AbstractMigration
         $this->schema->create('socialbuttons', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('buttons');
+            $table->longText('buttons');
         });
     }
     public function down()

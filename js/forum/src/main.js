@@ -16,8 +16,10 @@ app.initializers.add('davis-socialprofile-forum', function() {
       app.request({method: "GET", url: theurl}).then(result => {
         if(result.data.attributes.hasOwnProperty("buttons")) {
             this.socialaccs = JSON.parse(result.data.attributes.buttons);
+            this.newuser = false;
         } else {
-            this.socialaccs = "";
+            this.socialaccs = true;
+            this.newuser = true;
         }
         m.redraw();
       });
@@ -27,6 +29,7 @@ app.initializers.add('davis-socialprofile-forum', function() {
         // If request hasn't loaded yet, don't add any items.
         if (!this.socialaccs) return;
         
+        if (!this.newuser) {
         for (const k in this.socialaccs) {
             const curaccount = this.socialaccs[k];
             if (curaccount["icon"] !== "") {
@@ -60,6 +63,16 @@ app.initializers.add('davis-socialprofile-forum', function() {
                 label: settingslabel,
                 onclick: function(){app.modal.show(new SocialButtonsModal())}
             }), -1);
+        }
+        } else {
+            if (app.session.user === app.current.user) {
+            items.add('settings' + ' social-button', Badge.component({
+                type: "social null-social-settings",
+                icon: "plus",
+                label: app.translator.trans('davis-socialprofile.forum.edit.add'),
+                onclick: function(){app.modal.show(new SocialButtonsModal())}
+            }), -1);
+            }
         }
     });
 });
