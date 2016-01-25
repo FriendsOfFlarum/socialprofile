@@ -21,6 +21,9 @@ class AddClientAssets
                 __DIR__.'/../../less/forum/extension.less'
             ]);
             $event->addBootstrapper('davis/socialprofile/main');
+            
+            $js = file_get_contents(realpath(__DIR__ . '/../../assets/js/depend.js'));
+            $event->view->addFootString($js);
         }
 
         if ($event->isAdmin()) {

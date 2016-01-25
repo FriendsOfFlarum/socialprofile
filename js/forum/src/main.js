@@ -32,8 +32,8 @@ app.initializers.add('davis-socialprofile-forum', function() {
         if (!this.newuser) {
         for (const k in this.socialaccs) {
             const curaccount = this.socialaccs[k];
-            if (curaccount["icon"] !== "") {
-                items.add(curaccount["icon"] + ' social-button', Badge.component({
+            if (curaccount["title"] !== "") {
+                items.add(curaccount["icon"] + k + ' social-button', Badge.component({
                     type: "social",
                     icon: curaccount["icon"],
                     label: curaccount["title"],
@@ -46,7 +46,7 @@ app.initializers.add('davis-socialprofile-forum', function() {
         var settingsclass;
         var settingsicon;
         var settingslabel;
-        if (this.socialaccs["0"]["icon"] !== '' || this.socialaccs["1"]["icon"] !== '' || this.socialaccs["2"]["icon"] !== '' || this.socialaccs["3"]["icon"] !== '') {
+        if (this.socialaccs["0"]["title"] !== '' || this.socialaccs["1"]["title"] !== '' || this.socialaccs["2"]["title"] !== '' || this.socialaccs["3"]["title"] !== '' || this.socialaccs["4"]["title"] !== '' || this.socialaccs["5"]["title"] !== '' || this.socialaccs["6"]["title"] !== '') {
             settingsclass = 'social-settings';
             settingsicon = 'cog';
             settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');

@@ -4,15 +4,8 @@ davis-socialprofile:
       edit: "Edit"
       add: "Add"
       headtitle: "Edit Buttons"
-      title:
-        m: "Title"
-        pl: "e.g. Twitter"
-      url:
-        m: "Url"
-        pl: "e.g. https://twitter.com/Flarum"
-      icon:
-        m: "Icon"
-        pl: "e.g. twitter"
+      title: "Title"
+      url: "Url"
       submit: "Save"
   admin:
     test: "Test"

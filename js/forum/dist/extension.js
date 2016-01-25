@@ -33,21 +33,41 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               if (result.data.attributes.hasOwnProperty("buttons")) {
                 _this.socialaccs = JSON.parse(result.data.attributes.buttons);
 
-                _this.urltitle1 = m.prop(_this.socialaccs["0"]["title"]);
-                _this.url1 = m.prop(_this.socialaccs["0"]["url"]);
-                _this.icon1 = m.prop(_this.socialaccs["0"]["icon"]);
-
-                _this.urltitle2 = m.prop(_this.socialaccs["1"]["title"]);
-                _this.url2 = m.prop(_this.socialaccs["1"]["url"]);
-                _this.icon2 = m.prop(_this.socialaccs["1"]["icon"]);
-
-                _this.urltitle3 = m.prop(_this.socialaccs["2"]["title"]);
-                _this.url3 = m.prop(_this.socialaccs["2"]["url"]);
-                _this.icon3 = m.prop(_this.socialaccs["2"]["icon"]);
-
-                _this.urltitle4 = m.prop(_this.socialaccs["3"]["title"]);
-                _this.url4 = m.prop(_this.socialaccs["3"]["url"]);
-                _this.icon4 = m.prop(_this.socialaccs["3"]["icon"]);
+                if (typeof _this.socialaccs["0"] !== 'undefined') {
+                  _this.urltitle1 = m.prop(_this.socialaccs["0"]["title"] || "");
+                  _this.url1 = m.prop(_this.socialaccs["0"]["url"] || "");
+                  _this.icon1 = m.prop(_this.socialaccs["0"]["icon"] || "globe");
+                }
+                if (typeof _this.socialaccs["1"] !== 'undefined') {
+                  _this.urltitle2 = m.prop(_this.socialaccs["1"]["title"] || "");
+                  _this.url2 = m.prop(_this.socialaccs["1"]["url"] || "");
+                  _this.icon2 = m.prop(_this.socialaccs["1"]["icon"] || "globe");
+                }
+                if (typeof _this.socialaccs["2"] !== 'undefined') {
+                  _this.urltitle3 = m.prop(_this.socialaccs["2"]["title"] || "");
+                  _this.url3 = m.prop(_this.socialaccs["2"]["url"] || "");
+                  _this.icon3 = m.prop(_this.socialaccs["2"]["icon"] || "globe");
+                }
+                if (typeof _this.socialaccs["3"] !== 'undefined') {
+                  _this.urltitle4 = m.prop(_this.socialaccs["3"]["title"] || "");
+                  _this.url4 = m.prop(_this.socialaccs["3"]["url"] || "");
+                  _this.icon4 = m.prop(_this.socialaccs["3"]["icon"] || "globe");
+                }
+                if (typeof _this.socialaccs["4"] !== 'undefined') {
+                  _this.urltitle5 = m.prop(_this.socialaccs["4"]["title"] || "");
+                  _this.url5 = m.prop(_this.socialaccs["4"]["url"] || "");
+                  _this.icon5 = m.prop(_this.socialaccs["4"]["icon"] || "globe");
+                }
+                if (typeof _this.socialaccs["5"] !== 'undefined') {
+                  _this.urltitle6 = m.prop(_this.socialaccs["5"]["title"] || "");
+                  _this.url6 = m.prop(_this.socialaccs["5"]["url"] || "");
+                  _this.icon6 = m.prop(_this.socialaccs["5"]["icon"] || "globe");
+                }
+                if (typeof _this.socialaccs["6"] !== 'undefined') {
+                  _this.urltitle7 = m.prop(_this.socialaccs["6"]["title"] || "");
+                  _this.url7 = m.prop(_this.socialaccs["6"]["url"] || "");
+                  _this.icon7 = m.prop(_this.socialaccs["6"]["icon"] || "globe");
+                }
               } else {
                 _this.socialaccs = "";
               }
@@ -68,6 +88,18 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
             this.urltitle4 = m.prop('');
             this.url4 = m.prop('');
             this.icon4 = m.prop('');
+
+            this.urltitle5 = m.prop('');
+            this.url5 = m.prop('');
+            this.icon5 = m.prop('');
+
+            this.urltitle6 = m.prop('');
+            this.url6 = m.prop('');
+            this.icon6 = m.prop('');
+
+            this.urltitle7 = m.prop('');
+            this.url7 = m.prop('');
+            this.icon7 = m.prop('');
           }
         }, {
           key: 'className',
@@ -82,6 +114,28 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'content',
           value: function content() {
+
+            $(function () {
+              $(document).on('click', '.action-placement', function (e) {
+                $('.action-placement').removeClass('active');
+                $(this).addClass('active');
+                e.preventDefault();
+                return false;
+              });
+              $('.action-create').on('click', function () {
+                $('.icp-dd').iconpicker({
+                  icons: ["fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play'],
+                  hideOnSelect: true,
+                  title: "Displayed Icon"
+                });
+              }).trigger('click');
+              $('.icp').on('iconpickerSelected', function (e) {
+                var btn_group = $(this).attr("btn-group");
+                $('#icon' + btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
+                $('.icp').attr("aria-expanded", "false");
+                $('.btn-group').removeClass('open');
+              });
+            });
             return m(
               'div',
               { className: 'Modal-body' },
@@ -91,90 +145,198 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 m(
                   'div',
                   { className: 'Form-group form-group-social' },
+                  m('input', { className: 'SocialFormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.urltitle1(), oninput: m.withAttr('value', this.urltitle1) }),
                   m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.title.m')
+                    'div',
+                    { 'class': 'btn-group' },
+                    m('null', { 'class': 'action-create' }),
+                    m(
+                      'button',
+                      { type: 'button', tabindex: '-1', 'class': 'btn btn-primary2 iconpicker-component' },
+                      m('i', { 'class': "fa fa-fw fa-" + this.icon1() })
+                    ),
+                    m(
+                      'button',
+                      { type: 'button', 'btn-group': '1', 'class': 'form-control icp icp-dd btn btn-primary dropdown-toggle', 'data-selected': 'fa-' + this.icon1(), 'data-toggle': 'dropdown' },
+                      m('span', { 'class': 'caret' }),
+                      m(
+                        'span',
+                        { 'class': 'sr-only' },
+                        'Toggle Dropdown'
+                      )
+                    ),
+                    m('div', { 'class': 'dropdown-menu' })
                   ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title.pl'), value: this.urltitle1(), oninput: m.withAttr('value', this.urltitle1) }),
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.url.m')
-                  ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url.pl'), value: this.url1(), oninput: m.withAttr('value', this.url1) }),
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.icon.m')
-                  ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.icon.pl'), value: this.icon1(), oninput: m.withAttr('value', this.icon1) })
+                  m('input', { className: 'SocialFormControl Socialurl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'), value: this.url1(), oninput: m.withAttr('value', this.url1) }),
+                  m('input', { id: 'icon1', style: 'display: none;', value: this.icon1(), onchange: m.withAttr('value', this.icon1) })
                 ),
                 m(
                   'div',
                   { className: 'Form-group form-group-social' },
+                  m('input', { className: 'SocialFormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.urltitle2(), oninput: m.withAttr('value', this.urltitle2) }),
                   m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.title.m')
+                    'div',
+                    { 'class': 'btn-group' },
+                    m('null', { 'class': 'action-create' }),
+                    m(
+                      'button',
+                      { type: 'button', tabindex: '-1', 'class': 'btn btn-primary2 iconpicker-component' },
+                      m('i', { 'class': "fa fa-fw fa-" + this.icon2() })
+                    ),
+                    m(
+                      'button',
+                      { type: 'button', 'btn-group': '2', 'class': 'icp icp-dd btn btn-primary dropdown-toggle', 'data-selected': 'fa-' + this.icon2(), 'data-toggle': 'dropdown' },
+                      m('span', { 'class': 'caret' }),
+                      m(
+                        'span',
+                        { 'class': 'sr-only' },
+                        'Toggle Dropdown'
+                      )
+                    ),
+                    m('div', { 'class': 'dropdown-menu' })
                   ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title.pl'), value: this.urltitle2(), oninput: m.withAttr('value', this.urltitle2) }),
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.url.m')
-                  ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url.pl'), value: this.url2(), oninput: m.withAttr('value', this.url2) }),
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.icon.m')
-                  ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.icon.pl'), value: this.icon2(), oninput: m.withAttr('value', this.icon2) })
+                  m('input', { className: 'SocialFormControl Socialurl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'), value: this.url2(), oninput: m.withAttr('value', this.url2) }),
+                  m('input', { id: 'icon2', style: 'display: none;', value: this.icon2(), onchange: m.withAttr('value', this.icon2) })
                 ),
                 m(
                   'div',
                   { className: 'Form-group form-group-social' },
+                  m('input', { className: 'SocialFormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.urltitle3(), oninput: m.withAttr('value', this.urltitle3) }),
                   m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.title.m')
+                    'div',
+                    { 'class': 'btn-group' },
+                    m('null', { 'class': 'action-create' }),
+                    m(
+                      'button',
+                      { type: 'button', tabindex: '-1', 'class': 'btn btn-primary2 iconpicker-component' },
+                      m('i', { 'class': "fa fa-fw fa-" + this.icon3() })
+                    ),
+                    m(
+                      'button',
+                      { type: 'button', 'btn-group': '3', 'class': 'icp icp-dd btn btn-primary dropdown-toggle', 'data-selected': 'fa-' + this.icon3(), 'data-toggle': 'dropdown' },
+                      m('span', { 'class': 'caret' }),
+                      m(
+                        'span',
+                        { 'class': 'sr-only' },
+                        'Toggle Dropdown'
+                      )
+                    ),
+                    m('div', { 'class': 'dropdown-menu' })
                   ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title.pl'), value: this.urltitle3(), oninput: m.withAttr('value', this.urltitle3) }),
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.url.m')
-                  ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url.pl'), value: this.url3(), oninput: m.withAttr('value', this.url3) }),
-                  m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.icon.m')
-                  ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.icon.pl'), value: this.icon3(), oninput: m.withAttr('value', this.icon3) })
+                  m('input', { className: 'SocialFormControl Socialurl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'), value: this.url3(), oninput: m.withAttr('value', this.url3) }),
+                  m('input', { id: 'icon3', style: 'display: none;', value: this.icon3(), onchange: m.withAttr('value', this.icon3) })
                 ),
                 m(
                   'div',
                   { className: 'Form-group form-group-social' },
+                  m('input', { className: 'SocialFormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.urltitle4(), oninput: m.withAttr('value', this.urltitle4) }),
                   m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.title.m')
+                    'div',
+                    { 'class': 'btn-group' },
+                    m('null', { 'class': 'action-create' }),
+                    m(
+                      'button',
+                      { type: 'button', tabindex: '-1', 'class': 'btn btn-primary2 iconpicker-component' },
+                      m('i', { 'class': "fa fa-fw fa-" + this.icon4() })
+                    ),
+                    m(
+                      'button',
+                      { type: 'button', 'btn-group': '4', 'class': 'icp icp-dd btn btn-primary dropdown-toggle', 'data-selected': 'fa-' + this.icon4(), 'data-toggle': 'dropdown' },
+                      m('span', { 'class': 'caret' }),
+                      m(
+                        'span',
+                        { 'class': 'sr-only' },
+                        'Toggle Dropdown'
+                      )
+                    ),
+                    m('div', { 'class': 'dropdown-menu' })
                   ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title.pl'), value: this.urltitle4(), oninput: m.withAttr('value', this.urltitle4) }),
+                  m('input', { className: 'SocialFormControl Socialurl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'), value: this.url4(), oninput: m.withAttr('value', this.url4) }),
+                  m('input', { id: 'icon4', style: 'display: none;', value: this.icon4(), onchange: m.withAttr('value', this.icon4) })
+                ),
+                m(
+                  'div',
+                  { className: 'Form-group form-group-social' },
+                  m('input', { className: 'SocialFormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.urltitle5(), oninput: m.withAttr('value', this.urltitle5) }),
                   m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.url.m')
+                    'div',
+                    { 'class': 'btn-group' },
+                    m('null', { 'class': 'action-create' }),
+                    m(
+                      'button',
+                      { type: 'button', tabindex: '-1', 'class': 'btn btn-primary2 iconpicker-component' },
+                      m('i', { 'class': "fa fa-fw fa-" + this.icon5() })
+                    ),
+                    m(
+                      'button',
+                      { type: 'button', 'btn-group': '5', 'class': 'icp icp-dd btn btn-primary dropdown-toggle', 'data-selected': 'fa-' + this.icon5(), 'data-toggle': 'dropdown' },
+                      m('span', { 'class': 'caret' }),
+                      m(
+                        'span',
+                        { 'class': 'sr-only' },
+                        'Toggle Dropdown'
+                      )
+                    ),
+                    m('div', { 'class': 'dropdown-menu' })
                   ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url.pl'), value: this.url4(), oninput: m.withAttr('value', this.url4) }),
+                  m('input', { className: 'SocialFormControl Socialurl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'), value: this.url5(), oninput: m.withAttr('value', this.url5) }),
+                  m('input', { id: 'icon5', style: 'display: none;', value: this.icon5(), onchange: m.withAttr('value', this.icon5) })
+                ),
+                m(
+                  'div',
+                  { className: 'Form-group form-group-social' },
+                  m('input', { className: 'SocialFormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.urltitle6(), oninput: m.withAttr('value', this.urltitle6) }),
                   m(
-                    'label',
-                    null,
-                    app.translator.trans('davis-socialprofile.forum.edit.icon.m')
+                    'div',
+                    { 'class': 'btn-group' },
+                    m('null', { 'class': 'action-create' }),
+                    m(
+                      'button',
+                      { type: 'button', tabindex: '-1', 'class': 'btn btn-primary2 iconpicker-component' },
+                      m('i', { 'class': "fa fa-fw fa-" + this.icon6() })
+                    ),
+                    m(
+                      'button',
+                      { type: 'button', 'btn-group': '6', 'class': 'icp icp-dd btn btn-primary dropdown-toggle', 'data-selected': 'fa-' + this.icon6(), 'data-toggle': 'dropdown' },
+                      m('span', { 'class': 'caret' }),
+                      m(
+                        'span',
+                        { 'class': 'sr-only' },
+                        'Toggle Dropdown'
+                      )
+                    ),
+                    m('div', { 'class': 'dropdown-menu' })
                   ),
-                  m('input', { className: 'FormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.icon.pl'), value: this.icon4(), oninput: m.withAttr('value', this.icon4) })
+                  m('input', { className: 'SocialFormControl Socialurl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'), value: this.url6(), oninput: m.withAttr('value', this.url6) }),
+                  m('input', { id: 'icon6', style: 'display: none;', value: this.icon6(), onchange: m.withAttr('value', this.icon6) })
+                ),
+                m(
+                  'div',
+                  { className: 'Form-group form-group-social' },
+                  m('input', { className: 'SocialFormControl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.urltitle7(), oninput: m.withAttr('value', this.urltitle7) }),
+                  m(
+                    'div',
+                    { 'class': 'btn-group' },
+                    m('null', { 'class': 'action-create' }),
+                    m(
+                      'button',
+                      { type: 'button', tabindex: '-1', 'class': 'btn btn-primary2 iconpicker-component' },
+                      m('i', { 'class': "fa fa-fw fa-" + this.icon7() })
+                    ),
+                    m(
+                      'button',
+                      { type: 'button', 'btn-group': '7', 'class': 'icp icp-dd btn btn-primary dropdown-toggle', 'data-selected': 'fa-' + this.icon7(), 'data-toggle': 'dropdown' },
+                      m('span', { 'class': 'caret' }),
+                      m(
+                        'span',
+                        { 'class': 'sr-only' },
+                        'Toggle Dropdown'
+                      )
+                    ),
+                    m('div', { 'class': 'dropdown-menu' })
+                  ),
+                  m('input', { className: 'SocialFormControl Socialurl', placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'), value: this.url7(), oninput: m.withAttr('value', this.url7) }),
+                  m('input', { id: 'icon7', style: 'display: none;', value: this.icon7(), onchange: m.withAttr('value', this.icon7) })
                 ),
                 m(
                   'div',
@@ -217,6 +379,21 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 "title": this.urltitle4(),
                 "url": this.url4(),
                 "icon": this.icon4()
+              },
+              4: {
+                "title": this.urltitle5(),
+                "url": this.url5(),
+                "icon": this.icon5()
+              },
+              5: {
+                "title": this.urltitle6(),
+                "url": this.url6(),
+                "icon": this.icon6()
+              },
+              6: {
+                "title": this.urltitle7(),
+                "url": this.url7(),
+                "icon": this.icon7()
               }
             };
             buttonData = JSON.stringify(buttonData);
@@ -295,8 +472,8 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                     if (!this.newuser) {
                         var _loop = function (k) {
                             var curaccount = _this2.socialaccs[k];
-                            if (curaccount["icon"] !== "") {
-                                items.add(curaccount["icon"] + ' social-button', Badge.component({
+                            if (curaccount["title"] !== "") {
+                                items.add(curaccount["icon"] + k + ' social-button', Badge.component({
                                     type: "social",
                                     icon: curaccount["icon"],
                                     label: curaccount["title"],
@@ -313,7 +490,7 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                         var settingsclass;
                         var settingsicon;
                         var settingslabel;
-                        if (this.socialaccs["0"]["icon"] !== '' || this.socialaccs["1"]["icon"] !== '' || this.socialaccs["2"]["icon"] !== '' || this.socialaccs["3"]["icon"] !== '') {
+                        if (this.socialaccs["0"]["title"] !== '' || this.socialaccs["1"]["title"] !== '' || this.socialaccs["2"]["title"] !== '' || this.socialaccs["3"]["title"] !== '' || this.socialaccs["4"]["title"] !== '' || this.socialaccs["5"]["title"] !== '' || this.socialaccs["6"]["title"] !== '') {
                             settingsclass = 'social-settings';
                             settingsicon = 'cog';
                             settingslabel = app.translator.trans('davis-socialprofile.forum.edit.edit');
