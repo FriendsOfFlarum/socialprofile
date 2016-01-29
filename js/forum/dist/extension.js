@@ -51,18 +51,18 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 _this.buttons[0].icon = m.prop("globe");
                 _this.numberofinputs = 0;
               }
-              for (var i = 0; i < _this.numberextras; i++) {
+              for (var i = 0; i < _this.numberextras(); i++) {
                 var currentinput = _this.numberofinputs + (i + 1);
                 _this.buttons[currentinput] = {};
                 _this.buttons[currentinput].title = m.prop("");
                 _this.buttons[currentinput].url = m.prop("");
                 _this.buttons[currentinput].icon = m.prop("globe");
               }
-              console.log(_this.buttons);
               m.redraw();
               $('.form-group-social').delay(5).slideDown();
             });
             this.buttons = [];
+            this.numberextras(0);
           }
         }, {
           key: 'className',

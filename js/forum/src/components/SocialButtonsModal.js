@@ -32,18 +32,18 @@ export default class SocialButtonsModal extends Modal {
             this.buttons[0].icon = m.prop("globe");
             this.numberofinputs = 0;
         }
-        for (var i=0; i < this.numberextras; i++) {
+        for (var i=0; i < this.numberextras(); i++) {
           var currentinput = this.numberofinputs + (i + 1);
           this.buttons[currentinput] = {};
           this.buttons[currentinput].title = m.prop("");
           this.buttons[currentinput].url = m.prop("");
           this.buttons[currentinput].icon = m.prop("globe");
         }
-        console.log(this.buttons);
         m.redraw()
         $('.form-group-social').delay(5).slideDown();
     });
     this.buttons = [];
+    this.numberextras(0);
   }
 
   className() {
