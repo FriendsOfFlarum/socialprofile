@@ -62,7 +62,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               $('.form-group-social').delay(5).slideDown();
             });
             this.buttons = [];
-            this.numberextras(0);
+            this.numberextras = m.prop(0);
           }
         }, {
           key: 'className',
@@ -77,6 +77,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'content',
           value: function content() {
+            var _this2 = this;
 
             $(function () {
               $(document).on('click', '.action-placement', function (e) {
@@ -99,7 +100,10 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 $('.btn-group').removeClass('open');
               });
             });
-            return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [this.buttons.map(function (button) {
+            return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [m('div', { onclick: function onclick() {
+                _this2.buttonextras(_this2.buttonextras() + 1);m.redraw();
+              }
+            }, ["Test"]), this.buttons.map(function (button) {
               return [m('div', { className: 'Form-group form-group-social' }, [m('input', { className: 'SocialFormControl',
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
                 value: button.title(),
@@ -132,7 +136,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'onsubmit',
           value: function onsubmit(e) {
-            var _this2 = this;
+            var _this3 = this;
 
             e.preventDefault();
 
@@ -148,10 +152,10 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               },
               data: data
             }).then(function () {
-              return _this2.hide();
+              return _this3.hide();
             }, function (response) {
-              _this2.loading = false;
-              _this2.handleErrors(response);
+              _this3.loading = false;
+              _this3.handleErrors(response);
             });
           }
         }]);

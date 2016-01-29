@@ -80,7 +80,9 @@ export default class SocialButtonsModal extends Modal {
        return [
             m('div', {className: 'Modal-body'}, [
                 m('div', {className: 'Form'}, [
-                  m('div', {onclick: ()=>{this.buttonextras(this.buttonextras + 1); m.redraw; }}, ["Test"]);
+                  m('div', {onclick: () => { 
+                    this.buttonextras(this.buttonextras() + 1); m.redraw(); } 
+                  }, ["Test"]),
                     this.buttons.map(function(button) {
                       return [
                           m('div', {className: 'Form-group form-group-social'}, [
