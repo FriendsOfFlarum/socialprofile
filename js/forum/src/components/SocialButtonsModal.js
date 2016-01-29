@@ -30,6 +30,7 @@ export default class SocialButtonsModal extends Modal {
             this.buttons[0].title = m.prop("");
             this.buttons[0].url = m.prop("");
             this.buttons[0].icon = m.prop("globe");
+            this.numberofinputs = 0;
         }
         for (var i=0; i < this.numberextras; i++) {
           var currentinput = this.numberofinputs + (i + 1);
@@ -43,9 +44,6 @@ export default class SocialButtonsModal extends Modal {
         $('.form-group-social').delay(5).slideDown();
     });
     this.buttons = [];
-    if(this.numberextras == ""){
-      this.numberextras = 0;
-    }
   }
 
   className() {
@@ -79,11 +77,9 @@ export default class SocialButtonsModal extends Modal {
                     $('.btn-group').removeClass('open');
                 });
             });
-            
        return [
             m('div', {className: 'Modal-body'}, [
                 m('div', {className: 'Form'}, [
-                 m("button", {}, "Redraw"),
                     this.buttons.map(function(button) {
                       return [
                           m('div', {className: 'Form-group form-group-social'}, [
@@ -141,7 +137,7 @@ export default class SocialButtonsModal extends Modal {
   onsubmit(e) {
       
       e.preventDefault();
-
+      
       this.loading = true;
       this.buttons = JSON.stringify(this.buttons);
       const data = new FormData();

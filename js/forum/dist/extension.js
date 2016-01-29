@@ -49,6 +49,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 _this.buttons[0].title = m.prop("");
                 _this.buttons[0].url = m.prop("");
                 _this.buttons[0].icon = m.prop("globe");
+                _this.numberofinputs = 0;
               }
               for (var i = 0; i < _this.numberextras; i++) {
                 var currentinput = _this.numberofinputs + (i + 1);
@@ -62,9 +63,6 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               $('.form-group-social').delay(5).slideDown();
             });
             this.buttons = [];
-            if (this.numberextras == "") {
-              this.numberextras = 0;
-            }
           }
         }, {
           key: 'className',
@@ -101,8 +99,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 $('.btn-group').removeClass('open');
               });
             });
-
-            return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [m("button", {}, "Redraw"), this.buttons.map(function (button) {
+            return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [this.buttons.map(function (button) {
               return [m('div', { className: 'Form-group form-group-social' }, [m('input', { className: 'SocialFormControl',
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
                 value: button.title(),
