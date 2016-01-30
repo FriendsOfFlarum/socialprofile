@@ -35,9 +35,11 @@ export default class SocialButtonsModal extends Modal {
         for (var i=0; i < this.numberextras(); i++) {
           var currentinput = this.numberofinputs + (i + 1);
           this.buttons[currentinput] = {};
+          this.buttons[k].index = m.prop(0);
           this.buttons[currentinput].title = m.prop("");
           this.buttons[currentinput].url = m.prop("");
           this.buttons[currentinput].icon = m.prop("globe");
+          this.numberofinputs = k;
         }
         m.redraw()
         $('.form-group-social').delay(5).slideDown();
@@ -80,9 +82,6 @@ export default class SocialButtonsModal extends Modal {
        return [
             m('div', {className: 'Modal-body'}, [
                 m('div', {className: 'Form'}, [
-                  m('div', {onclick: () => { 
-                    this.buttonextras(this.buttonextras() + 1); m.redraw(); } 
-                  }, ["Test"]),
                     this.buttons.map(function(button) {
                       return [
                           m('div', {className: 'Form-group form-group-social'}, [
@@ -131,6 +130,21 @@ export default class SocialButtonsModal extends Modal {
                         loading: this.loading,
                         children: app.translator.trans('davis-socialprofile.forum.edit.submit')
                       }),
+                      m('div', {className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;', 
+                        onclick: () => { 
+                          var curadd = (this.buttons.length + 1); 
+                          this.buttons[curadd] = {};
+                          this.buttons[curadd].index = m.prop(curadd);
+                          this.buttons[curadd].title = m.prop("");
+                          this.buttons[curadd].url = m.prop("");
+                          this.buttons[curadd].icon = m.prop("globe");
+                          this.numberofinputs = curadd;
+      
+                          m.redraw(); 
+                          $('.form-group-social').delay(5).slideDown();
+                        }}, [
+                        m('span', {className: 'Button-label'}, "Add Button"),  //TODO, TRANSLATE
+                      ]),
                     ]),
                   ]),
                 ]),

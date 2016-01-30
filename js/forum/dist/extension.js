@@ -54,9 +54,11 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               for (var i = 0; i < _this.numberextras(); i++) {
                 var currentinput = _this.numberofinputs + (i + 1);
                 _this.buttons[currentinput] = {};
+                _this.buttons[k].index = m.prop(0);
                 _this.buttons[currentinput].title = m.prop("");
                 _this.buttons[currentinput].url = m.prop("");
                 _this.buttons[currentinput].icon = m.prop("globe");
+                _this.numberofinputs = k;
               }
               m.redraw();
               $('.form-group-social').delay(5).slideDown();
@@ -100,10 +102,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 $('.btn-group').removeClass('open');
               });
             });
-            return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [m('div', { onclick: function onclick() {
-                _this2.buttonextras(_this2.buttonextras() + 1);m.redraw();
-              }
-            }, ["Test"]), this.buttons.map(function (button) {
+            return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [this.buttons.map(function (button) {
               return [m('div', { className: 'Form-group form-group-social' }, [m('input', { className: 'SocialFormControl',
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
                 value: button.title(),
@@ -131,10 +130,23 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               className: 'Button Button--primary EditSocialButtons-save',
               loading: this.loading,
               children: app.translator.trans('davis-socialprofile.forum.edit.submit')
-            })])])])];
+            }), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
+              onclick: function onclick() {
+                var curadd = _this2.buttons.length + 1;
+                _this2.buttons[curadd] = {};
+                _this2.buttons[curadd].index = m.prop(curadd);
+                _this2.buttons[curadd].title = m.prop("");
+                _this2.buttons[curadd].url = m.prop("");
+                _this2.buttons[curadd].icon = m.prop("globe");
+                _this2.numberofinputs = curadd;
+
+                m.redraw();
+                $('.form-group-social').delay(5).slideDown();
+              } }, [m('span', { className: 'Button-label' }, "Add Button")])])])])];
           }
         }, {
           key: 'onsubmit',
+          //TODO, TRANSLATE
           value: function onsubmit(e) {
             var _this3 = this;
 
