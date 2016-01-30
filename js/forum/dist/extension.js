@@ -31,16 +31,25 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
             this.socialaccs = null;
             m.request({ method: "GET", url: url }).then(function (result) {
               if (result.data.attributes.hasOwnProperty("buttons")) {
-                _this.socialaccs = JSON.parse(result.data.attributes.buttons);
-                _this.buttons = [];
-                for (var k in _this.socialaccs) {
-                  if (_this.socialaccs[k]['title'] != "") {
-                    _this.buttons[k] = {};
-                    _this.buttons[k].index = m.prop(k);
-                    _this.buttons[k].title = m.prop(_this.socialaccs[k]["title"] || "");
-                    _this.buttons[k].url = m.prop(_this.socialaccs[k]["url"] || "");
-                    _this.buttons[k].icon = m.prop(_this.socialaccs[k]["icon"] || "globe");
-                    _this.numberofinputs = k;
+                if (result.data.attributes.buttons == "[]") {
+                  _this.buttons[0] = {};
+                  _this.buttons[0].index = m.prop(0);
+                  _this.buttons[0].title = m.prop("");
+                  _this.buttons[0].url = m.prop("");
+                  _this.buttons[0].icon = m.prop("globe");
+                  _this.numberofinputs = 0;
+                } else {
+                  _this.socialaccs = JSON.parse(result.data.attributes.buttons);
+                  _this.buttons = [];
+                  for (var k in _this.socialaccs) {
+                    if (_this.socialaccs[k]['title'] != "") {
+                      _this.buttons[k] = {};
+                      _this.buttons[k].index = m.prop(k);
+                      _this.buttons[k].title = m.prop(_this.socialaccs[k]["title"] || "");
+                      _this.buttons[k].url = m.prop(_this.socialaccs[k]["url"] || "");
+                      _this.buttons[k].icon = m.prop(_this.socialaccs[k]["icon"] || "globe");
+                      _this.numberofinputs = k;
+                    }
                   }
                 }
               } else {
@@ -51,20 +60,10 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 _this.buttons[0].icon = m.prop("globe");
                 _this.numberofinputs = 0;
               }
-              for (var i = 0; i < _this.numberextras(); i++) {
-                var currentinput = _this.numberofinputs + (i + 1);
-                _this.buttons[currentinput] = {};
-                _this.buttons[k].index = m.prop(0);
-                _this.buttons[currentinput].title = m.prop("");
-                _this.buttons[currentinput].url = m.prop("");
-                _this.buttons[currentinput].icon = m.prop("globe");
-                _this.numberofinputs = k;
-              }
               m.redraw();
               $('.form-group-social').delay(5).slideDown();
             });
             this.buttons = [];
-            this.numberextras = m.prop(0);
           }
         }, {
           key: 'className',
@@ -82,6 +81,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
             var _this2 = this;
 
             $(function () {
+              $('.Modal-content').css('overflow', 'visible');
               $(document).on('click', '.action-placement', function (e) {
                 $('.action-placement').removeClass('active');
                 $(this).addClass('active');
@@ -103,7 +103,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               });
             });
             return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [this.buttons.map(function (button) {
-              return [m('div', { className: 'Form-group form-group-social' }, [m('input', { className: 'SocialFormControl',
+              return [m('div', { className: 'Form-group form-group-social', id: 'socialgroup' + button.index() }, [m('input', { className: 'SocialFormControl',
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
                 value: button.title(),
                 oninput: m.withAttr('value', button.title)
@@ -132,7 +132,7 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
               children: app.translator.trans('davis-socialprofile.forum.edit.submit')
             }), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
               onclick: function onclick() {
-                var curadd = _this2.buttons.length + 1;
+                var curadd = _this2.buttons.length;
                 _this2.buttons[curadd] = {};
                 _this2.buttons[curadd].index = m.prop(curadd);
                 _this2.buttons[curadd].title = m.prop("");
@@ -141,21 +141,37 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
                 _this2.numberofinputs = curadd;
 
                 m.redraw();
-                $('.form-group-social').delay(5).slideDown();
-              } }, [m('span', { className: 'Button-label' }, "Add Button")])])])])];
+                $('#socialgroup' + curadd).delay(2).slideDown();
+              } }, [m('i', { className: 'fa fa-fw fa-plus' })]), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
+              onclick: function onclick() {
+                var curdel = _this2.buttons.length - 1;
+                $('#socialgroup' + curdel).slideUp('normal', function () {
+                  _this2.buttons.splice(curdel, 1);
+                  m.redraw();
+                });
+              } }, [m('i', { className: 'fa fa-fw fa-minus' })])])])])];
           }
         }, {
           key: 'onsubmit',
-          //TODO, TRANSLATE
           value: function onsubmit(e) {
             var _this3 = this;
 
             e.preventDefault();
 
             this.loading = true;
-            this.buttons = JSON.stringify(this.buttons);
+            this.finbuttons = [];
+            for (var k in this.buttons) {
+              if (this.buttons[k].title() != "") {
+                var number = this.finbuttons.length;
+                this.finbuttons[number] = {};
+                this.finbuttons[number].title = m.prop(this.buttons[k].title());
+                this.finbuttons[number].url = m.prop(this.buttons[k].url());
+                this.finbuttons[number].icon = m.prop(this.buttons[k].icon());
+              }
+            }
+            this.finbuttons = JSON.stringify(this.finbuttons);
             var data = new FormData();
-            data.append('buttons', this.buttons);
+            data.append('buttons', this.finbuttons);
             app.request({
               method: 'POST',
               url: app.forum.attribute('apiUrl') + '/profile/socialbuttons',
@@ -210,8 +226,13 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
                     this.socialaccs = null;
                     app.request({ method: "GET", url: theurl }).then(function (result) {
                         if (result.data.attributes.hasOwnProperty("buttons")) {
-                            _this.socialaccs = JSON.parse(result.data.attributes.buttons);
-                            _this.newuser = false;
+                            if (result.data.attributes.buttons == "[]") {
+                                _this.socialaccs = true;
+                                _this.newuser = true;
+                            } else {
+                                _this.socialaccs = JSON.parse(result.data.attributes.buttons);
+                                _this.newuser = false;
+                            }
                         } else {
                             _this.socialaccs = true;
                             _this.newuser = true;

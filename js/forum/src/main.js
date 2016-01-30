@@ -15,8 +15,13 @@ app.initializers.add('davis-socialprofile-forum', function() {
       this.socialaccs = null;
       app.request({method: "GET", url: theurl}).then(result => {
         if(result.data.attributes.hasOwnProperty("buttons")) {
+            if (result.data.attributes.buttons == "[]") {
+                this.socialaccs = true;
+                this.newuser = true;
+            } else {
             this.socialaccs = JSON.parse(result.data.attributes.buttons);
             this.newuser = false;
+            }
         } else {
             this.socialaccs = true;
             this.newuser = true;

@@ -12,6 +12,14 @@ export default class SocialButtonsModal extends Modal {
       this.socialaccs = null;
       m.request({method: "GET", url: url}).then(result => {
         if(result.data.attributes.hasOwnProperty("buttons")) {
+          if(result.data.attributes.buttons == "[]"){
+            this.buttons[0] = {};
+            this.buttons[0].index = m.prop(0);
+            this.buttons[0].title = m.prop("");
+            this.buttons[0].url = m.prop("");
+            this.buttons[0].icon = m.prop("globe");
+            this.numberofinputs = 0;
+          } else {
             this.socialaccs = JSON.parse(result.data.attributes.buttons);
             this.buttons = [];
             for(var k in this.socialaccs) {
@@ -24,6 +32,7 @@ export default class SocialButtonsModal extends Modal {
                 this.numberofinputs = k;
               }
             }
+          }
         } else {
             this.buttons[0] = {};
             this.buttons[0].index = m.prop(0);
@@ -32,20 +41,10 @@ export default class SocialButtonsModal extends Modal {
             this.buttons[0].icon = m.prop("globe");
             this.numberofinputs = 0;
         }
-        for (var i=0; i < this.numberextras(); i++) {
-          var currentinput = this.numberofinputs + (i + 1);
-          this.buttons[currentinput] = {};
-          this.buttons[k].index = m.prop(0);
-          this.buttons[currentinput].title = m.prop("");
-          this.buttons[currentinput].url = m.prop("");
-          this.buttons[currentinput].icon = m.prop("globe");
-          this.numberofinputs = k;
-        }
         m.redraw()
         $('.form-group-social').delay(5).slideDown();
     });
     this.buttons = [];
-    this.numberextras = m.prop(0);
   }
 
   className() {
@@ -59,6 +58,7 @@ export default class SocialButtonsModal extends Modal {
   content() {
     
      $(function() {
+                $('.Modal-content').css('overflow', 'visible');
                 $(document).on('click', '.action-placement', function(e) {
                     $('.action-placement').removeClass('active');
                     $(this).addClass('active');
@@ -84,7 +84,7 @@ export default class SocialButtonsModal extends Modal {
                 m('div', {className: 'Form'}, [
                     this.buttons.map(function(button) {
                       return [
-                          m('div', {className: 'Form-group form-group-social'}, [
+                          m('div', {className: 'Form-group form-group-social', id: 'socialgroup'+button.index()}, [
                             m('input', {className: 'SocialFormControl',
                               placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
                               value: button.title(), 
@@ -132,7 +132,7 @@ export default class SocialButtonsModal extends Modal {
                       }),
                       m('div', {className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;', 
                         onclick: () => { 
-                          var curadd = (this.buttons.length + 1); 
+                          var curadd = this.buttons.length; 
                           this.buttons[curadd] = {};
                           this.buttons[curadd].index = m.prop(curadd);
                           this.buttons[curadd].title = m.prop("");
@@ -141,9 +141,19 @@ export default class SocialButtonsModal extends Modal {
                           this.numberofinputs = curadd;
       
                           m.redraw(); 
-                          $('.form-group-social').delay(5).slideDown();
+                          $('#socialgroup'+curadd).delay(2).slideDown();
                         }}, [
-                        m('span', {className: 'Button-label'}, "Add Button"),  //TODO, TRANSLATE
+                        m('i', {className: 'fa fa-fw fa-plus'})
+                      ]),
+                      m('div', {className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;', 
+                        onclick: () => { 
+                          var curdel = (this.buttons.length - 1); 
+                          $('#socialgroup'+curdel).slideUp('normal', () => {
+                            this.buttons.splice(curdel, 1);
+                            m.redraw(); 
+                          });
+                        }}, [
+                        m('i', {className: 'fa fa-fw fa-minus'})
                       ]),
                     ]),
                   ]),
@@ -156,9 +166,19 @@ export default class SocialButtonsModal extends Modal {
       e.preventDefault();
       
       this.loading = true;
-      this.buttons = JSON.stringify(this.buttons);
+      this.finbuttons = [];
+      for(var k in this.buttons) {
+        if (this.buttons[k].title() != "") {
+          var number = this.finbuttons.length
+          this.finbuttons[number] = {};
+          this.finbuttons[number].title = m.prop(this.buttons[k].title());
+          this.finbuttons[number].url = m.prop(this.buttons[k].url());
+          this.finbuttons[number].icon = m.prop(this.buttons[k].icon());
+        }
+      }
+      this.finbuttons = JSON.stringify(this.finbuttons);
       const data = new FormData();
-      data.append('buttons', this.buttons);
+      data.append('buttons', this.finbuttons);
       app.request({
           method: 'POST',
           url: app.forum.attribute('apiUrl') + '/profile/socialbuttons',
