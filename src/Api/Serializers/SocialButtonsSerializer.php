@@ -1,4 +1,4 @@
-<?php namespace davis\socialprofile\Api\Serializers;
+<?php namespace Davis\SocialProfile\Api\Serializers;
 
 use Flarum\Api\Serializer\AbstractSerializer;
 

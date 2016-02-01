@@ -1,7 +1,7 @@
-<?php namespace davis\socialprofile\Commands;
+<?php namespace Davis\SocialProfile\Commands;
 
-use davis\socialprofile\buttons;
-use davis\socialprofile\Events\SocialProfileEditted;
+use Davis\SocialProfile\Buttons;
+use Davis\SocialProfile\Events\SocialProfileEditted;
 use Flarum\Core\Access\AssertPermissionTrait;
 use Flarum\Core\Repository\UserRepository;
 use Flarum\Core\Support\DispatchEventsTrait;
@@ -29,20 +29,20 @@ class SaveSocialSettingsHandler
 
     public function handle(SaveSocialSettings $command)
     {
-        if (buttons::where('user_id', $command->actor->id)->exists()) {
-            $buttons = buttons::where('user_id', $command->actor->id)->first();
+        if (Buttons::where('user_id', $command->actor->id)->exists()) {
+            $Buttons = Buttons::where('user_id', $command->actor->id)->first();
         } else {
-            $buttons = new buttons;
+            $Buttons = new Buttons;
         }
-        $buttons->user_id = $command->actor->id;
-        $buttons->buttons = $command->buttons;
+        $Buttons->user_id = $command->actor->id;
+        $Buttons->Buttons = $command->Buttons;
 
        $this->events->fire(
-            new SocialProfileEditted($command->actor, $command->buttons)
+            new SocialProfileEditted($command->actor, $command->Buttons)
         );
 
-        $buttons->save();
+        $Buttons->save();
 
-        return $buttons;
+        return $Buttons;
     }
 }

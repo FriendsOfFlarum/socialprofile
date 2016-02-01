@@ -1,17 +1,17 @@
-<?php namespace davis\socialprofile\Commands;
+<?php namespace Davis\SocialProfile\Commands;
 
 use Flarum\Core\User;
 use Psr\Http\Message\UploadedFileInterface;
 
 class SaveSocialSettings
 {
-    public $buttons;
+    public $Buttons;
 
     public $actor;
 
-    public function __construct($buttons, User $actor)
+    public function __construct($Buttons, User $actor)
     {
-        $this->buttons = $buttons;
+        $this->Buttons = $Buttons;
         $this->actor = $actor;
     }
 }

@@ -1,7 +1,7 @@
-<?php namespace davis\socialprofile\Listener;
+<?php namespace Davis\SocialProfile\Listeners;
 
-use davis\socialprofile\Api\Controllers\EditSocialButtonsController;
-use davis\socialprofile\Api\Controllers\GetSocialButtonsController;
+use Davis\SocialProfile\Api\Controllers\EditSocialButtonsController;
+use Davis\SocialProfile\Api\Controllers\GetSocialButtonsController;
 use Flarum\Event\ConfigureApiRoutes;
 use Illuminate\Events\Dispatcher;
 

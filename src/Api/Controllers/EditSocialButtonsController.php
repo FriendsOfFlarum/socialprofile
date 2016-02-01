@@ -1,7 +1,7 @@
-<?php namespace davis\socialprofile\Api\Controllers;
+<?php namespace Davis\SocialProfile\Api\Controllers;
 
-use davis\socialprofile\Api\Serializers\SocialButtonsSerializer;
-use davis\socialprofile\Commands\SaveSocialSettings;
+use Davis\SocialProfile\Api\Serializers\SocialButtonsSerializer;
+use Davis\SocialProfile\Commands\SaveSocialSettings;
 use Flarum\Api\Controller\AbstractResourceController;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Psr\Http\Message\ServerRequestInterface;
@@ -23,10 +23,10 @@ class EditSocialButtonsController extends AbstractResourceController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         $actor = $request->getAttribute('actor');
-        $buttons = array_get($request->getParsedBody(), 'buttons');
+        $Buttons = array_get($request->getParsedBody(), 'buttons');
 
         return $this->bus->dispatch(
-            new SaveSocialSettings($buttons, $actor)
+            new SaveSocialSettings($Buttons, $actor)
         );
     }
 }

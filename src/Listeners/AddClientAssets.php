@@ -1,4 +1,4 @@
-<?php namespace davis\socialprofile\Listener;
+<?php namespace Davis\SocialProfile\Listeners;
 
 use DirectoryIterator;
 use Flarum\Event\ConfigureClientView;
@@ -20,7 +20,7 @@ class AddClientAssets
                 __DIR__.'/../../js/forum/dist/extension.js',
                 __DIR__.'/../../less/forum/extension.less'
             ]);
-            $event->addBootstrapper('davis/socialprofile/main');
+            $event->addBootstrapper('Davis/SocialProfile/main');
             
             $js = file_get_contents(realpath(__DIR__ . '/../../assets/js/depend.js'));
             $event->view->addFootString($js);
@@ -30,7 +30,7 @@ class AddClientAssets
             $event->addAssets([
                 __DIR__.'/../../js/admin/dist/extension.js'
             ]);
-            $event->addBootstrapper('davis/socialprofile/main');
+            $event->addBootstrapper('Davis/SocialProfile/main');
         }
     }
     

@@ -1,13 +1,13 @@
-<?php namespace davis\socialprofile\Api\Controllers;
+<?php namespace Davis\SocialProfile\Api\Controllers;
 
-use davis\socialprofile\Repository\UserSocialRepository;
+use Davis\SocialProfile\Repository\UserSocialRepository;
 use Flarum\Api\Controller\AbstractResourceController;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 
 class GetSocialButtonsController extends AbstractResourceController
 {
-    public $serializer = 'davis\socialprofile\Api\Serializers\GetSocialButtonsSerializer';
+    public $serializer = 'Davis\SocialProfile\Api\Serializers\GetSocialButtonsSerializer';
     
     public function __construct(UserSocialRepository $users)
     {

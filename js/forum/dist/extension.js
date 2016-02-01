@@ -1,4 +1,4 @@
-System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string'], function (_export) {
+System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string'], function (_export) {
   'use strict';
 
   var Modal, Button, slug, SocialButtonsModal;
@@ -194,14 +194,12 @@ System.register('davis/socialprofile/components/SocialButtonsModal', ['flarum/co
     }
   };
 });;
-System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialButtons', 'flarum/app', 'flarum/extend', 'flarum/components/UserCard', 'flarum/components/Badge', 'davis/socialprofile/components/SocialButtonsModal'], function (_export) {
+System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'flarum/components/UserCard', 'flarum/components/Badge', 'Davis/SocialProfile/components/SocialButtonsModal'], function (_export) {
     'use strict';
 
-    var SocialButtons, app, extend, UserCard, Badge, SocialButtonsModal;
+    var app, extend, UserCard, Badge, SocialButtonsModal;
     return {
-        setters: [function (_davisSocialprofileModelsSocialButtons) {
-            SocialButtons = _davisSocialprofileModelsSocialButtons['default'];
-        }, function (_flarumApp) {
+        setters: [function (_flarumApp) {
             app = _flarumApp['default'];
         }, function (_flarumExtend) {
             extend = _flarumExtend.extend;
@@ -209,14 +207,12 @@ System.register('davis/socialprofile/main', ['davis/socialprofile/models/SocialB
             UserCard = _flarumComponentsUserCard['default'];
         }, function (_flarumComponentsBadge) {
             Badge = _flarumComponentsBadge['default'];
-        }, function (_davisSocialprofileComponentsSocialButtonsModal) {
-            SocialButtonsModal = _davisSocialprofileComponentsSocialButtonsModal['default'];
+        }, function (_DavisSocialProfileComponentsSocialButtonsModal) {
+            SocialButtonsModal = _DavisSocialProfileComponentsSocialButtonsModal['default'];
         }],
         execute: function () {
 
             app.initializers.add('davis-socialprofile-forum', function () {
-
-                app.store.models.socialbuttons = SocialButtons;
 
                 extend(UserCard.prototype, 'init', function () {
                     var _this = this;

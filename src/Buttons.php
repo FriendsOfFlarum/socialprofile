@@ -1,8 +1,8 @@
-<?php namespace davis\socialprofile;
+<?php namespace Davis\SocialProfile;
 
 use Flarum\Database\AbstractModel;
 
-class buttons extends AbstractModel
+class Buttons extends AbstractModel
 {
     protected $table = 'socialbuttons';
 }

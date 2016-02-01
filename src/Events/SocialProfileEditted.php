@@ -1,6 +1,6 @@
-<?php namespace davis\socialprofile\Events;
+<?php namespace Davis\SocialProfile\Events;
 
-use davis\socialprofile\buttons;
+use Davis\SocialProfile\Buttons;
 use Flarum\Core\Post;
 use Flarum\Core\User;
 
@@ -8,11 +8,11 @@ class SocialProfileEditted
 {
     public $actor;
     
-    public $buttons;
+    public $Buttons;
 
-    public function __construct(User $actor, $buttons)
+    public function __construct(User $actor, $Buttons)
     {
         $this->actor = $actor;
-        $this->buttons = $buttons;
+        $this->Buttons = $Buttons;
     }
 }

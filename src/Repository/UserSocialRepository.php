@@ -1,6 +1,6 @@
-<?php namespace davis\socialprofile\Repository;
+<?php namespace Davis\SocialProfile\Repository;
 
-use davis\socialprofile\buttons;
+use Davis\SocialProfile\Buttons;
 use Illuminate\Database\Eloquent\Builder;
 use Flarum\Core\User;
 
@@ -8,16 +8,10 @@ class UserSocialRepository
 {
     public function query()
     {
-        return buttons::query();
+        return Buttons::query();
     }
-    
-    public function findOrFail($id, User $actor = null)
+    public function findOrFail($id)
     {
-        if (buttons::where('user_id', $id)->exists()) {
-            $this->query = buttons::where('user_id', $id);
-            return $this->query->first();
-        } else {
-            return false;
-        }
+        return Buttons::where('user_id', $id)->first();
     }
 }

@@ -1,14 +1,11 @@
-import SocialButtons from 'davis/socialprofile/models/SocialButtons';
 import app from 'flarum/app';
 import { extend } from 'flarum/extend';
 import UserCard from 'flarum/components/UserCard';
 import Badge from 'flarum/components/Badge';
-import SocialButtonsModal from 'davis/socialprofile/components/SocialButtonsModal';
+import SocialButtonsModal from 'Davis/SocialProfile/components/SocialButtonsModal';
 
 app.initializers.add('davis-socialprofile-forum', function() {
-    
-   app.store.models.socialbuttons = SocialButtons;
-   
+
     extend(UserCard.prototype, 'init', function() {
       var theuser = this.props.user;
       var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+theuser.data.id;

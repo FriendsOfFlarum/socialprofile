@@ -150,7 +150,7 @@ export default class SocialButtonsModal extends Modal {
                           var curdel = (this.buttons.length - 1); 
                           $('#socialgroup'+curdel).slideUp('normal', () => {
                             this.buttons.splice(curdel, 1);
-                            m.redraw(); 
+                            m.redraw();
                           });
                         }}, [
                         m('i', {className: 'fa fa-fw fa-minus'})

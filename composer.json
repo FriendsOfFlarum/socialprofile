@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "davis\\socialprofile\\": "src/"
+            "Davis\\SocialProfile\\": "src/"
         }
     },
     "extra": {

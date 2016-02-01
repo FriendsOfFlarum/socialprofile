@@ -1,4 +1,4 @@
-<?php namespace davis\socialprofile\Listener;
+<?php namespace Davis\SocialProfile\Listeners;
 
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Event\PrepareApiAttributes;

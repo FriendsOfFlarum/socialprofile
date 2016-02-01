@@ -1,4 +1,4 @@
-<?php namespace davis\socialprofile\Migration;
+<?php namespace Davis\SocialProfile\Migration;
 use Flarum\Database\AbstractMigration;
 use Illuminate\Database\Schema\Blueprint;
 class CreateSocialbuttonsTable extends AbstractMigration
