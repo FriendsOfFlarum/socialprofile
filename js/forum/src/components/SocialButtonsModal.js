@@ -6,7 +6,7 @@ export default class SocialButtonsModal extends Modal {
   init() {
     
     super.init();
-
+     
     const curuserid = app.current.user.data.id;
     var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+curuserid;
       this.socialaccs = null;
@@ -15,6 +15,9 @@ export default class SocialButtonsModal extends Modal {
           if(result.data.attributes.buttons == "[]"){
             this.buttons[0] = {};
             this.buttons[0].index = m.prop(0);
+            this.buttons[0].iconstyle = m.prop("");
+            this.buttons[0].color = m.prop("white");
+            this.buttons[0].favicon = m.prop("");
             this.buttons[0].title = m.prop("");
             this.buttons[0].url = m.prop("");
             this.buttons[0].icon = m.prop("globe");
@@ -26,6 +29,9 @@ export default class SocialButtonsModal extends Modal {
               if(this.socialaccs[k]['title'] != "") {
                 this.buttons[k] = {};
                 this.buttons[k].index = m.prop(k);
+                this.buttons[k].iconstyle = m.prop();
+                this.buttons[k].color = m.prop("white");
+                this.buttons[k].favicon = m.prop(this.socialaccs[k]["favicon"] || "none");
                 this.buttons[k].title = m.prop(this.socialaccs[k]["title"] || "");
                 this.buttons[k].url = m.prop(this.socialaccs[k]["url"] || "");
                 this.buttons[k].icon = m.prop(this.socialaccs[k]["icon"] || "globe");
@@ -36,13 +42,29 @@ export default class SocialButtonsModal extends Modal {
         } else {
             this.buttons[0] = {};
             this.buttons[0].index = m.prop(0);
+            this.buttons[0].iconstyle = m.prop("");
+            this.buttons[0].color = m.prop("white");
+            this.buttons[0].favicon = m.prop("");
             this.buttons[0].title = m.prop("");
             this.buttons[0].url = m.prop("");
             this.buttons[0].icon = m.prop("globe");
             this.numberofinputs = 0;
         }
+        for(var k in this.buttons) {
+          var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+            if(urlpattern.test(this.buttons[k].url())) {
+              var iconurl = (this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
+              var iconstyle = '.social-favicon-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+              this.buttons[k].favicon(iconurl);
+              this.buttons[k].color('transparent');
+              this.buttons[k].iconstyle(iconstyle);
+              this.buttons[k].icon('fa-social-favicon-'+this.buttons[k].index());
+            }
+        }      
         m.redraw()
         $('.form-group-social').delay(5).slideDown();
+        $('#loading-main').delay(5).removeClass('fa-spin');
+        $('#loading-main').delay(5).slideUp();
     });
     this.buttons = [];
   }
@@ -56,25 +78,36 @@ export default class SocialButtonsModal extends Modal {
   }
 
   content() {
-    
-     $(function() {
+     $(() => {
                 $('.Modal-content').css('overflow', 'visible');
-                $(document).on('click', '.action-placement', function(e) {
+                $(document).on('click', '.action-placement', function (e) {
                     $('.action-placement').removeClass('active');
                     $(this).addClass('active');
                     e.preventDefault();
                     return false;
                 });
-               $('.action-create').on('click', function() {
-                    $('.icp-dd').iconpicker({ 
-                        icons:["fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play' ],
+                for(var k in this.buttons) {
+                  $('#social-favicon-'+this.buttons[k].index()).iconpicker({ 
+                        icons:['social-favicon-'+this.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play' ],
                         hideOnSelect: true,
                         title: "Displayed Icon",
                     });
-                }).trigger('click');
-                $('.icp').on('iconpickerSelected', function(e) {
-                    var btn_group = $(this).attr("btn-group");
+                }
+                $('.icp').on('iconpickerSelected', (e) => {
+                    var btn_group = /btn-group="(\d+)"/.exec(e.target.outerHTML)[1];
                     $('#icon'+btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
+                    if (e.iconpickerValue.replace("fa-", "") == 'fa-social-favicon-'+this.buttons[btn_group].index()) {
+                        var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+                        if(urlpattern.test(this.buttons[btn_group].url())) {
+                          var iconurl = (this.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
+                          this.buttons[btn_group].favicon(iconurl);
+                          this.buttons[btn_group].color('transparent');
+                      }
+                    } else {
+                      this.buttons[btn_group].favicon('none');
+                      this.buttons[btn_group].color('white');
+                    }
+                    m.redraw();
                     $('.icp').attr("aria-expanded","false");
                     $('.btn-group').removeClass('open');
                 });
@@ -82,10 +115,12 @@ export default class SocialButtonsModal extends Modal {
        return [
             m('div', {className: 'Modal-body'}, [
                 m('div', {className: 'Form'}, [
-                    this.buttons.map(function(button) {
+                  m('i', {className: 'fa fa-spinner fa-spin fa-align-center', id: 'loading-main', style: {'font-size': '3em', 'margin-left': '47%'}}),
+                    this.buttons.map((button) => {
+                      
                       return [
                           m('div', {className: 'Form-group form-group-social', id: 'socialgroup'+button.index()}, [
-                            m('input', {className: 'SocialFormControl',
+                            m('input', {className: 'SocialFormControl SocialTitle',
                               placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
                               value: button.title(), 
                               oninput: m.withAttr('value', button.title)
@@ -94,32 +129,61 @@ export default class SocialButtonsModal extends Modal {
                               m('null', {className: 'action-create'}),
                               m('button', {type: 'button',
                                 tabindex: '-1',
-                                className: 'btn btn-primary2 iconpicker-component'
+                                className: 'btn btn-primary2 iconpicker-component',
+                                style: {
+                                  'background-image': (button.favicon() != 'none' ? "url("+button.favicon()+')' : "none"), 
+                                  'background-position': 'center',
+                                  'background-repeat': 'no-repeat',
+                                  'background-size': '50% 50%',
+                                }
                               }, [
-                                m('i', {className: 'fa fa-fw fa-'+button.icon(),})
+                                m('i', {className: 'fa fa-fw fa-'+button.icon(),
+                                  style: {
+                                    'color': button.color(),
+                                  }
+                                })
                               ]),
                               m('button', {type: 'button',
                                 'btn-group': button.index(),
                                 className: 'form-control icp icp-dd btn btn-primary dropdown-toggle',
+                                id: 'social-favicon-'+button.index(),
                                 'data-selected': 'fa-'+button.icon(),
                                 'data-toggle': 'dropdown'
                               }, [
                                 m('span', {className: 'caret'}),
                                 m('span', {className: 'sr-only'}, ['Toggle Dropdown'])
                               ]),
-                              m('div', {className: 'dropdown-menu'})
+                              m('div', {className: 'social-dropdown-menu'})
                             ]),
                             m('input', {className: 'SocialFormControl Socialurl',
                               placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
                               value: button.url(),
-                              oninput: m.withAttr('value', button.url)
+                              oninput: m.withAttr('value', (value) => {
+                                button.url(value);
+                                var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+                                if(urlpattern.test(button.url())) {
+                                  var iconurl = (button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
+                                  var iconstyle = '.social-favicon-'+button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+                                  button.iconstyle(iconstyle);
+                                  button.favicon(iconurl);
+                                  button.color('transparent');
+                                  button.icon('fa-social-favicon-'+button.index());
+                                }
+                              }),
                             }),
-                            m('input', {className: 'SocialFormControl Socialurl',
+                            m('input', {className: 'SocialFormControl SocialIcon',
                               id: 'icon'+button.index(),
                               style: 'display: none',
                               value: button.icon(),
                               onchange: m.withAttr('value', button.icon)
                             }),
+                            m('input', {className: 'SocialFormControl Socialfavicon',
+                              id: 'favicon'+button.index(),
+                              style: 'display: none',
+                              value: button.favicon(),
+                              onchange: m.withAttr('value', button.favicon)
+                            }),
+                            m('style', {}, button.iconstyle()),
                           ]),
                       ];
                     }),

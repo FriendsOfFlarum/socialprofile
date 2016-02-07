@@ -389,7 +389,7 @@
         this.container = b.isElement(this.options.container) ? a(this.options.container) : false;
         if (this.container === false) {
             if (this.element.is(".dropdown-toggle")) {
-                this.container = a("~ .dropdown-menu:first", this.element);
+                this.container = a("~ .social-dropdown-menu:first", this.element);
             } else {
                 this.container = this.element.is("input,textarea,button,.btn") ? this.element.parent() : this.element;
             }
@@ -880,7 +880,7 @@
             return this.container.is(".input-group");
         },
         isDropdownMenu: function() {
-            return this.container.is(".dropdown-menu");
+            return this.container.is(".social-dropdown-menu");
         },
         hasSeparatedSearchInput: function() {
             return this.options.templates.search !== false && !this.isInputSearch();

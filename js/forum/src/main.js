@@ -7,6 +7,7 @@ import SocialButtonsModal from 'Davis/SocialProfile/components/SocialButtonsModa
 app.initializers.add('davis-socialprofile-forum', function() {
 
     extend(UserCard.prototype, 'init', function() {
+    
       var theuser = this.props.user;
       var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+theuser.data.id;
       this.socialaccs = null;
@@ -63,6 +64,13 @@ app.initializers.add('davis-socialprofile-forum', function() {
                 type: "social "+settingsclass,
                 icon: settingsicon,
                 label: settingslabel,
+                onclick: function(){app.modal.show(new SocialButtonsModal())}
+            }), -1);
+        } else {
+            items.add('moderate social-button', Badge.component({
+                type: "social social-settings",
+                icon: "cog",
+                label: "moderate", //TRANS
                 onclick: function(){app.modal.show(new SocialButtonsModal())}
             }), -1);
         }
