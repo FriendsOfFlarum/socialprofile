@@ -310,6 +310,27 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                     // If request hasn't loaded yet, don't add any items.
                     if (!this.socialaccs) return;
 
+                    $('.EditSocialButtons-save').click(function () {
+                        var theuser = _this2.props.user;
+                        var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + theuser.data.id;
+                        _this2.socialaccs = null;
+                        app.request({ method: "GET", url: theurl }).then(function (result) {
+                            if (result.data.attributes.hasOwnProperty("buttons")) {
+                                if (result.data.attributes.buttons == "[]") {
+                                    _this2.socialaccs = true;
+                                    _this2.newuser = true;
+                                } else {
+                                    _this2.socialaccs = JSON.parse(result.data.attributes.buttons);
+                                    _this2.newuser = false;
+                                }
+                            } else {
+                                _this2.socialaccs = true;
+                                _this2.newuser = true;
+                            }
+                            m.redraw();
+                        });
+                    });
+
                     if (!this.newuser) {
                         var _loop = function (k) {
                             var curaccount = _this2.socialaccs[k];

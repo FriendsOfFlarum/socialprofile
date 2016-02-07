@@ -32,6 +32,27 @@ app.initializers.add('davis-socialprofile-forum', function() {
         // If request hasn't loaded yet, don't add any items.
         if (!this.socialaccs) return;
         
+        $('.EditSocialButtons-save').click(()=>{
+          var theuser = this.props.user;
+          var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+theuser.data.id;
+          this.socialaccs = null;
+          app.request({method: "GET", url: theurl}).then(result => {
+            if(result.data.attributes.hasOwnProperty("buttons")) {
+                if (result.data.attributes.buttons == "[]") {
+                    this.socialaccs = true;
+                    this.newuser = true;
+                } else {
+                this.socialaccs = JSON.parse(result.data.attributes.buttons);
+                this.newuser = false;
+                }
+            } else {
+                this.socialaccs = true;
+                this.newuser = true;
+            }
+            m.redraw();
+          });
+        });
+        
         if (!this.newuser) {
         for (const k in this.socialaccs) {
             const curaccount = this.socialaccs[k];

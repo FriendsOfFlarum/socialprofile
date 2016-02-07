@@ -6,7 +6,7 @@ export default class SocialButtonsModal extends Modal {
   init() {
     
     super.init();
-     
+
     const curuserid = app.current.user.data.id;
     var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+curuserid;
       this.socialaccs = null;
