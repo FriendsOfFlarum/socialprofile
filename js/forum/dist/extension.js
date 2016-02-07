@@ -70,14 +70,15 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 _this.numberofinputs = 0;
               }
               for (var k in _this.buttons) {
+                if (_this.buttons[k].favicon() != 'none') {
+                  _this.buttons[k].color('transparent');
+                  _this.buttons[k].icon('fa-social-favicon-' + _this.buttons[k].index());
+                }
                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                 if (urlpattern.test(_this.buttons[k].url())) {
                   var iconurl = _this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
                   var iconstyle = 'a > .social-favicon-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
-                  _this.buttons[k].favicon(iconurl);
-                  _this.buttons[k].color('transparent');
                   _this.buttons[k].iconstyle(iconstyle);
-                  _this.buttons[k].icon('fa-social-favicon-' + _this.buttons[k].index());
                 }
               }
               m.redraw();
@@ -198,6 +199,9 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 _this2.buttons[curadd] = {};
                 _this2.buttons[curadd].index = m.prop(curadd);
                 _this2.buttons[curadd].title = m.prop("");
+                _this2.buttons[curadd].favicon = m.prop("");
+                _this2.buttons[curadd].iconstyle = m.prop("");
+                _this2.buttons[curadd].color = m.prop("");
                 _this2.buttons[curadd].url = m.prop("");
                 _this2.buttons[curadd].icon = m.prop("globe");
                 _this2.numberofinputs = curadd;

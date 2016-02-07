@@ -51,16 +51,17 @@ export default class SocialButtonsModal extends Modal {
             this.numberofinputs = 0;
         }
         for(var k in this.buttons) {
+          if (this.buttons[k].favicon() != 'none') {
+            this.buttons[k].color('transparent');
+            this.buttons[k].icon('fa-social-favicon-'+this.buttons[k].index());
+          }
           var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-            if(urlpattern.test(this.buttons[k].url())) {
-              var iconurl = (this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
-              var iconstyle = 'a > .social-favicon-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
-              this.buttons[k].favicon(iconurl);
-              this.buttons[k].color('transparent');
-              this.buttons[k].iconstyle(iconstyle);
-              this.buttons[k].icon('fa-social-favicon-'+this.buttons[k].index());
-            }
-        }      
+          if(urlpattern.test(this.buttons[k].url())) {
+            var iconurl = (this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
+            var iconstyle = 'a > .social-favicon-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+            this.buttons[k].iconstyle(iconstyle);
+          }
+        }
         m.redraw()
         $('.form-group-social').delay(5).slideDown();
         $('#loading-main').delay(5).removeClass('fa-spin');
@@ -200,6 +201,9 @@ export default class SocialButtonsModal extends Modal {
                           this.buttons[curadd] = {};
                           this.buttons[curadd].index = m.prop(curadd);
                           this.buttons[curadd].title = m.prop("");
+                          this.buttons[curadd].favicon = m.prop("");
+                          this.buttons[curadd].iconstyle = m.prop("");
+                          this.buttons[curadd].color = m.prop("");
                           this.buttons[curadd].url = m.prop("");
                           this.buttons[curadd].icon = m.prop("globe");
                           this.numberofinputs = curadd;
