@@ -354,27 +354,26 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                                 }
                             }), -1);
                         } else {
-                            items.add('moderate social-button', Badge.component({
-                                type: "social social-settings",
-                                icon: "minus",
-                                label: "moderate", //TRANS
-                                onclick: function onclick() {
-                                    app.modal.show(new SocialButtonsModal());
-                                }
-                            }), -1);
+                            /*    items.add('moderate social-button', Badge.component({
+                                    type: "social social-settings",
+                                    icon: "minus",
+                                    label: "moderate", //TRANS
+                                    onclick: function(){app.modal.show(new SocialButtonsModal())}
+                                }), -1);
+                            */
                         }
                     } else {
-                        if (app.session.user === app.current.user) {
-                            items.add('settings' + ' social-button', Badge.component({
-                                type: "social null-social-settings",
-                                icon: "plus",
-                                label: app.translator.trans('davis-socialprofile.forum.edit.add'),
-                                onclick: function onclick() {
-                                    app.modal.show(new SocialButtonsModal());
-                                }
-                            }), -1);
+                            if (app.session.user === app.current.user) {
+                                items.add('settings' + ' social-button', Badge.component({
+                                    type: "social null-social-settings",
+                                    icon: "plus",
+                                    label: app.translator.trans('davis-socialprofile.forum.edit.add'),
+                                    onclick: function onclick() {
+                                        app.modal.show(new SocialButtonsModal());
+                                    }
+                                }), -1);
+                            }
                         }
-                    }
                 });
             });
         }

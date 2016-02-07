@@ -74,12 +74,13 @@ app.initializers.add('davis-socialprofile-forum', function() {
                 onclick: function(){app.modal.show(new SocialButtonsModal())}
             }), -1);
         } else {
-            items.add('moderate social-button', Badge.component({
+        /*    items.add('moderate social-button', Badge.component({
                 type: "social social-settings",
                 icon: "minus",
                 label: "moderate", //TRANS
                 onclick: function(){app.modal.show(new SocialButtonsModal())}
             }), -1);
+        */
         }
         } else {
             if (app.session.user === app.current.user) {
