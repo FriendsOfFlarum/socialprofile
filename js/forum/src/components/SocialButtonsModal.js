@@ -96,7 +96,7 @@ export default class SocialButtonsModal extends Modal {
                 $('.icp').on('iconpickerSelected', (e) => {
                     var btn_group = /btn-group="(\d+)"/.exec(e.target.outerHTML)[1];
                     $('#icon'+btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
-                    if (e.iconpickerValue.replace("fa-", "") == 'fa-social-favicon-'+this.buttons[btn_group].index()) {
+                    if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-'+this.buttons[btn_group].index()) {
                         var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                         if(urlpattern.test(this.buttons[btn_group].url())) {
                           var iconurl = (this.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
@@ -134,7 +134,7 @@ export default class SocialButtonsModal extends Modal {
                                   'background-image': (button.favicon() != 'none' ? "url("+button.favicon()+')' : "none"), 
                                   'background-position': 'center',
                                   'background-repeat': 'no-repeat',
-                                  'background-size': '50% 50%',
+                                  'background-size': '50% auto',
                                 }
                               }, [
                                 m('i', {className: 'fa fa-fw fa-'+button.icon(),
@@ -238,6 +238,7 @@ export default class SocialButtonsModal extends Modal {
           this.finbuttons[number].title = m.prop(this.buttons[k].title());
           this.finbuttons[number].url = m.prop(this.buttons[k].url());
           this.finbuttons[number].icon = m.prop(this.buttons[k].icon());
+          this.finbuttons[number].favicon = m.prop(this.buttons[k].favicon());
         }
       }
       this.finbuttons = JSON.stringify(this.finbuttons);

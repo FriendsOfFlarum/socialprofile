@@ -36,10 +36,17 @@ app.initializers.add('davis-socialprofile-forum', function() {
         for (const k in this.socialaccs) {
             const curaccount = this.socialaccs[k];
             if (curaccount["title"] !== "") {
-                items.add(curaccount["icon"] + k + ' social-button', Badge.component({
-                    type: "social",
+                var buttonstyle;
+                if (curaccount['favicon'] == 'none') {
+                    buttonstyle = '';
+                } else {
+                    buttonstyle = 'background-image: url("'+curaccount['favicon']+'");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
+                }
+                items.add(curaccount["icon"] + '-' + k + ' social-button', Badge.component({
+                    type: "social social-icon-"+k,
                     icon: curaccount["icon"],
                     label: curaccount["title"],
+                    style: buttonstyle,
                     onclick: function() {
                         window.open(curaccount["url"],'_blank');
                     }
@@ -69,7 +76,7 @@ app.initializers.add('davis-socialprofile-forum', function() {
         } else {
             items.add('moderate social-button', Badge.component({
                 type: "social social-settings",
-                icon: "cog",
+                icon: "minus",
                 label: "moderate", //TRANS
                 onclick: function(){app.modal.show(new SocialButtonsModal())}
             }), -1);

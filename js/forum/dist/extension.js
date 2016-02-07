@@ -120,7 +120,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               $('.icp').on('iconpickerSelected', function (e) {
                 var btn_group = /btn-group="(\d+)"/.exec(e.target.outerHTML)[1];
                 $('#icon' + btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
-                if (e.iconpickerValue.replace("fa-", "") == 'fa-social-favicon-' + _this2.buttons[btn_group].index()) {
+                if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-' + _this2.buttons[btn_group].index()) {
                   var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                   if (urlpattern.test(_this2.buttons[btn_group].url())) {
                     var iconurl = _this2.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
@@ -149,7 +149,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                   'background-image': button.favicon() != 'none' ? "url(" + button.favicon() + ')' : "none",
                   'background-position': 'center',
                   'background-repeat': 'no-repeat',
-                  'background-size': '50% 50%'
+                  'background-size': '50% auto'
                 }
               }, [m('i', { className: 'fa fa-fw fa-' + button.icon(),
                 style: {
@@ -229,6 +229,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 this.finbuttons[number].title = m.prop(this.buttons[k].title());
                 this.finbuttons[number].url = m.prop(this.buttons[k].url());
                 this.finbuttons[number].icon = m.prop(this.buttons[k].icon());
+                this.finbuttons[number].favicon = m.prop(this.buttons[k].favicon());
               }
             }
             this.finbuttons = JSON.stringify(this.finbuttons);
@@ -309,10 +310,16 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                         var _loop = function (k) {
                             var curaccount = _this2.socialaccs[k];
                             if (curaccount["title"] !== "") {
-                                items.add(curaccount["icon"] + k + ' social-button', Badge.component({
-                                    type: "social",
+                                if (curaccount['favicon'] == 'none') {
+                                    buttonstyle = '';
+                                } else {
+                                    buttonstyle = 'background-image: url("' + curaccount['favicon'] + '");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
+                                }
+                                items.add(curaccount["icon"] + '-' + k + ' social-button', Badge.component({
+                                    type: "social social-icon-" + k,
                                     icon: curaccount["icon"],
                                     label: curaccount["title"],
+                                    style: buttonstyle,
                                     onclick: function onclick() {
                                         window.open(curaccount["url"], '_blank');
                                     }
@@ -321,6 +328,8 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                         };
 
                         for (var k in this.socialaccs) {
+                            var buttonstyle;
+
                             _loop(k);
                         }
                         var settingsclass;
@@ -347,7 +356,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                         } else {
                             items.add('moderate social-button', Badge.component({
                                 type: "social social-settings",
-                                icon: "cog",
+                                icon: "minus",
                                 label: "moderate", //TRANS
                                 onclick: function onclick() {
                                     app.modal.show(new SocialButtonsModal());
