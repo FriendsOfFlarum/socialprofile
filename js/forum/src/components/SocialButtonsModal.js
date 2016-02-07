@@ -54,7 +54,7 @@ export default class SocialButtonsModal extends Modal {
           var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
             if(urlpattern.test(this.buttons[k].url())) {
               var iconurl = (this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
-              var iconstyle = '.social-favicon-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+              var iconstyle = 'a > .social-favicon-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
               this.buttons[k].favicon(iconurl);
               this.buttons[k].color('transparent');
               this.buttons[k].iconstyle(iconstyle);
@@ -147,7 +147,7 @@ export default class SocialButtonsModal extends Modal {
                                 'btn-group': button.index(),
                                 className: 'form-control icp icp-dd btn btn-primary dropdown-toggle',
                                 id: 'social-favicon-'+button.index(),
-                                'data-selected': 'fa-'+button.icon(),
+                                'data-selected': (button.favicon() != 'none' ? button.icon().replace('fa-', '') : "fa-"+button.icon()),
                                 'data-toggle': 'dropdown'
                               }, [
                                 m('span', {className: 'caret'}),
@@ -163,7 +163,7 @@ export default class SocialButtonsModal extends Modal {
                                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                                 if(urlpattern.test(button.url())) {
                                   var iconurl = (button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
-                                  var iconstyle = '.social-favicon-'+button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+                                  var iconstyle = 'a > .social-favicon-'+button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
                                   button.iconstyle(iconstyle);
                                   button.favicon(iconurl);
                                   button.color('transparent');

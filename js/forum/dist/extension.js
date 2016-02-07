@@ -73,7 +73,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                 if (urlpattern.test(_this.buttons[k].url())) {
                   var iconurl = _this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                  var iconstyle = '.social-favicon-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+                  var iconstyle = 'a > .social-favicon-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
                   _this.buttons[k].favicon(iconurl);
                   _this.buttons[k].color('transparent');
                   _this.buttons[k].iconstyle(iconstyle);
@@ -159,7 +159,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 'btn-group': button.index(),
                 className: 'form-control icp icp-dd btn btn-primary dropdown-toggle',
                 id: 'social-favicon-' + button.index(),
-                'data-selected': 'fa-' + button.icon(),
+                'data-selected': button.favicon() != 'none' ? button.icon().replace('fa-', '') : "fa-" + button.icon(),
                 'data-toggle': 'dropdown'
               }, [m('span', { className: 'caret' }), m('span', { className: 'sr-only' }, ['Toggle Dropdown'])]), m('div', { className: 'social-dropdown-menu' })]), m('input', { className: 'SocialFormControl Socialurl',
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
@@ -169,7 +169,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                   var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                   if (urlpattern.test(button.url())) {
                     var iconurl = button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    var iconstyle = '.social-favicon-' + button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+                    var iconstyle = 'a > .social-favicon-' + button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
                     button.iconstyle(iconstyle);
                     button.favicon(iconurl);
                     button.color('transparent');

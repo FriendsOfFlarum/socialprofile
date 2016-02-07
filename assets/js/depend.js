@@ -797,7 +797,7 @@
             if (this.hasComponent()) {
                 var a = this.component.find("i");
                 if (a.length > 0) {
-                    a.attr("class", this.options.fullClassFormatter(this.iconpickerValue));
+                    a.attr("class", this.options.fullClassFormatter(this.iconpickerValue) + ' fa-fw');
                 } else {
                     this.component.html(this.getHtml());
                 }
