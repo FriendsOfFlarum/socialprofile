@@ -29,8 +29,6 @@ app.initializers.add('davis-socialprofile-forum', function() {
     });
     
     extend(UserCard.prototype, 'infoItems', function(items) {
-        // If request hasn't loaded yet, don't add any items.
-        if (!this.socialaccs) return;
         
         $('.EditSocialButtons-save').click(()=>{
           var theuser = this.props.user;
@@ -52,6 +50,8 @@ app.initializers.add('davis-socialprofile-forum', function() {
             m.redraw();
           });
         });
+        // If request hasn't loaded yet, don't add any items.
+        if (!this.socialaccs) return;
         
         if (!this.newuser) {
         for (const k in this.socialaccs) {

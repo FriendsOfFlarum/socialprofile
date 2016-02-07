@@ -75,7 +75,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                   _this.buttons[k].icon('fa-social-favicon-' + _this.buttons[k].index());
                 }
                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                if (urlpattern.test(_this.buttons[k].url())) {
+                if (urlpattern.test(_this.buttons[k].url().toLowerCase())) {
                   var iconurl = _this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
                   var iconstyle = 'a > .social-favicon-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
                   _this.buttons[k].iconstyle(iconstyle);
@@ -308,9 +308,6 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                 extend(UserCard.prototype, 'infoItems', function (items) {
                     var _this2 = this;
 
-                    // If request hasn't loaded yet, don't add any items.
-                    if (!this.socialaccs) return;
-
                     $('.EditSocialButtons-save').click(function () {
                         var theuser = _this2.props.user;
                         var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + theuser.data.id;
@@ -331,6 +328,8 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                             m.redraw();
                         });
                     });
+                    // If request hasn't loaded yet, don't add any items.
+                    if (!this.socialaccs) return;
 
                     if (!this.newuser) {
                         var _loop = function (k) {

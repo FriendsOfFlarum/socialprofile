@@ -56,7 +56,7 @@ export default class SocialButtonsModal extends Modal {
             this.buttons[k].icon('fa-social-favicon-'+this.buttons[k].index());
           }
           var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-          if(urlpattern.test(this.buttons[k].url())) {
+          if(urlpattern.test(this.buttons[k].url().toLowerCase())) {
             var iconurl = (this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
             var iconstyle = 'a > .social-favicon-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
             this.buttons[k].iconstyle(iconstyle);
