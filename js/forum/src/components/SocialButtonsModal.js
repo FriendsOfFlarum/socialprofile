@@ -17,7 +17,7 @@ export default class SocialButtonsModal extends Modal {
             this.buttons[0].index = m.prop(0);
             this.buttons[0].iconstyle = m.prop("");
             this.buttons[0].color = m.prop("white");
-            this.buttons[0].favicon = m.prop("");
+            this.buttons[0].favicon = m.prop("none");
             this.buttons[0].title = m.prop("");
             this.buttons[0].url = m.prop("");
             this.buttons[0].icon = m.prop("globe");
@@ -44,7 +44,7 @@ export default class SocialButtonsModal extends Modal {
             this.buttons[0].index = m.prop(0);
             this.buttons[0].iconstyle = m.prop("");
             this.buttons[0].color = m.prop("white");
-            this.buttons[0].favicon = m.prop("");
+            this.buttons[0].favicon = m.prop("none");
             this.buttons[0].title = m.prop("");
             this.buttons[0].url = m.prop("");
             this.buttons[0].icon = m.prop("globe");
@@ -201,7 +201,7 @@ export default class SocialButtonsModal extends Modal {
                           this.buttons[curadd] = {};
                           this.buttons[curadd].index = m.prop(curadd);
                           this.buttons[curadd].title = m.prop("");
-                          this.buttons[curadd].favicon = m.prop("");
+                          this.buttons[curadd].favicon = m.prop("none");
                           this.buttons[curadd].iconstyle = m.prop("");
                           this.buttons[curadd].color = m.prop("");
                           this.buttons[curadd].url = m.prop("");

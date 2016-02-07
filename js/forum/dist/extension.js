@@ -36,7 +36,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                   _this.buttons[0].index = m.prop(0);
                   _this.buttons[0].iconstyle = m.prop("");
                   _this.buttons[0].color = m.prop("white");
-                  _this.buttons[0].favicon = m.prop("");
+                  _this.buttons[0].favicon = m.prop("none");
                   _this.buttons[0].title = m.prop("");
                   _this.buttons[0].url = m.prop("");
                   _this.buttons[0].icon = m.prop("globe");
@@ -63,7 +63,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 _this.buttons[0].index = m.prop(0);
                 _this.buttons[0].iconstyle = m.prop("");
                 _this.buttons[0].color = m.prop("white");
-                _this.buttons[0].favicon = m.prop("");
+                _this.buttons[0].favicon = m.prop("none");
                 _this.buttons[0].title = m.prop("");
                 _this.buttons[0].url = m.prop("");
                 _this.buttons[0].icon = m.prop("globe");
@@ -199,7 +199,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 _this2.buttons[curadd] = {};
                 _this2.buttons[curadd].index = m.prop(curadd);
                 _this2.buttons[curadd].title = m.prop("");
-                _this2.buttons[curadd].favicon = m.prop("");
+                _this2.buttons[curadd].favicon = m.prop("none");
                 _this2.buttons[curadd].iconstyle = m.prop("");
                 _this2.buttons[curadd].color = m.prop("");
                 _this2.buttons[curadd].url = m.prop("");
