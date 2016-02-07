@@ -99,7 +99,7 @@ export default class SocialButtonsModal extends Modal {
                     $('#icon'+btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
                     if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-'+this.buttons[btn_group].index()) {
                         var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                        if(urlpattern.test(this.buttons[btn_group].url())) {
+                        if(urlpattern.test(this.buttons[btn_group].url().toLowerCase())) {
                           var iconurl = (this.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
                           this.buttons[btn_group].favicon(iconurl);
                           this.buttons[btn_group].color('transparent');
@@ -162,13 +162,14 @@ export default class SocialButtonsModal extends Modal {
                               oninput: m.withAttr('value', (value) => {
                                 button.url(value);
                                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                                if(urlpattern.test(button.url())) {
+                                if(urlpattern.test(button.url().toLowerCase())) {
                                   var iconurl = (button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
                                   var iconstyle = 'a > .social-favicon-'+button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
                                   button.iconstyle(iconstyle);
                                   button.favicon(iconurl);
                                   button.color('transparent');
                                   button.icon('fa-social-favicon-'+button.index());
+                                  $('#social-favicon-'+button.index()).attr('data-selected', button.icon().replace('fa-', '')).change();
                                 }
                               }),
                             }),
