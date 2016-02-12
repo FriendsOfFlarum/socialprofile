@@ -267,7 +267,7 @@ export default class SocialButtonsModal extends Modal {
           data
       }).then(
           () => {
-            $('#app').trigger("refreshsocialbuttons", [this.finbuttons]);
+            $('#app').trigger("refreshSocialButtons", [this.finbuttons]);
             this.hide();
           },
           response => {

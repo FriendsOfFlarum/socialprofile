@@ -33,18 +33,18 @@ app.initializers.add('davis-socialprofile-forum', function() {
         user.freshness = new Date(); //Tell Mithril we have new data
         m.redraw(); //Refresh the DOM
       });
-    });
-    
-    extend(UserCard.prototype, 'infoItems', function(items) {
-        
-        //If the buttons have been edited, we need to refresh them
-        $('#app').on('refreshsocialbuttons', (e, buttons)=>{
+      
+      //If the buttons have been edited, we need to refresh them
+        $('#app').on('refreshSocialButtons', (e, buttons)=>{
             var user = this.props.user; //Then is our user
             this.buttonsArray = JSON.parse(buttons); //Parse the saved array from editing
             this.isBlankSlate = false; //Indicate we do really have buttons
             user.freshness = new Date(); //Tell Mithril we have new data
             m.redraw(); //Refresh DOM
         });
+    });
+    
+    extend(UserCard.prototype, 'infoItems', function(items) {
         
         // If request hasn't loaded yet, don't add any items.
         if (!this.buttonsArray) return;

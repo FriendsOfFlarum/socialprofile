@@ -259,7 +259,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               },
               data: data
             }).then(function () {
-              $('#app').trigger("refreshsocialbuttons", [_this3.finbuttons]);
+              $('#app').trigger("refreshSocialButtons", [_this3.finbuttons]);
               _this3.hide();
             }, function (response) {
               _this3.loading = false;
@@ -322,19 +322,19 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                         user.freshness = new Date(); //Tell Mithril we have new data
                         m.redraw(); //Refresh the DOM
                     });
+
+                    //If the buttons have been edited, we need to refresh them
+                    $('#app').on('refreshSocialButtons', function (e, buttons) {
+                        var user = _this.props.user; //Then is our user
+                        _this.buttonsArray = JSON.parse(buttons); //Parse the saved array from editing
+                        _this.isBlankSlate = false; //Indicate we do really have buttons
+                        user.freshness = new Date(); //Tell Mithril we have new data
+                        m.redraw(); //Refresh DOM
+                    });
                 });
 
                 extend(UserCard.prototype, 'infoItems', function (items) {
                     var _this2 = this;
-
-                    //If the buttons have been edited, we need to refresh them
-                    $('#app').on('refreshsocialbuttons', function (e, buttons) {
-                        var user = _this2.props.user; //Then is our user
-                        _this2.buttonsArray = JSON.parse(buttons); //Parse the saved array from editing
-                        _this2.isBlankSlate = false; //Indicate we do really have buttons
-                        user.freshness = new Date(); //Tell Mithril we have new data
-                        m.redraw(); //Refresh DOM
-                    });
 
                     // If request hasn't loaded yet, don't add any items.
                     if (!this.buttonsArray) return;
