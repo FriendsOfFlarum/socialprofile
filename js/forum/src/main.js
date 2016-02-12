@@ -24,32 +24,21 @@ app.initializers.add('davis-socialprofile-forum', function() {
             this.socialaccs = true;
             this.newuser = true;
         }
+        theuser.freshness = new Date();
         m.redraw();
       });
     });
     
     extend(UserCard.prototype, 'infoItems', function(items) {
         
-        $('.EditSocialButtons-save').click(()=>{
-          var theuser = this.props.user;
-          var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+theuser.data.id;
-          this.socialaccs = null;
-          app.request({method: "GET", url: theurl}).then(result => {
-            if(result.data.attributes.hasOwnProperty("buttons")) {
-                if (result.data.attributes.buttons == "[]") {
-                    this.socialaccs = true;
-                    this.newuser = true;
-                } else {
-                this.socialaccs = JSON.parse(result.data.attributes.buttons);
-                this.newuser = false;
-                }
-            } else {
-                this.socialaccs = true;
-                this.newuser = true;
-            }
+        $('#app').on('refreshsocialbuttons', (e, buttons)=>{
+            var theuser = this.props.user;
+            this.socialaccs = JSON.parse(buttons);
+            this.newuser = false;
+            theuser.freshness = new Date();
             m.redraw();
-          });
         });
+        
         // If request hasn't loaded yet, don't add any items.
         if (!this.socialaccs) return;
         
@@ -63,7 +52,11 @@ app.initializers.add('davis-socialprofile-forum', function() {
                 } else {
                     buttonstyle = 'background-image: url("'+curaccount['favicon']+'");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
                 }
-                items.add(curaccount["icon"] + '-' + k + ' social-button', Badge.component({
+                var buttonClassExtras = "";
+                if (/social-favicon-grey-\d/.test(curaccount['icon'])) {
+                    buttonClassExtras = "social-greyscale-button";
+                }
+                items.add(curaccount["icon"] + '-' + k + ' social-button '+buttonClassExtras , Badge.component({
                     type: "social social-icon-"+k,
                     icon: curaccount["icon"],
                     label: curaccount["title"],

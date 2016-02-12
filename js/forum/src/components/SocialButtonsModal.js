@@ -58,7 +58,7 @@ export default class SocialButtonsModal extends Modal {
           var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
           if(urlpattern.test(this.buttons[k].url().toLowerCase())) {
             var iconurl = (this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
-            var iconstyle = 'a > .social-favicon-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+            var iconstyle = 'a > .social-favicon-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-'+this.buttons[k].index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
             this.buttons[k].iconstyle(iconstyle);
           }
         }
@@ -89,20 +89,31 @@ export default class SocialButtonsModal extends Modal {
                 });
                 for(var k in this.buttons) {
                   $('#social-favicon-'+this.buttons[k].index()).iconpicker({ 
-                        icons:['social-favicon-'+this.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play' ],
+                        icons:['social-favicon-'+this.buttons[k].index(), 'social-favicon-grey-'+this.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play' ],
                         hideOnSelect: true,
                         title: "Displayed Icon",
-                    });
+                  });
+                  console.log(this.buttons[k].icon());
+                  if (/social-favicon-grey-\d/.test(this.buttons[k].icon())) {
+                            $('.button-'+k).addClass('social-greyscale-button');
+                          } else {
+                            $('.button-'+k).removeClass('social-greyscale-button');
+                          }
                 }
                 $('.icp').on('iconpickerSelected', (e) => {
                     var btn_group = /btn-group="(\d+)"/.exec(e.target.outerHTML)[1];
                     $('#icon'+btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
-                    if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-'+this.buttons[btn_group].index()) {
+                    if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-'+this.buttons[btn_group].index() || e.iconpickerValue.replace("fa-", "") == 'social-favicon-grey-'+this.buttons[btn_group].index()) {
                         var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                         if(urlpattern.test(this.buttons[btn_group].url().toLowerCase())) {
                           var iconurl = (this.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
                           this.buttons[btn_group].favicon(iconurl);
                           this.buttons[btn_group].color('transparent');
+                          if (/social-favicon-grey-\d/.test(e.iconpickerValue.replace("fa-", ""))) {
+                            $('.button-'+btn_group).addClass('social-greyscale-button');
+                          } else {
+                            $('.button-'+btn_group).removeClass('social-greyscale-button');
+                          }
                       }
                     } else {
                       this.buttons[btn_group].favicon('none');
@@ -130,7 +141,7 @@ export default class SocialButtonsModal extends Modal {
                               m('null', {className: 'action-create'}),
                               m('button', {type: 'button',
                                 tabindex: '-1',
-                                className: 'btn btn-primary2 iconpicker-component',
+                                className: 'btn btn-primary2 iconpicker-component button-'+button.index(),
                                 style: {
                                   'background-image': (button.favicon() != 'none' ? "url("+button.favicon()+')' : "none"), 
                                   'background-position': 'center',
@@ -164,7 +175,7 @@ export default class SocialButtonsModal extends Modal {
                                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                                 if(urlpattern.test(button.url().toLowerCase())) {
                                   var iconurl = (button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
-                                  var iconstyle = 'a > .social-favicon-'+button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+                                  var iconstyle = 'a > .social-favicon-'+button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-'+button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
                                   button.iconstyle(iconstyle);
                                   button.favicon(iconurl);
                                   button.color('transparent');
@@ -255,7 +266,10 @@ export default class SocialButtonsModal extends Modal {
           serialize: raw => raw,
           data
       }).then(
-          () => this.hide(),
+          () => {
+            $('#app').trigger("refreshsocialbuttons", [this.finbuttons]);
+            this.hide();
+          },
           response => {
             this.loading = false;
             this.handleErrors(response);

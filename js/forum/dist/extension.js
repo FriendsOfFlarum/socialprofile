@@ -77,7 +77,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                 if (urlpattern.test(_this.buttons[k].url().toLowerCase())) {
                   var iconurl = _this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                  var iconstyle = 'a > .social-favicon-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+                  var iconstyle = 'a > .social-favicon-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
                   _this.buttons[k].iconstyle(iconstyle);
                 }
               }
@@ -113,20 +113,31 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               });
               for (var k in _this2.buttons) {
                 $('#social-favicon-' + _this2.buttons[k].index()).iconpicker({
-                  icons: ['social-favicon-' + _this2.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play'],
+                  icons: ['social-favicon-' + _this2.buttons[k].index(), 'social-favicon-grey-' + _this2.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play'],
                   hideOnSelect: true,
                   title: "Displayed Icon"
                 });
+                console.log(_this2.buttons[k].icon());
+                if (/social-favicon-grey-\d/.test(_this2.buttons[k].icon())) {
+                  $('.button-' + k).addClass('social-greyscale-button');
+                } else {
+                  $('.button-' + k).removeClass('social-greyscale-button');
+                }
               }
               $('.icp').on('iconpickerSelected', function (e) {
                 var btn_group = /btn-group="(\d+)"/.exec(e.target.outerHTML)[1];
                 $('#icon' + btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
-                if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-' + _this2.buttons[btn_group].index()) {
+                if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-' + _this2.buttons[btn_group].index() || e.iconpickerValue.replace("fa-", "") == 'social-favicon-grey-' + _this2.buttons[btn_group].index()) {
                   var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                   if (urlpattern.test(_this2.buttons[btn_group].url().toLowerCase())) {
                     var iconurl = _this2.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
                     _this2.buttons[btn_group].favicon(iconurl);
                     _this2.buttons[btn_group].color('transparent');
+                    if (/social-favicon-grey-\d/.test(e.iconpickerValue.replace("fa-", ""))) {
+                      $('.button-' + btn_group).addClass('social-greyscale-button');
+                    } else {
+                      $('.button-' + btn_group).removeClass('social-greyscale-button');
+                    }
                   }
                 } else {
                   _this2.buttons[btn_group].favicon('none');
@@ -145,7 +156,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 oninput: m.withAttr('value', button.title)
               }), m('div', { className: 'btn-group' }, [m('null', { className: 'action-create' }), m('button', { type: 'button',
                 tabindex: '-1',
-                className: 'btn btn-primary2 iconpicker-component',
+                className: 'btn btn-primary2 iconpicker-component button-' + button.index(),
                 style: {
                   'background-image': button.favicon() != 'none' ? "url(" + button.favicon() + ')' : "none",
                   'background-position': 'center',
@@ -170,7 +181,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                   var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                   if (urlpattern.test(button.url().toLowerCase())) {
                     var iconurl = button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    var iconstyle = 'a > .social-favicon-' + button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}';
+                    var iconstyle = 'a > .social-favicon-' + button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-' + button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
                     button.iconstyle(iconstyle);
                     button.favicon(iconurl);
                     button.color('transparent');
@@ -248,7 +259,8 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               },
               data: data
             }).then(function () {
-              return _this3.hide();
+              $('#app').trigger("refreshsocialbuttons", [_this3.finbuttons]);
+              _this3.hide();
             }, function (response) {
               _this3.loading = false;
               _this3.handleErrors(response);
@@ -301,6 +313,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                             _this.socialaccs = true;
                             _this.newuser = true;
                         }
+                        theuser.freshness = new Date();
                         m.redraw();
                     });
                 });
@@ -308,26 +321,14 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                 extend(UserCard.prototype, 'infoItems', function (items) {
                     var _this2 = this;
 
-                    $('.EditSocialButtons-save').click(function () {
+                    $('#app').on('refreshsocialbuttons', function (e, buttons) {
                         var theuser = _this2.props.user;
-                        var theurl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + theuser.data.id;
-                        _this2.socialaccs = null;
-                        app.request({ method: "GET", url: theurl }).then(function (result) {
-                            if (result.data.attributes.hasOwnProperty("buttons")) {
-                                if (result.data.attributes.buttons == "[]") {
-                                    _this2.socialaccs = true;
-                                    _this2.newuser = true;
-                                } else {
-                                    _this2.socialaccs = JSON.parse(result.data.attributes.buttons);
-                                    _this2.newuser = false;
-                                }
-                            } else {
-                                _this2.socialaccs = true;
-                                _this2.newuser = true;
-                            }
-                            m.redraw();
-                        });
+                        _this2.socialaccs = JSON.parse(buttons);
+                        _this2.newuser = false;
+                        theuser.freshness = new Date();
+                        m.redraw();
                     });
+
                     // If request hasn't loaded yet, don't add any items.
                     if (!this.socialaccs) return;
 
@@ -340,7 +341,12 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                                 } else {
                                     buttonstyle = 'background-image: url("' + curaccount['favicon'] + '");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
                                 }
-                                items.add(curaccount["icon"] + '-' + k + ' social-button', Badge.component({
+                                buttonClassExtras = "";
+
+                                if (/social-favicon-grey-\d/.test(curaccount['icon'])) {
+                                    buttonClassExtras = "social-greyscale-button";
+                                }
+                                items.add(curaccount["icon"] + '-' + k + ' social-button ' + buttonClassExtras, Badge.component({
                                     type: "social social-icon-" + k,
                                     icon: curaccount["icon"],
                                     label: curaccount["title"],
@@ -354,6 +360,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
 
                         for (var k in this.socialaccs) {
                             var buttonstyle;
+                            var buttonClassExtras;
 
                             _loop(k);
                         }
