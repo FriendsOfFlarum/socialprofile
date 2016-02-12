@@ -341,7 +341,6 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                                 //If the button is using a favicon, make sure it is displayed
                                 if (selectedButton['favicon'] !== 'none') {
                                     buttonStyle = 'background-image: url("' + selectedButton['favicon'] + '");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
-
                                     //If the favicon is set to greyscale, make sure it is displayed
                                     if (/social-favicon-grey-\d/.test(selectedButton['icon'])) {
                                         buttonClass = selectedButton["icon"] + '-' + k + ' social-button social-greyscale-button';
@@ -349,7 +348,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                                         buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
                                     }
                                 } else {
-                                    buttonsStyle = '';
+                                    buttonStyle = '';
                                     buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
                                 }
                                 //Acctually add the button
@@ -367,11 +366,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
 
                         //Loop through the buttonsArray
                         for (var k in this.buttonsArray) {
-                            var buttonStyle;
-                            var buttonClass;
-                            var buttonClass;
-                            var buttonsStyle;
-                            var buttonClass;
+                            var buttonStyle, buttonClass;
 
                             _loop(k);
                         }

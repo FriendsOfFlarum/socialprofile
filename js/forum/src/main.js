@@ -56,18 +56,19 @@ app.initializers.add('davis-socialprofile-forum', function() {
                 const selectedButton = this.buttonsArray[k]; //Set constant for easier selection
                 //Ensure the button has a title, icon, and url
                 if (selectedButton["title"] !== "" && selectedButton["icon"] !== "" && selectedButton["url"] !== "") {
+                    var buttonStyle, buttonClass;
                     //If the button is using a favicon, make sure it is displayed
                     if (selectedButton['favicon'] !== 'none') {
-                        var buttonStyle = 'background-image: url("'+selectedButton['favicon']+'");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
+                        buttonStyle = 'background-image: url("'+selectedButton['favicon']+'");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
                         //If the favicon is set to greyscale, make sure it is displayed
                         if (/social-favicon-grey-\d/.test(selectedButton['icon'])) {
-                            var buttonClass = selectedButton["icon"] + '-' + k + ' social-button social-greyscale-button';
+                            buttonClass = selectedButton["icon"] + '-' + k + ' social-button social-greyscale-button';
                         } else {
-                            var buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
+                            buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
                         }
                     } else {
-                        var buttonsStyle = '';
-                        var buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
+                        buttonStyle = '';
+                        buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
                     }
                     //Acctually add the button
                     items.add(buttonClass , Badge.component({
