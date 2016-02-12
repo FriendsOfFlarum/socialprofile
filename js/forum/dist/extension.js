@@ -32,47 +32,26 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
             m.request({ method: "GET", url: url }).then(function (result) {
               if (result.data.attributes.hasOwnProperty("buttons")) {
                 if (result.data.attributes.buttons == "[]") {
-                  _this.buttons[0] = {};
-                  _this.buttons[0].index = m.prop(0);
-                  _this.buttons[0].iconstyle = m.prop("");
-                  _this.buttons[0].color = m.prop("white");
-                  _this.buttons[0].favicon = m.prop("none");
-                  _this.buttons[0].title = m.prop("");
-                  _this.buttons[0].url = m.prop("");
-                  _this.buttons[0].icon = m.prop("globe");
+                  _this.createButtonObject(0);
                   _this.numberofinputs = 0;
                 } else {
                   _this.socialaccs = JSON.parse(result.data.attributes.buttons);
                   _this.buttons = [];
                   for (var k in _this.socialaccs) {
                     if (_this.socialaccs[k]['title'] != "") {
-                      _this.buttons[k] = {};
-                      _this.buttons[k].index = m.prop(k);
-                      _this.buttons[k].iconstyle = m.prop();
-                      _this.buttons[k].color = m.prop("white");
-                      _this.buttons[k].favicon = m.prop(_this.socialaccs[k]["favicon"] || "none");
-                      _this.buttons[k].title = m.prop(_this.socialaccs[k]["title"] || "");
-                      _this.buttons[k].url = m.prop(_this.socialaccs[k]["url"] || "");
-                      _this.buttons[k].icon = m.prop(_this.socialaccs[k]["icon"] || "globe");
+                      var button = _this.socialaccs[k];
+                      _this.createButtonObject(k, button);
                       _this.numberofinputs = k;
                     }
                   }
                 }
               } else {
-                _this.buttons[0] = {};
-                _this.buttons[0].index = m.prop(0);
-                _this.buttons[0].iconstyle = m.prop("");
-                _this.buttons[0].color = m.prop("white");
-                _this.buttons[0].favicon = m.prop("none");
-                _this.buttons[0].title = m.prop("");
-                _this.buttons[0].url = m.prop("");
-                _this.buttons[0].icon = m.prop("globe");
+                _this.createButtonObject(0);
                 _this.numberofinputs = 0;
               }
               for (var k in _this.buttons) {
                 if (_this.buttons[k].favicon() != 'none') {
                   _this.buttons[k].color('transparent');
-                  _this.buttons[k].icon('fa-social-favicon-' + _this.buttons[k].index());
                 }
                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                 if (urlpattern.test(_this.buttons[k].url().toLowerCase())) {
@@ -117,7 +96,6 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                   hideOnSelect: true,
                   title: "Displayed Icon"
                 });
-                console.log(_this2.buttons[k].icon());
                 if (/social-favicon-grey-\d/.test(_this2.buttons[k].icon())) {
                   $('.button-' + k).addClass('social-greyscale-button');
                 } else {
@@ -265,6 +243,21 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               _this3.loading = false;
               _this3.handleErrors(response);
             });
+          }
+        }, {
+          key: 'createButtonObject',
+          value: function createButtonObject(key) {
+            var button = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+            this.buttons[key] = {};
+            this.buttons[key].index = m.prop(key);
+            this.buttons[key].iconstyle = m.prop();
+            this.buttons[key].color = m.prop("white");
+            this.buttons[key].favicon = m.prop(button["favicon"] || "none");
+            this.buttons[key].title = m.prop(button["title"] || "");
+            this.buttons[key].url = m.prop(button["url"] || "");
+            this.buttons[key].icon = m.prop(button["icon"] || "globe");
+            this.numberofinputs = key;
           }
         }]);
         return SocialButtonsModal;

@@ -13,47 +13,26 @@ export default class SocialButtonsModal extends Modal {
       m.request({method: "GET", url: url}).then(result => {
         if(result.data.attributes.hasOwnProperty("buttons")) {
           if(result.data.attributes.buttons == "[]"){
-            this.buttons[0] = {};
-            this.buttons[0].index = m.prop(0);
-            this.buttons[0].iconstyle = m.prop("");
-            this.buttons[0].color = m.prop("white");
-            this.buttons[0].favicon = m.prop("none");
-            this.buttons[0].title = m.prop("");
-            this.buttons[0].url = m.prop("");
-            this.buttons[0].icon = m.prop("globe");
+            this.createButtonObject(0);
             this.numberofinputs = 0;
           } else {
             this.socialaccs = JSON.parse(result.data.attributes.buttons);
             this.buttons = [];
             for(var k in this.socialaccs) {
               if(this.socialaccs[k]['title'] != "") {
-                this.buttons[k] = {};
-                this.buttons[k].index = m.prop(k);
-                this.buttons[k].iconstyle = m.prop();
-                this.buttons[k].color = m.prop("white");
-                this.buttons[k].favicon = m.prop(this.socialaccs[k]["favicon"] || "none");
-                this.buttons[k].title = m.prop(this.socialaccs[k]["title"] || "");
-                this.buttons[k].url = m.prop(this.socialaccs[k]["url"] || "");
-                this.buttons[k].icon = m.prop(this.socialaccs[k]["icon"] || "globe");
+                const button = this.socialaccs[k];
+                this.createButtonObject(k, button);
                 this.numberofinputs = k;
               }
             }
           }
         } else {
-            this.buttons[0] = {};
-            this.buttons[0].index = m.prop(0);
-            this.buttons[0].iconstyle = m.prop("");
-            this.buttons[0].color = m.prop("white");
-            this.buttons[0].favicon = m.prop("none");
-            this.buttons[0].title = m.prop("");
-            this.buttons[0].url = m.prop("");
-            this.buttons[0].icon = m.prop("globe");
+            this.createButtonObject(0);
             this.numberofinputs = 0;
         }
         for(var k in this.buttons) {
           if (this.buttons[k].favicon() != 'none') {
             this.buttons[k].color('transparent');
-            this.buttons[k].icon('fa-social-favicon-'+this.buttons[k].index());
           }
           var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
           if(urlpattern.test(this.buttons[k].url().toLowerCase())) {
@@ -93,7 +72,6 @@ export default class SocialButtonsModal extends Modal {
                         hideOnSelect: true,
                         title: "Displayed Icon",
                   });
-                  console.log(this.buttons[k].icon());
                   if (/social-favicon-grey-\d/.test(this.buttons[k].icon())) {
                             $('.button-'+k).addClass('social-greyscale-button');
                           } else {
@@ -276,5 +254,17 @@ export default class SocialButtonsModal extends Modal {
           }
       );
 
+  }
+  
+  createButtonObject(key, button = null) {
+    this.buttons[key] = {};
+    this.buttons[key].index = m.prop(key);
+    this.buttons[key].iconstyle = m.prop();
+    this.buttons[key].color = m.prop("white");
+    this.buttons[key].favicon = m.prop(button["favicon"] || "none");
+    this.buttons[key].title = m.prop(button["title"] || "");
+    this.buttons[key].url = m.prop(button["url"] || "");
+    this.buttons[key].icon = m.prop(button["icon"] || "globe");
+    this.numberofinputs = key;
   }
 }
