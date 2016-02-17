@@ -7,14 +7,13 @@ export default class SocialButtonsModal extends Modal {
     
     super.init();
 
-    const curuserid = app.current.user.data.id;
-    var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+curuserid;
-      this.socialaccs = null;
-      m.request({method: "GET", url: url}).then(result => {
+    const userId = app.current.user.data.id;
+    var apiUrl = app.forum.attribute('apiUrl') + '/profile/socialbutton/'+userId;
+    this.buttonsArray = null;
+      m.request({method: "GET", url: apiUrl}).then(result => {
         if(result.data.attributes.hasOwnProperty("buttons")) {
           if(result.data.attributes.buttons == "[]"){
             this.createButtonObject(0);
-            this.numberofinputs = 0;
           } else {
             this.socialaccs = JSON.parse(result.data.attributes.buttons);
             this.buttons = [];
@@ -257,13 +256,20 @@ export default class SocialButtonsModal extends Modal {
   }
   
   createButtonObject(key, button = null) {
+    if (button == null) {
+      button = {};
+      button['favicon'] = '';
+      button['title'] = '';
+      button['url'] = '';
+      button['icon'] = '';
+    }
     this.buttons[key] = {};
     this.buttons[key].index = m.prop(key);
     this.buttons[key].iconstyle = m.prop();
-    this.buttons[key].color = m.prop("white");
+    this.buttons[key].color = m.prop('white');
     this.buttons[key].favicon = m.prop(button["favicon"] || "none");
-    this.buttons[key].title = m.prop(button["title"] || "");
-    this.buttons[key].url = m.prop(button["url"] || "");
+    this.buttons[key].title = m.prop(button["title"]);
+    this.buttons[key].url = m.prop(button["url"]);
     this.buttons[key].icon = m.prop(button["icon"] || "globe");
     this.numberofinputs = key;
   }

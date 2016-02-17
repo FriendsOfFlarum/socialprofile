@@ -26,14 +26,13 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
 
             babelHelpers.get(Object.getPrototypeOf(SocialButtonsModal.prototype), 'init', this).call(this);
 
-            var curuserid = app.current.user.data.id;
-            var url = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + curuserid;
-            this.socialaccs = null;
-            m.request({ method: "GET", url: url }).then(function (result) {
+            var userId = app.current.user.data.id;
+            var apiUrl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + userId;
+            this.buttonsArray = null;
+            m.request({ method: "GET", url: apiUrl }).then(function (result) {
               if (result.data.attributes.hasOwnProperty("buttons")) {
                 if (result.data.attributes.buttons == "[]") {
                   _this.createButtonObject(0);
-                  _this.numberofinputs = 0;
                 } else {
                   _this.socialaccs = JSON.parse(result.data.attributes.buttons);
                   _this.buttons = [];
@@ -249,13 +248,20 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
           value: function createButtonObject(key) {
             var button = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
+            if (button == null) {
+              button = {};
+              button['favicon'] = '';
+              button['title'] = '';
+              button['url'] = '';
+              button['icon'] = '';
+            }
             this.buttons[key] = {};
             this.buttons[key].index = m.prop(key);
             this.buttons[key].iconstyle = m.prop();
-            this.buttons[key].color = m.prop("white");
+            this.buttons[key].color = m.prop('white');
             this.buttons[key].favicon = m.prop(button["favicon"] || "none");
-            this.buttons[key].title = m.prop(button["title"] || "");
-            this.buttons[key].url = m.prop(button["url"] || "");
+            this.buttons[key].title = m.prop(button["title"]);
+            this.buttons[key].url = m.prop(button["url"]);
             this.buttons[key].icon = m.prop(button["icon"] || "globe");
             this.numberofinputs = key;
           }
