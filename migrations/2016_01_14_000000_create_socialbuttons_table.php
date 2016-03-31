@@ -1,18 +1,13 @@
 <?php namespace Davis\SocialProfile\Migration;
-use Flarum\Database\AbstractMigration;
+
+use Flarum\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
-class CreateSocialbuttonsTable extends AbstractMigration
-{
-    public function up()
-    {
-        $this->schema->create('socialbuttons', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->longText('buttons');
-        });
+
+return Migration::createTable(
+    'socialbuttons',
+    function (Blueprint $table) {
+        $table->increments('id');
+        $table->integer('user_id')->unsigned();
+        $table->longText('buttons');
     }
-    public function down()
-    {
-        $this->schema->drop('socialbuttons');
-    }
-}
+);
