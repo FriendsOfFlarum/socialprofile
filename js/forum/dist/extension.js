@@ -1,86 +1,7 @@
-System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum/components/Dropdown', 'flarum/utils/ItemList', 'flarum/helpers/icon'], function (_export) {
+System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string'], function (_export) {
   'use strict';
 
-  var Dropdown, ItemList, icon, IconSelectorComponent;
-  return {
-    setters: [function (_flarumComponentsDropdown) {
-      Dropdown = _flarumComponentsDropdown['default'];
-    }, function (_flarumUtilsItemList) {
-      ItemList = _flarumUtilsItemList['default'];
-    }, function (_flarumHelpersIcon) {
-      icon = _flarumHelpersIcon['default'];
-    }],
-    execute: function () {
-      IconSelectorComponent = (function (_Dropdown) {
-        babelHelpers.inherits(IconSelectorComponent, _Dropdown);
-
-        function IconSelectorComponent() {
-          babelHelpers.classCallCheck(this, IconSelectorComponent);
-          babelHelpers.get(Object.getPrototypeOf(IconSelectorComponent.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        babelHelpers.createClass(IconSelectorComponent, [{
-          key: 'view',
-          value: function view() {
-            this.props.children = this.items().toArray();
-
-            return babelHelpers.get(Object.getPrototypeOf(IconSelectorComponent.prototype), 'view', this).call(this);
-          }
-        }, {
-          key: 'getButtonContent',
-          value: function getButtonContent() {
-            return [this.props.selection() ? icon(this.props.selection().replace('fa-', ''), {}) : '', this.props.caretIcon ? icon(this.props.caretIcon, { className: 'Button-caret' }) : ''];
-          }
-        }, {
-          key: 'items',
-          value: function items() {
-            var _this = this;
-
-            var items = new ItemList();
-
-            var icons = {
-              'social': ["fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play']
-            };
-
-            var _loop = function (k) {
-              highlighted = m.prop();
-
-              if (_this.props.selection() == icons['social'][k]) {
-                highlighted('iconpicker--highlighted');
-              }
-              items.add(icons['social'][k], m('div', { onclick: function onclick() {
-                  _this.props.selection(icons['social'][k]);m.redraw();
-                }, role: "button", href: "#", 'class': "iconpicker-item " + highlighted(), title: '.' + icons['social'][k] }, [icon(icons['social'][k].replace('fa-', ''), { className: 'social-icon' })]), 100);
-            };
-
-            for (var k in icons['social']) {
-              var highlighted;
-
-              _loop(k);
-            }
-            return items;
-          }
-        }], [{
-          key: 'initProps',
-          value: function initProps(props) {
-            babelHelpers.get(Object.getPrototypeOf(IconSelectorComponent), 'initProps', this).call(this, props);
-
-            props.className = 'icondropdown';
-            props.buttonClassName = 'Button Button--icon';
-            props.menuClassName = 'social-dropdown-menu';
-          }
-        }]);
-        return IconSelectorComponent;
-      })(Dropdown);
-
-      _export('default', IconSelectorComponent);
-    }
-  };
-});;
-System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string', 'Davis/SocialProfile/components/WebsiteInputComponent'], function (_export) {
-  'use strict';
-
-  var Modal, Button, slug, WebsiteInputComponent, SocialButtonsModal;
+  var Modal, Button, slug, SocialButtonsModal;
   return {
     setters: [function (_flarumComponentsModal) {
       Modal = _flarumComponentsModal['default'];
@@ -88,8 +9,6 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
       Button = _flarumComponentsButton['default'];
     }, function (_flarumUtilsString) {
       slug = _flarumUtilsString.slug;
-    }, function (_DavisSocialProfileComponentsWebsiteInputComponent) {
-      WebsiteInputComponent = _DavisSocialProfileComponentsWebsiteInputComponent['default'];
     }],
     execute: function () {
       SocialButtonsModal = (function (_Modal) {
@@ -207,9 +126,57 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               });
             });
             return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [m('i', { className: 'fa fa-spinner fa-spin fa-align-center', id: 'loading-main', style: { 'font-size': '3em', 'margin-left': '47%' } }), this.buttons.map(function (button) {
-              return [WebsiteInputComponent.component({
-                button: button
-              })];
+
+              return [m('div', { className: 'Form-group form-group-social', id: 'socialgroup' + button.index() }, [m('input', { className: 'SocialFormControl SocialTitle',
+                placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
+                value: button.title(),
+                oninput: m.withAttr('value', button.title)
+              }), m('div', { className: 'btn-group' }, [m('null', { className: 'action-create' }), m('button', { type: 'button',
+                tabindex: '-1',
+                className: 'btn btn-primary2 iconpicker-component button-' + button.index(),
+                style: {
+                  'background-image': button.favicon() != 'none' ? "url(" + button.favicon() + ')' : "none",
+                  'background-position': 'center',
+                  'background-repeat': 'no-repeat',
+                  'background-size': '50% auto'
+                }
+              }, [m('i', { className: 'fa fa-fw fa-' + button.icon(),
+                style: {
+                  'color': button.color()
+                }
+              })]), m('button', { type: 'button',
+                'btn-group': button.index(),
+                className: 'form-control icp icp-dd btn btn-primary dropdown-toggle',
+                id: 'social-favicon-' + button.index(),
+                'data-selected': button.favicon() != 'none' ? button.icon().replace('fa-', '') : "fa-" + button.icon(),
+                'data-toggle': 'dropdown'
+              }, [m('span', { className: 'caret' }), m('span', { className: 'sr-only' }, ['Toggle Dropdown'])]), m('div', { className: 'social-dropdown-menu' })]), m('input', { className: 'SocialFormControl Socialurl',
+                placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
+                value: button.url(),
+                oninput: m.withAttr('value', function (value) {
+                  button.url(value);
+                  var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+                  if (urlpattern.test(button.url().toLowerCase())) {
+                    var iconurl = button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
+                    var iconstyle = 'a > .social-favicon-' + button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-' + button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
+                    button.iconstyle(iconstyle);
+                    button.favicon(iconurl);
+                    button.color('transparent');
+                    button.icon('fa-social-favicon-' + button.index());
+                    $('#social-favicon-' + button.index()).attr('data-selected', button.icon().replace('fa-', '')).change();
+                  }
+                })
+              }), m('input', { className: 'SocialFormControl SocialIcon',
+                id: 'icon' + button.index(),
+                style: 'display: none',
+                value: button.icon(),
+                onchange: m.withAttr('value', button.icon)
+              }), m('input', { className: 'SocialFormControl Socialfavicon',
+                id: 'favicon' + button.index(),
+                style: 'display: none',
+                value: button.favicon(),
+                onchange: m.withAttr('value', button.favicon)
+              }), m('style', {}, button.iconstyle())])];
             }), m('div', { className: 'Form-group', id: 'submit-button-group' }, [Button.component({
               type: 'submit',
               className: 'Button Button--primary EditSocialButtons-save',
@@ -217,10 +184,19 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               children: app.translator.trans('davis-socialprofile.forum.edit.submit')
             }), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
               onclick: function onclick() {
-                _this2.createButtonObject(_this2.buttons.length);
+                var curadd = _this2.buttons.length;
+                _this2.buttons[curadd] = {};
+                _this2.buttons[curadd].index = m.prop(curadd);
+                _this2.buttons[curadd].title = m.prop("");
+                _this2.buttons[curadd].favicon = m.prop("none");
+                _this2.buttons[curadd].iconstyle = m.prop("");
+                _this2.buttons[curadd].color = m.prop("");
+                _this2.buttons[curadd].url = m.prop("");
+                _this2.buttons[curadd].icon = m.prop("globe");
+                _this2.numberofinputs = curadd;
 
                 m.redraw();
-                $('#socialgroup' + _this2.buttons.length).delay(5).slideDown();
+                $('#socialgroup' + curadd).delay(2).slideDown();
               } }, [m('i', { className: 'fa fa-fw fa-plus' })]), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
               onclick: function onclick() {
                 var curdel = _this2.buttons.length - 1;
@@ -294,82 +270,6 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
       })(Modal);
 
       _export('default', SocialButtonsModal);
-    }
-  };
-});;
-System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum/Component', 'flarum/utils/extract', 'Davis/SocialProfile/components/IconSelectorComponent'], function (_export) {
-  'use strict';
-
-  var Component, extract, IconSelectorComponent, WebsiteInputComponent;
-  return {
-    setters: [function (_flarumComponent) {
-      Component = _flarumComponent['default'];
-    }, function (_flarumUtilsExtract) {
-      extract = _flarumUtilsExtract['default'];
-    }, function (_DavisSocialProfileComponentsIconSelectorComponent) {
-      IconSelectorComponent = _DavisSocialProfileComponentsIconSelectorComponent['default'];
-    }],
-    execute: function () {
-      WebsiteInputComponent = (function (_Component) {
-        babelHelpers.inherits(WebsiteInputComponent, _Component);
-
-        function WebsiteInputComponent() {
-          babelHelpers.classCallCheck(this, WebsiteInputComponent);
-          babelHelpers.get(Object.getPrototypeOf(WebsiteInputComponent.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        babelHelpers.createClass(WebsiteInputComponent, [{
-          key: 'init',
-          value: function init() {
-            this.attrs = babelHelpers._extends({}, this.props);
-            this.button = extract(this.attrs, 'button');
-          }
-        }, {
-          key: 'view',
-          value: function view() {
-            var _this = this;
-
-            return m(
-              'div',
-              { className: 'Form-group form-group-social', id: 'socialgroup' + this.button.index() },
-              m('input', { className: 'SocialFormControl SocialTitle', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.button.title(), oninput: m.withAttr('value', this.button.title) }),
-              IconSelectorComponent.component({ selection: this.button.icon }),
-              m('input', { className: 'SocialFormControl Socialurl',
-                placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
-                value: this.button.url(),
-                oninput: m.withAttr('value', function (value) {
-                  _this.button.url(value);
-                  var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                  if (urlpattern.test(_this.button.url().toLowerCase())) {
-                    var iconurl = _this.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    var iconstyle = 'a > .social-favicon-' + _this.button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-' + _this.button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
-                    _this.button.iconstyle(iconstyle);
-                    _this.button.favicon(iconurl);
-                    _this.button.color('transparent');
-                    _this.button.icon('fa-social-favicon-' + _this.button.index());
-                    $('#social-favicon-' + _this.button.index()).attr('data-selected', _this.button.icon().replace('fa-', '')).change();
-                  }
-                })
-              }),
-              m('input', { className: 'SocialFormControl SocialIcon',
-                id: 'icon' + this.button.index(),
-                style: 'display: none',
-                value: this.button.icon(),
-                onchange: m.withAttr('value', this.button.icon)
-              }),
-              m('input', { className: 'SocialFormControl Socialfavicon',
-                id: 'favicon' + this.button.index(),
-                style: 'display: none',
-                value: this.button.favicon(),
-                onchange: m.withAttr('value', this.button.favicon)
-              })
-            );
-          }
-        }]);
-        return WebsiteInputComponent;
-      })(Component);
-
-      _export('default', WebsiteInputComponent);
     }
   };
 });;
@@ -460,7 +360,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                                 //Acctually add the button
                                 items.add(buttonClass, Badge.component({
                                     type: "social social-icon-" + k,
-                                    icon: selectedButton["icon"].replace('fa-', ''),
+                                    icon: selectedButton["icon"],
                                     label: selectedButton["title"],
                                     style: buttonStyle,
                                     onclick: function onclick() {
