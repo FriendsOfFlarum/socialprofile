@@ -1,22 +1,22 @@
-System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum/components/Dropdown', 'flarum/utils/ItemList', 'flarum/helpers/icon'], function (_export) {
-  'use strict';
+'use strict';
 
+System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum/components/Dropdown', 'flarum/utils/ItemList', 'flarum/helpers/icon'], function (_export, _context) {
   var Dropdown, ItemList, icon, IconSelectorComponent;
   return {
     setters: [function (_flarumComponentsDropdown) {
-      Dropdown = _flarumComponentsDropdown['default'];
+      Dropdown = _flarumComponentsDropdown.default;
     }, function (_flarumUtilsItemList) {
-      ItemList = _flarumUtilsItemList['default'];
+      ItemList = _flarumUtilsItemList.default;
     }, function (_flarumHelpersIcon) {
-      icon = _flarumHelpersIcon['default'];
+      icon = _flarumHelpersIcon.default;
     }],
     execute: function () {
-      IconSelectorComponent = (function (_Dropdown) {
+      IconSelectorComponent = function (_Dropdown) {
         babelHelpers.inherits(IconSelectorComponent, _Dropdown);
 
         function IconSelectorComponent() {
           babelHelpers.classCallCheck(this, IconSelectorComponent);
-          babelHelpers.get(Object.getPrototypeOf(IconSelectorComponent.prototype), 'constructor', this).apply(this, arguments);
+          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(IconSelectorComponent).apply(this, arguments));
         }
 
         babelHelpers.createClass(IconSelectorComponent, [{
@@ -35,7 +35,7 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
         }, {
           key: 'items',
           value: function items() {
-            var _this = this;
+            var _this2 = this;
 
             var items = new ItemList();
 
@@ -45,22 +45,22 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
 
             if (this.props.favicon() != 'none') {
               items.add('favicon', m('div', { onclick: function onclick() {
-                  _this.props.selection('favicon');m.redraw();
-                }, role: "button", href: "#", 'class': "iconpicker-item", title: 'Favicon' }, [m('img', { style: 'width: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 102);
+                  _this2.props.selection('favicon');m.redraw();
+                }, role: "button", href: "#", class: "iconpicker-item", title: 'Favicon' }, [m('img', { style: 'width: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 102);
               items.add('favicon-grey', m('div', { onclick: function onclick() {
-                  _this.props.selection('favicon-grey');m.redraw();
-                }, role: "button", href: "#", 'class': "iconpicker-item", title: 'Grey Favicon' }, [m('img', { 'class': 'social-greyscale-button', style: 'width: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 101);
+                  _this2.props.selection('favicon-grey');m.redraw();
+                }, role: "button", href: "#", class: "iconpicker-item", title: 'Grey Favicon' }, [m('img', { 'class': 'social-greyscale-button', style: 'width: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 101);
             }
 
-            var _loop = function (k) {
+            var _loop = function _loop(k) {
               highlighted = m.prop();
 
-              if (_this.props.selection() == icons['social'][k]) {
+              if (_this2.props.selection() == icons['social'][k]) {
                 highlighted('iconpicker--highlighted');
               }
               items.add(icons['social'][k], m('div', { onclick: function onclick() {
-                  _this.props.selection(icons['social'][k]);m.redraw();
-                }, role: "button", href: "#", 'class': "iconpicker-item " + highlighted(), title: '.' + icons['social'][k] }, [icon(icons['social'][k].replace('fa-', ''), { className: 'social-icon' })]), 100);
+                  _this2.props.selection(icons['social'][k]);m.redraw();
+                }, role: "button", href: "#", class: "iconpicker-item " + highlighted(), title: '.' + icons['social'][k] }, [icon(icons['social'][k].replace('fa-', ''), { className: 'social-icon' })]), 100);
             };
 
             for (var k in icons['social']) {
@@ -81,39 +81,39 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
           }
         }]);
         return IconSelectorComponent;
-      })(Dropdown);
+      }(Dropdown);
 
       _export('default', IconSelectorComponent);
     }
   };
 });;
-System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string', 'Davis/SocialProfile/components/WebsiteInputComponent'], function (_export) {
-  'use strict';
+'use strict';
 
+System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string', 'Davis/SocialProfile/components/WebsiteInputComponent'], function (_export, _context) {
   var Modal, Button, slug, WebsiteInputComponent, SocialButtonsModal;
   return {
     setters: [function (_flarumComponentsModal) {
-      Modal = _flarumComponentsModal['default'];
+      Modal = _flarumComponentsModal.default;
     }, function (_flarumComponentsButton) {
-      Button = _flarumComponentsButton['default'];
+      Button = _flarumComponentsButton.default;
     }, function (_flarumUtilsString) {
       slug = _flarumUtilsString.slug;
     }, function (_DavisSocialProfileComponentsWebsiteInputComponent) {
-      WebsiteInputComponent = _DavisSocialProfileComponentsWebsiteInputComponent['default'];
+      WebsiteInputComponent = _DavisSocialProfileComponentsWebsiteInputComponent.default;
     }],
     execute: function () {
-      SocialButtonsModal = (function (_Modal) {
+      SocialButtonsModal = function (_Modal) {
         babelHelpers.inherits(SocialButtonsModal, _Modal);
 
         function SocialButtonsModal() {
           babelHelpers.classCallCheck(this, SocialButtonsModal);
-          babelHelpers.get(Object.getPrototypeOf(SocialButtonsModal.prototype), 'constructor', this).apply(this, arguments);
+          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(SocialButtonsModal).apply(this, arguments));
         }
 
         babelHelpers.createClass(SocialButtonsModal, [{
           key: 'init',
           value: function init() {
-            var _this = this;
+            var _this2 = this;
 
             babelHelpers.get(Object.getPrototypeOf(SocialButtonsModal.prototype), 'init', this).call(this);
 
@@ -123,31 +123,31 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
             m.request({ method: "GET", url: apiUrl }).then(function (result) {
               if (result.data.attributes.hasOwnProperty("buttons")) {
                 if (result.data.attributes.buttons == "[]") {
-                  _this.createButtonObject(0);
+                  _this2.createButtonObject(0);
                 } else {
-                  _this.socialaccs = JSON.parse(result.data.attributes.buttons);
-                  _this.buttons = [];
-                  for (var k in _this.socialaccs) {
-                    if (_this.socialaccs[k]['title'] != "") {
-                      var button = _this.socialaccs[k];
-                      _this.createButtonObject(k, button);
-                      _this.numberofinputs = k;
+                  _this2.socialaccs = JSON.parse(result.data.attributes.buttons);
+                  _this2.buttons = [];
+                  for (var k in _this2.socialaccs) {
+                    if (_this2.socialaccs[k]['title'] != "") {
+                      var button = _this2.socialaccs[k];
+                      _this2.createButtonObject(k, button);
+                      _this2.numberofinputs = k;
                     }
                   }
                 }
               } else {
-                _this.createButtonObject(0);
-                _this.numberofinputs = 0;
+                _this2.createButtonObject(0);
+                _this2.numberofinputs = 0;
               }
-              for (var k in _this.buttons) {
-                if (_this.buttons[k].favicon() != 'none') {
-                  _this.buttons[k].color('transparent');
+              for (var k in _this2.buttons) {
+                if (_this2.buttons[k].favicon() != 'none') {
+                  _this2.buttons[k].color('transparent');
                 }
                 var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                if (urlpattern.test(_this.buttons[k].url().toLowerCase())) {
-                  var iconurl = _this.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                  var iconstyle = 'a > .social-favicon-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-' + _this.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
-                  _this.buttons[k].iconstyle(iconstyle);
+                if (urlpattern.test(_this2.buttons[k].url().toLowerCase())) {
+                  var iconurl = _this2.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
+                  var iconstyle = 'a > .social-favicon-' + _this2.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-' + _this2.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
+                  _this2.buttons[k].iconstyle(iconstyle);
                 }
               }
               m.redraw();
@@ -170,7 +170,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'content',
           value: function content() {
-            var _this2 = this;
+            var _this3 = this;
 
             $(function () {
               $('.Modal-content').css('overflow', 'visible');
@@ -180,13 +180,13 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 e.preventDefault();
                 return false;
               });
-              for (var k in _this2.buttons) {
-                $('#social-favicon-' + _this2.buttons[k].index()).iconpicker({
-                  icons: ['social-favicon-' + _this2.buttons[k].index(), 'social-favicon-grey-' + _this2.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play'],
+              for (var k in _this3.buttons) {
+                $('#social-favicon-' + _this3.buttons[k].index()).iconpicker({
+                  icons: ['social-favicon-' + _this3.buttons[k].index(), 'social-favicon-grey-' + _this3.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play'],
                   hideOnSelect: true,
                   title: "Displayed Icon"
                 });
-                if (/social-favicon-grey-\d/.test(_this2.buttons[k].icon())) {
+                if (/social-favicon-grey-\d/.test(_this3.buttons[k].icon())) {
                   $('.button-' + k).addClass('social-greyscale-button');
                 } else {
                   $('.button-' + k).removeClass('social-greyscale-button');
@@ -195,12 +195,12 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               $('.icp').on('iconpickerSelected', function (e) {
                 var btn_group = /btn-group="(\d+)"/.exec(e.target.outerHTML)[1];
                 $('#icon' + btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
-                if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-' + _this2.buttons[btn_group].index() || e.iconpickerValue.replace("fa-", "") == 'social-favicon-grey-' + _this2.buttons[btn_group].index()) {
+                if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-' + _this3.buttons[btn_group].index() || e.iconpickerValue.replace("fa-", "") == 'social-favicon-grey-' + _this3.buttons[btn_group].index()) {
                   var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                  if (urlpattern.test(_this2.buttons[btn_group].url().toLowerCase())) {
-                    var iconurl = _this2.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    _this2.buttons[btn_group].favicon(iconurl);
-                    _this2.buttons[btn_group].color('transparent');
+                  if (urlpattern.test(_this3.buttons[btn_group].url().toLowerCase())) {
+                    var iconurl = _this3.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
+                    _this3.buttons[btn_group].favicon(iconurl);
+                    _this3.buttons[btn_group].color('transparent');
                     if (/social-favicon-grey-\d/.test(e.iconpickerValue.replace("fa-", ""))) {
                       $('.button-' + btn_group).addClass('social-greyscale-button');
                     } else {
@@ -208,8 +208,8 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                     }
                   }
                 } else {
-                  _this2.buttons[btn_group].favicon('none');
-                  _this2.buttons[btn_group].color('white');
+                  _this3.buttons[btn_group].favicon('none');
+                  _this3.buttons[btn_group].color('white');
                 }
                 //m.redraw();
                 $('.icp').attr("aria-expanded", "false");
@@ -227,15 +227,15 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               children: app.translator.trans('davis-socialprofile.forum.edit.submit')
             }), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
               onclick: function onclick() {
-                _this2.createButtonObject(_this2.buttons.length);
+                _this3.createButtonObject(_this3.buttons.length);
 
                 m.redraw();
-                $('#socialgroup' + _this2.buttons.length).delay(5).slideDown();
+                $('#socialgroup' + _this3.buttons.length).delay(5).slideDown();
               } }, [m('i', { className: 'fa fa-fw fa-plus' })]), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
               onclick: function onclick() {
-                var curdel = _this2.buttons.length - 1;
+                var curdel = _this3.buttons.length - 1;
                 $('#socialgroup' + curdel).slideUp('normal', function () {
-                  _this2.buttons.splice(curdel, 1);
+                  _this3.buttons.splice(curdel, 1);
                   m.redraw();
                 });
               } }, [m('i', { className: 'fa fa-fw fa-minus' })])])])])];
@@ -243,7 +243,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'onsubmit',
           value: function onsubmit(e) {
-            var _this3 = this;
+            var _this4 = this;
 
             e.preventDefault();
 
@@ -270,11 +270,11 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               },
               data: data
             }).then(function () {
-              $('#app').trigger("refreshSocialButtons", [_this3.finbuttons]);
-              _this3.hide();
+              $('#app').trigger("refreshSocialButtons", [_this4.finbuttons]);
+              _this4.hide();
             }, function (response) {
-              _this3.loading = false;
-              _this3.handleErrors(response);
+              _this4.loading = false;
+              _this4.handleErrors(response);
             });
           }
         }, {
@@ -301,43 +301,43 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
           }
         }]);
         return SocialButtonsModal;
-      })(Modal);
+      }(Modal);
 
       _export('default', SocialButtonsModal);
     }
   };
 });;
-System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum/Component', 'flarum/utils/extract', 'Davis/SocialProfile/components/IconSelectorComponent'], function (_export) {
-  'use strict';
+'use strict';
 
+System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum/Component', 'flarum/utils/extract', 'Davis/SocialProfile/components/IconSelectorComponent'], function (_export, _context) {
   var Component, extract, IconSelectorComponent, WebsiteInputComponent;
   return {
     setters: [function (_flarumComponent) {
-      Component = _flarumComponent['default'];
+      Component = _flarumComponent.default;
     }, function (_flarumUtilsExtract) {
-      extract = _flarumUtilsExtract['default'];
+      extract = _flarumUtilsExtract.default;
     }, function (_DavisSocialProfileComponentsIconSelectorComponent) {
-      IconSelectorComponent = _DavisSocialProfileComponentsIconSelectorComponent['default'];
+      IconSelectorComponent = _DavisSocialProfileComponentsIconSelectorComponent.default;
     }],
     execute: function () {
-      WebsiteInputComponent = (function (_Component) {
+      WebsiteInputComponent = function (_Component) {
         babelHelpers.inherits(WebsiteInputComponent, _Component);
 
         function WebsiteInputComponent() {
           babelHelpers.classCallCheck(this, WebsiteInputComponent);
-          babelHelpers.get(Object.getPrototypeOf(WebsiteInputComponent.prototype), 'constructor', this).apply(this, arguments);
+          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(WebsiteInputComponent).apply(this, arguments));
         }
 
         babelHelpers.createClass(WebsiteInputComponent, [{
           key: 'init',
           value: function init() {
-            this.attrs = babelHelpers._extends({}, this.props);
+            this.attrs = babelHelpers.extends({}, this.props);
             this.button = extract(this.attrs, 'button');
           }
         }, {
           key: 'view',
           value: function view() {
-            var _this = this;
+            var _this2 = this;
 
             return m(
               'div',
@@ -348,16 +348,16 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
                 value: this.button.url(),
                 oninput: m.withAttr('value', function (value) {
-                  _this.button.url(value);
+                  _this2.button.url(value);
                   var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                  if (urlpattern.test(_this.button.url().toLowerCase())) {
-                    var iconurl = _this.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    _this.button.favicon(iconurl);
-                    _this.button.icon('favicon');
+                  if (urlpattern.test(_this2.button.url().toLowerCase())) {
+                    var iconurl = _this2.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
+                    _this2.button.favicon(iconurl);
+                    _this2.button.icon('favicon');
                     m.redraw();
-                  } else if (_this.button.icon() == 'favicon') {
-                    _this.button.icon('fa-globe');
-                    _this.button.favicon('none');
+                  } else if (_this2.button.icon() == 'favicon') {
+                    _this2.button.icon('fa-globe');
+                    _this2.button.favicon('none');
                     m.redraw();
                   }
                 })
@@ -378,27 +378,27 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
           }
         }]);
         return WebsiteInputComponent;
-      })(Component);
+      }(Component);
 
       _export('default', WebsiteInputComponent);
     }
   };
 });;
-System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'flarum/components/UserCard', 'flarum/components/Badge', 'Davis/SocialProfile/components/SocialButtonsModal'], function (_export) {
-    'use strict';
+'use strict';
 
+System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'flarum/components/UserCard', 'flarum/components/Badge', 'Davis/SocialProfile/components/SocialButtonsModal'], function (_export, _context) {
     var app, extend, UserCard, Badge, SocialButtonsModal;
     return {
         setters: [function (_flarumApp) {
-            app = _flarumApp['default'];
+            app = _flarumApp.default;
         }, function (_flarumExtend) {
             extend = _flarumExtend.extend;
         }, function (_flarumComponentsUserCard) {
-            UserCard = _flarumComponentsUserCard['default'];
+            UserCard = _flarumComponentsUserCard.default;
         }, function (_flarumComponentsBadge) {
-            Badge = _flarumComponentsBadge['default'];
+            Badge = _flarumComponentsBadge.default;
         }, function (_DavisSocialProfileComponentsSocialButtonsModal) {
-            SocialButtonsModal = _DavisSocialProfileComponentsSocialButtonsModal['default'];
+            SocialButtonsModal = _DavisSocialProfileComponentsSocialButtonsModal.default;
         }],
         execute: function () {
 
@@ -451,7 +451,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
 
                     //If there are buttons, add them
                     if (!this.isBlankSlate) {
-                        var _loop = function (k) {
+                        var _loop = function _loop(k) {
                             var selectedButton = _this2.buttonsArray[k]; //Set constant for easier selection
                             //Ensure the button has a title, icon, and url
                             if (selectedButton["title"] !== "" && selectedButton["icon"] !== "" && selectedButton["url"] !== "") {
