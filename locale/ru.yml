@@ -1,0 +1,12 @@
+davis-socialprofile:
+  forum:
+    edit:
+      edit: "Правка"
+      add: "Добавить"
+      headtitle: "Правка кнопок"
+      title: "Надпись"
+      url: "Url"
+      submit: "Сохранить"
+      icolib: "Коллекция иконок"
+  admin:
+    test: "Test"
