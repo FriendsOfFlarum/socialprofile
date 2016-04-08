@@ -12,7 +12,7 @@ export default class WebsiteInputComponent extends Component {
     return (
       <div className = {'Form-group form-group-social'} id = {'socialgroup' + this.button.index()}>
         <input className = {'SocialFormControl SocialTitle'} placeholder = {app.translator.trans('davis-socialprofile.forum.edit.title')} value = {this.button.title()} oninput = {m.withAttr('value', this.button.title)}></input>
-        {IconSelectorComponent.component({selection: this.button.icon})}
+        {IconSelectorComponent.component({selection: this.button.icon, favicon: this.button.favicon})}
         <input className = {'SocialFormControl Socialurl'}
           placeholder = {app.translator.trans('davis-socialprofile.forum.edit.url')}
           value = {this.button.url()}
@@ -21,12 +21,13 @@ export default class WebsiteInputComponent extends Component {
             var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
             if(urlpattern.test(this.button.url().toLowerCase())) {
               var iconurl = (this.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
-              var iconstyle = 'a > .social-favicon-'+this.button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-'+this.button.index()+' {background-image: url("'+iconurl+'"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
-              this.button.iconstyle(iconstyle);
               this.button.favicon(iconurl);
-              this.button.color('transparent');
-              this.button.icon('fa-social-favicon-'+this.button.index());
-              $('#social-favicon-'+this.button.index()).attr('data-selected', this.button.icon().replace('fa-', '')).change();
+              this.button.icon('favicon');
+              m.redraw();
+            } else if (this.button.icon() == 'favicon') {
+                this.button.icon('fa-globe');
+                this.button.favicon('none');
+                m.redraw();
             }
           })}
         ></input>

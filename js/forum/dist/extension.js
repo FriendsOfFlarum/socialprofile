@@ -29,7 +29,8 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
         }, {
           key: 'getButtonContent',
           value: function getButtonContent() {
-            return [this.props.selection() ? icon(this.props.selection().replace('fa-', ''), {}) : '', this.props.caretIcon ? icon(this.props.caretIcon, { className: 'Button-caret' }) : ''];
+            console.log(this.props.selection());
+            return [/^favicon(-\w+)?$/.test(this.props.selection()) ? [m('img', { 'class': this.props.selection() == 'favicon-grey' ? 'social-greyscale-button' : 'social-button', style: 'width: 14px;height: 14px;', src: this.props.favicon() })] : icon(this.props.selection().replace('fa-', ''), {}), this.props.caretIcon ? icon(this.props.caretIcon, { className: 'Button-caret' }) : ''];
           }
         }, {
           key: 'items',
@@ -41,6 +42,15 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
             var icons = {
               'social': ["fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play']
             };
+
+            if (this.props.favicon() != 'none') {
+              items.add('favicon', m('div', { onclick: function onclick() {
+                  _this.props.selection('favicon');m.redraw();
+                }, role: "button", href: "#", 'class': "iconpicker-item", title: 'Favicon' }, [m('img', { style: 'width: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 102);
+              items.add('favicon-grey', m('div', { onclick: function onclick() {
+                  _this.props.selection('favicon-grey');m.redraw();
+                }, role: "button", href: "#", 'class': "iconpicker-item", title: 'Grey Favicon' }, [m('img', { 'class': 'social-greyscale-button', style: 'width: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 101);
+            }
 
             var _loop = function (k) {
               highlighted = m.prop();
@@ -201,16 +211,16 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                   _this2.buttons[btn_group].favicon('none');
                   _this2.buttons[btn_group].color('white');
                 }
-                m.redraw();
+                //m.redraw();
                 $('.icp').attr("aria-expanded", "false");
                 $('.btn-group').removeClass('open');
               });
             });
             return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [m('i', { className: 'fa fa-spinner fa-spin fa-align-center', id: 'loading-main', style: { 'font-size': '3em', 'margin-left': '47%' } }), this.buttons.map(function (button) {
               return [WebsiteInputComponent.component({
-                button: button
-              })];
-            }), m('div', { className: 'Form-group', id: 'submit-button-group' }, [Button.component({
+                button: button })];
+            }), //MAY BE REDRAWING AT SIMPLE CHANGES!!!
+            m('div', { className: 'Form-group', id: 'submit-button-group' }, [Button.component({
               type: 'submit',
               className: 'Button Button--primary EditSocialButtons-save',
               loading: this.loading,
@@ -333,7 +343,7 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
               'div',
               { className: 'Form-group form-group-social', id: 'socialgroup' + this.button.index() },
               m('input', { className: 'SocialFormControl SocialTitle', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.button.title(), oninput: m.withAttr('value', this.button.title) }),
-              IconSelectorComponent.component({ selection: this.button.icon }),
+              IconSelectorComponent.component({ selection: this.button.icon, favicon: this.button.favicon }),
               m('input', { className: 'SocialFormControl Socialurl',
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
                 value: this.button.url(),
@@ -342,12 +352,13 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
                   var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
                   if (urlpattern.test(_this.button.url().toLowerCase())) {
                     var iconurl = _this.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    var iconstyle = 'a > .social-favicon-' + _this.button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-' + _this.button.index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
-                    _this.button.iconstyle(iconstyle);
                     _this.button.favicon(iconurl);
-                    _this.button.color('transparent');
-                    _this.button.icon('fa-social-favicon-' + _this.button.index());
-                    $('#social-favicon-' + _this.button.index()).attr('data-selected', _this.button.icon().replace('fa-', '')).change();
+                    _this.button.icon('favicon');
+                    m.redraw();
+                  } else if (_this.button.icon() == 'favicon') {
+                    _this.button.icon('fa-globe');
+                    _this.button.favicon('none');
+                    m.redraw();
                   }
                 })
               }),
@@ -445,10 +456,10 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                             //Ensure the button has a title, icon, and url
                             if (selectedButton["title"] !== "" && selectedButton["icon"] !== "" && selectedButton["url"] !== "") {
                                 //If the button is using a favicon, make sure it is displayed
-                                if (selectedButton['favicon'] !== 'none') {
+                                if (selectedButton['icon'] == 'favicon' || selectedButton['icon'] == 'favicon-grey') {
                                     buttonStyle = 'background-image: url("' + selectedButton['favicon'] + '");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
                                     //If the favicon is set to greyscale, make sure it is displayed
-                                    if (/social-favicon-grey-\d/.test(selectedButton['icon'])) {
+                                    if (selectedButton['icon'] == 'favicon-grey') {
                                         buttonClass = selectedButton["icon"] + '-' + k + ' social-button social-greyscale-button';
                                     } else {
                                         buttonClass = selectedButton["icon"] + '-' + k + ' social-button';

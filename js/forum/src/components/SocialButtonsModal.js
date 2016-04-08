@@ -97,7 +97,7 @@ export default class SocialButtonsModal extends Modal {
                       this.buttons[btn_group].favicon('none');
                       this.buttons[btn_group].color('white');
                     }
-                    m.redraw();
+                    //m.redraw();
                     $('.icp').attr("aria-expanded","false");
                     $('.btn-group').removeClass('open');
                 });
@@ -109,7 +109,7 @@ export default class SocialButtonsModal extends Modal {
                     this.buttons.map((button) => {
                       return [
                         WebsiteInputComponent.component({
-                          button: button,
+                          button: button, //MAY BE REDRAWING AT SIMPLE CHANGES!!!
                         }),
                       ];
                     }),

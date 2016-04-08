@@ -58,10 +58,10 @@ app.initializers.add('davis-socialprofile-forum', function() {
                 if (selectedButton["title"] !== "" && selectedButton["icon"] !== "" && selectedButton["url"] !== "") {
                     var buttonStyle, buttonClass;
                     //If the button is using a favicon, make sure it is displayed
-                    if (selectedButton['favicon'] !== 'none') {
+                    if (selectedButton['icon'] == 'favicon' || selectedButton['icon'] == 'favicon-grey') {
                         buttonStyle = 'background-image: url("'+selectedButton['favicon']+'");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
                         //If the favicon is set to greyscale, make sure it is displayed
-                        if (/social-favicon-grey-\d/.test(selectedButton['icon'])) {
+                        if (selectedButton['icon'] == 'favicon-grey') {
                             buttonClass = selectedButton["icon"] + '-' + k + ' social-button social-greyscale-button';
                         } else {
                             buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
