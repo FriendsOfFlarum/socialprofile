@@ -7,5 +7,6 @@ davis-socialprofile:
       title: "Title"
       url: "Url"
       submit: "Save"
+      icolib: "Displayed Icon"
   admin:
     test: "Test"
