@@ -7,7 +7,6 @@ import SocialButtonsModal from 'Davis/SocialProfile/components/SocialButtonsModa
 app.initializers.add('davis-socialprofile-forum', function() {
 
     extend(UserCard.prototype, 'init', function() {
-    
       var user = this.props.user;
       var apiUrl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + user.data.id;
       this.buttonsArray = null; //Indicate we haven't retrieved the user's buttons
@@ -71,9 +70,10 @@ app.initializers.add('davis-socialprofile-forum', function() {
                         buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
                     }
                     //Acctually add the button
+                    console.log(selectedButton['icon']);
                     items.add(buttonClass , Badge.component({
                         type: "social social-icon-" + k,
-                        icon: selectedButton["icon"],
+                        icon: selectedButton["icon"].replace('fa-', ''),
                         label: selectedButton["title"],
                         style: buttonStyle,
                         onclick: function() {
