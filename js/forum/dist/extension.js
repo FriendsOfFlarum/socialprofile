@@ -164,8 +164,6 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               }
               m.redraw();
               $('.form-group-social').delay(5).slideDown();
-              $('#loading-main').delay(5).removeClass('fa-spin');
-              $('#loading-main').delay(5).slideUp();
             });
             this.buttons = [];
           }
@@ -228,7 +226,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 $('.btn-group').removeClass('open');
               });
             });
-            return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [m('i', { className: 'fa fa-spinner fa-spin fa-align-center', id: 'loading-main', style: { 'font-size': '3em', 'margin-left': '47%' } }), this.buttons.map(function (button) {
+            return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [this.buttons.map(function (button) {
               return [WebsiteInputComponent.component({
                 button: button })];
             }), //MAY BE REDRAWING AT SIMPLE CHANGES!!!
@@ -481,7 +479,6 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                                     buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
                                 }
                                 //Acctually add the button
-                                console.log(selectedButton['icon']);
                                 items.add(buttonClass, Badge.component({
                                     type: "social social-icon-" + k,
                                     icon: selectedButton["icon"].replace('fa-', ''),

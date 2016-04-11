@@ -43,8 +43,6 @@ export default class SocialButtonsModal extends Modal {
         }
         m.redraw()
         $('.form-group-social').delay(5).slideDown();
-        $('#loading-main').delay(5).removeClass('fa-spin');
-        $('#loading-main').delay(5).slideUp();
     });
     this.buttons = [];
   }
@@ -105,7 +103,6 @@ export default class SocialButtonsModal extends Modal {
        return [
             m('div', {className: 'Modal-body'}, [
                 m('div', {className: 'Form'}, [
-                  m('i', {className: 'fa fa-spinner fa-spin fa-align-center', id: 'loading-main', style: {'font-size': '3em', 'margin-left': '47%'}}),
                     this.buttons.map((button) => {
                       return [
                         WebsiteInputComponent.component({
