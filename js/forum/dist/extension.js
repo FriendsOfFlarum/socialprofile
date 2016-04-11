@@ -20,8 +20,24 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
         }
 
         babelHelpers.createClass(IconSelectorComponent, [{
+          key: 'init',
+          value: function init() {
+
+            this.icons = {
+              'social': ["fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play']
+            };
+          }
+        }, {
           key: 'view',
           value: function view() {
+            var _this2 = this;
+
+            $(".iconpicker-image-" + this.props.index()).error(function () {
+              _this2.props.favicon('none');
+              _this2.props.selection(_this2.icons['social'][0]);
+              m.redraw();
+            });
+
             this.props.children = this.items().toArray();
 
             return babelHelpers.get(Object.getPrototypeOf(IconSelectorComponent.prototype), 'view', this).call(this);
@@ -35,35 +51,31 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
         }, {
           key: 'items',
           value: function items() {
-            var _this2 = this;
+            var _this3 = this;
 
             var items = new ItemList();
 
-            var icons = {
-              'social': ["fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play']
-            };
-
             if (this.props.favicon() != 'none') {
               items.add('favicon', m('div', { onclick: function onclick() {
-                  _this2.props.selection('favicon');m.redraw();
-                }, role: "button", href: "#", class: "iconpicker-item", title: 'Favicon' }, [m('img', { style: 'width: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 102);
+                  _this3.props.selection('favicon');m.redraw();
+                }, role: "button", href: "#", class: "iconpicker-item", title: 'Favicon' }, [m('img', { 'class': "iconpicker-image-" + this.props.index(), style: 'width: 14px;height: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 102);
               items.add('favicon-grey', m('div', { onclick: function onclick() {
-                  _this2.props.selection('favicon-grey');m.redraw();
-                }, role: "button", href: "#", class: "iconpicker-item", title: 'Grey Favicon' }, [m('img', { 'class': 'social-greyscale-button', style: 'width: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 101);
+                  _this3.props.selection('favicon-grey');m.redraw();
+                }, role: "button", href: "#", class: "iconpicker-item", title: 'Grey Favicon' }, [m('img', { 'class': "social-greyscale-button iconpicker-image-" + this.props.index(), style: 'width: 14px;height: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 101);
             }
 
             var _loop = function _loop(k) {
               highlighted = m.prop();
 
-              if (_this2.props.selection() == icons['social'][k]) {
+              if (_this3.props.selection() == _this3.icons['social'][k]) {
                 highlighted('iconpicker--highlighted');
               }
-              items.add(icons['social'][k], m('div', { onclick: function onclick() {
-                  _this2.props.selection(icons['social'][k]);m.redraw();
-                }, role: "button", href: "#", class: "iconpicker-item " + highlighted(), title: '.' + icons['social'][k] }, [icon(icons['social'][k].replace('fa-', ''), { className: 'social-icon' })]), 100);
+              items.add(_this3.icons['social'][k], m('div', { onclick: function onclick() {
+                  _this3.props.selection(_this3.icons['social'][k]);m.redraw();
+                }, role: "button", href: "#", class: "iconpicker-item " + highlighted(), title: '.' + _this3.icons['social'][k] }, [icon(_this3.icons['social'][k].replace('fa-', ''), { className: 'social-icon' })]), 100);
             };
 
-            for (var k in icons['social']) {
+            for (var k in this.icons['social']) {
               var highlighted;
 
               _loop(k);
@@ -343,7 +355,7 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
               'div',
               { className: 'Form-group form-group-social', id: 'socialgroup' + this.button.index() },
               m('input', { className: 'SocialFormControl SocialTitle', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.button.title(), oninput: m.withAttr('value', this.button.title) }),
-              IconSelectorComponent.component({ selection: this.button.icon, favicon: this.button.favicon }),
+              IconSelectorComponent.component({ selection: this.button.icon, favicon: this.button.favicon, index: this.button.index }),
               m('input', { className: 'SocialFormControl Socialurl',
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
                 value: this.button.url(),
