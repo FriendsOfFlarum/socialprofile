@@ -70,7 +70,6 @@ app.initializers.add('davis-socialprofile-forum', function() {
                         buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
                     }
                     //Acctually add the button
-                    console.log(selectedButton['icon']);
                     items.add(buttonClass , Badge.component({
                         type: "social social-icon-" + k,
                         icon: selectedButton["icon"].replace('fa-', ''),
