@@ -101,6 +101,83 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
 });;
 'use strict';
 
+System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum/Component', 'flarum/utils/extract', 'Davis/SocialProfile/components/IconSelectorComponent'], function (_export, _context) {
+  var Component, extract, IconSelectorComponent, WebsiteInputComponent;
+  return {
+    setters: [function (_flarumComponent) {
+      Component = _flarumComponent.default;
+    }, function (_flarumUtilsExtract) {
+      extract = _flarumUtilsExtract.default;
+    }, function (_DavisSocialProfileComponentsIconSelectorComponent) {
+      IconSelectorComponent = _DavisSocialProfileComponentsIconSelectorComponent.default;
+    }],
+    execute: function () {
+      WebsiteInputComponent = function (_Component) {
+        babelHelpers.inherits(WebsiteInputComponent, _Component);
+
+        function WebsiteInputComponent() {
+          babelHelpers.classCallCheck(this, WebsiteInputComponent);
+          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(WebsiteInputComponent).apply(this, arguments));
+        }
+
+        babelHelpers.createClass(WebsiteInputComponent, [{
+          key: 'init',
+          value: function init() {
+            this.attrs = babelHelpers.extends({}, this.props);
+            this.button = extract(this.attrs, 'button');
+          }
+        }, {
+          key: 'view',
+          value: function view() {
+            var _this2 = this;
+
+            return m(
+              'div',
+              { className: 'Form-group form-group-social', id: 'socialgroup' + this.button.index() },
+              m('input', { className: 'SocialFormControl SocialTitle', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.button.title(), oninput: m.withAttr('value', this.button.title) }),
+              IconSelectorComponent.component({ selection: this.button.icon, favicon: this.button.favicon, index: this.button.index }),
+              m('input', { className: 'SocialFormControl Socialurl',
+                placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
+                value: this.button.url(),
+                oninput: m.withAttr('value', function (value) {
+                  _this2.button.url(value);
+                  var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+                  if (urlpattern.test(_this2.button.url().toLowerCase())) {
+                    var iconurl = _this2.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
+                    _this2.button.favicon(iconurl);
+                    _this2.button.icon('favicon');
+                    m.redraw();
+                  } else if (_this2.button.icon() == 'favicon') {
+                    _this2.button.icon('fa-globe');
+                    _this2.button.favicon('none');
+                    m.redraw();
+                  }
+                })
+              }),
+              m('input', { className: 'SocialFormControl SocialIcon',
+                id: 'icon' + this.button.index(),
+                style: 'display: none',
+                value: this.button.icon(),
+                onchange: m.withAttr('value', this.button.icon)
+              }),
+              m('input', { className: 'SocialFormControl Socialfavicon',
+                id: 'favicon' + this.button.index(),
+                style: 'display: none',
+                value: this.button.favicon(),
+                onchange: m.withAttr('value', this.button.favicon)
+              })
+            );
+          }
+        }]);
+        return WebsiteInputComponent;
+      }(Component);
+
+      _export('default', WebsiteInputComponent);
+    }
+  };
+});;
+'use strict';
+
 System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/components/Modal', 'flarum/components/Button', 'flarum/utils/string', 'Davis/SocialProfile/components/WebsiteInputComponent'], function (_export, _context) {
   var Modal, Button, slug, WebsiteInputComponent, SocialButtonsModal;
   return {
@@ -196,7 +273,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 $('#social-favicon-' + _this3.buttons[k].index()).iconpicker({
                   icons: ['social-favicon-' + _this3.buttons[k].index(), 'social-favicon-grey-' + _this3.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play'],
                   hideOnSelect: true,
-                  title: app.translator.trans('davis-socialprofile.forum.edit.icolib'),
+                  title: "Displayed Icon"
                 });
                 if (/social-favicon-grey-\d/.test(_this3.buttons[k].icon())) {
                   $('.button-' + k).addClass('social-greyscale-button');
@@ -318,216 +395,4 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
       _export('default', SocialButtonsModal);
     }
   };
-});;
-'use strict';
-
-System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum/Component', 'flarum/utils/extract', 'Davis/SocialProfile/components/IconSelectorComponent'], function (_export, _context) {
-  var Component, extract, IconSelectorComponent, WebsiteInputComponent;
-  return {
-    setters: [function (_flarumComponent) {
-      Component = _flarumComponent.default;
-    }, function (_flarumUtilsExtract) {
-      extract = _flarumUtilsExtract.default;
-    }, function (_DavisSocialProfileComponentsIconSelectorComponent) {
-      IconSelectorComponent = _DavisSocialProfileComponentsIconSelectorComponent.default;
-    }],
-    execute: function () {
-      WebsiteInputComponent = function (_Component) {
-        babelHelpers.inherits(WebsiteInputComponent, _Component);
-
-        function WebsiteInputComponent() {
-          babelHelpers.classCallCheck(this, WebsiteInputComponent);
-          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(WebsiteInputComponent).apply(this, arguments));
-        }
-
-        babelHelpers.createClass(WebsiteInputComponent, [{
-          key: 'init',
-          value: function init() {
-            this.attrs = babelHelpers.extends({}, this.props);
-            this.button = extract(this.attrs, 'button');
-          }
-        }, {
-          key: 'view',
-          value: function view() {
-            var _this2 = this;
-
-            return m(
-              'div',
-              { className: 'Form-group form-group-social', id: 'socialgroup' + this.button.index() },
-              m('input', { className: 'SocialFormControl SocialTitle', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.button.title(), oninput: m.withAttr('value', this.button.title) }),
-              IconSelectorComponent.component({ selection: this.button.icon, favicon: this.button.favicon, index: this.button.index }),
-              m('input', { className: 'SocialFormControl Socialurl',
-                placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
-                value: this.button.url(),
-                oninput: m.withAttr('value', function (value) {
-                  _this2.button.url(value);
-                  var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                  if (urlpattern.test(_this2.button.url().toLowerCase())) {
-                    var iconurl = _this2.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    _this2.button.favicon(iconurl);
-                    _this2.button.icon('favicon');
-                    m.redraw();
-                  } else if (_this2.button.icon() == 'favicon') {
-                    _this2.button.icon('fa-globe');
-                    _this2.button.favicon('none');
-                    m.redraw();
-                  }
-                })
-              }),
-              m('input', { className: 'SocialFormControl SocialIcon',
-                id: 'icon' + this.button.index(),
-                style: 'display: none',
-                value: this.button.icon(),
-                onchange: m.withAttr('value', this.button.icon)
-              }),
-              m('input', { className: 'SocialFormControl Socialfavicon',
-                id: 'favicon' + this.button.index(),
-                style: 'display: none',
-                value: this.button.favicon(),
-                onchange: m.withAttr('value', this.button.favicon)
-              })
-            );
-          }
-        }]);
-        return WebsiteInputComponent;
-      }(Component);
-
-      _export('default', WebsiteInputComponent);
-    }
-  };
-});;
-'use strict';
-
-System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'flarum/components/UserCard', 'flarum/components/Badge', 'Davis/SocialProfile/components/SocialButtonsModal'], function (_export, _context) {
-    var app, extend, UserCard, Badge, SocialButtonsModal;
-    return {
-        setters: [function (_flarumApp) {
-            app = _flarumApp.default;
-        }, function (_flarumExtend) {
-            extend = _flarumExtend.extend;
-        }, function (_flarumComponentsUserCard) {
-            UserCard = _flarumComponentsUserCard.default;
-        }, function (_flarumComponentsBadge) {
-            Badge = _flarumComponentsBadge.default;
-        }, function (_DavisSocialProfileComponentsSocialButtonsModal) {
-            SocialButtonsModal = _DavisSocialProfileComponentsSocialButtonsModal.default;
-        }],
-        execute: function () {
-
-            app.initializers.add('davis-socialprofile-forum', function () {
-
-                extend(UserCard.prototype, 'init', function () {
-                    var _this = this;
-
-                    var user = this.props.user;
-                    var apiUrl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + user.data.id;
-                    this.buttonsArray = null; //Indicate we haven't retrieved the user's buttons
-                    //Get buttons from database
-                    app.request({ method: "GET", url: apiUrl }).then(function (result) {
-                        //Test if user has set their buttons up already
-                        if (result.data.attributes.hasOwnProperty("buttons")) {
-                            //Test if buttons have been set up, but the array is empty
-                            if (result.data.attributes.buttons == "[]") {
-                                //Since there are no buttons set, we have a blank slate
-                                _this.buttonsArray = true; //Indicate we have retrieved the user's buttons
-                                _this.isBlankSlate = true; //Indicate we don't have any buttons
-                            } else {
-                                    //The buttons array must not be empty, so lets set it
-                                    _this.buttonsArray = JSON.parse(result.data.attributes.buttons);
-                                    _this.isBlankSlate = false; //Indicate we do have buttons
-                                }
-                        } else {
-                                //This user has never set their buttons
-                                _this.buttonsArray = true; //Indicate we have retrieved the user's buttons
-                                _this.isBlankSlate = true; //Indicate we don't have any buttons
-                            }
-                        user.freshness = new Date(); //Tell Mithril we have new data
-                        m.redraw(); //Refresh the DOM
-                    });
-
-                    //If the buttons have been edited, we need to refresh them
-                    $('#app').on('refreshSocialButtons', function (e, buttons) {
-                        var user = _this.props.user; //Then is our user
-                        _this.buttonsArray = JSON.parse(buttons); //Parse the saved array from editing
-                        _this.isBlankSlate = false; //Indicate we do really have buttons
-                        user.freshness = new Date(); //Tell Mithril we have new data
-                        m.redraw(); //Refresh DOM
-                    });
-                });
-
-                extend(UserCard.prototype, 'infoItems', function (items) {
-                    var _this2 = this;
-
-                    // If request hasn't loaded yet, don't add any items.
-                    if (!this.buttonsArray) return;
-
-                    //If there are buttons, add them
-                    if (!this.isBlankSlate) {
-                        var _loop = function _loop(k) {
-                            var selectedButton = _this2.buttonsArray[k]; //Set constant for easier selection
-                            //Ensure the button has a title, icon, and url
-                            if (selectedButton["title"] !== "" && selectedButton["icon"] !== "" && selectedButton["url"] !== "") {
-                                //If the button is using a favicon, make sure it is displayed
-                                if (selectedButton['icon'] == 'favicon' || selectedButton['icon'] == 'favicon-grey') {
-                                    buttonStyle = 'background-image: url("' + selectedButton['favicon'] + '");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
-                                    //If the favicon is set to greyscale, make sure it is displayed
-                                    if (selectedButton['icon'] == 'favicon-grey') {
-                                        buttonClass = selectedButton["icon"] + '-' + k + ' social-button social-greyscale-button';
-                                    } else {
-                                        buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
-                                    }
-                                } else {
-                                    buttonStyle = '';
-                                    buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
-                                }
-                                //Acctually add the button
-                                items.add(buttonClass, Badge.component({
-                                    type: "social social-icon-" + k,
-                                    icon: selectedButton["icon"],
-                                    label: selectedButton["title"],
-                                    style: buttonStyle,
-                                    onclick: function onclick() {
-                                        window.open(selectedButton["url"], '_blank');
-                                    }
-                                }));
-                            }
-                        };
-
-                        //Loop through the buttonsArray
-                        for (var k in this.buttonsArray) {
-                            var buttonStyle, buttonClass;
-
-                            _loop(k);
-                        }
-                        //Add the edit buttons at the end, as long as it's their own profile
-                        if (app.session.user === app.current.user) {
-                            //Add the settings button
-                            items.add('settings social-button', Badge.component({
-                                type: "social social-settings",
-                                icon: 'cog',
-                                label: app.translator.trans('davis-socialprofile.forum.edit.edit'),
-                                onclick: function onclick() {
-                                    app.modal.show(new SocialButtonsModal()); //Show the edit modal
-                                }
-                            }), -1);
-                        }
-                        //It turns out they don't have any buttons
-                    } else {
-                            //Add an add button only if its their own profile
-                            if (app.session.user === app.current.user) {
-                                //Add the add button
-                                items.add('settings social-button', Badge.component({
-                                    type: "social null-social-settings",
-                                    icon: "plus",
-                                    label: app.translator.trans('davis-socialprofile.forum.edit.add'),
-                                    onclick: function onclick() {
-                                        app.modal.show(new SocialButtonsModal());
-                                    }
-                                }), -1);
-                            }
-                        }
-                });
-            });
-        }
-    };
 });
