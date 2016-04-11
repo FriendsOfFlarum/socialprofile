@@ -96,7 +96,7 @@ export default class SocialButtonsModal extends Modal {
                       this.buttons[btn_group].favicon('none');
                       this.buttons[btn_group].color('white');
                     }
-                    m.redraw();
+                    //m.redraw();
                     $('.icp').attr("aria-expanded","false");
                     $('.btn-group').removeClass('open');
                 });
@@ -108,6 +108,7 @@ export default class SocialButtonsModal extends Modal {
                     this.buttons.map((button) => {
                       
                       return [
+<<<<<<< HEAD
                           m('div', {className: 'Form-group form-group-social', id: 'socialgroup'+button.index()}, [
                             m('input', {className: 'SocialFormControl SocialTitle',
                               placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
@@ -175,6 +176,11 @@ export default class SocialButtonsModal extends Modal {
                             }),
                             m('style', {}, button.iconstyle()),
                           ]),
+=======
+                        WebsiteInputComponent.component({
+                          button: button, //MAY BE REDRAWING AT SIMPLE CHANGES!!!
+                        }),
+>>>>>>> componentcleanup
                       ];
                     }),
                     m('div', {className: 'Form-group', id: 'submit-button-group'}, [
