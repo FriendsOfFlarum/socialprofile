@@ -59,10 +59,10 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
             if (this.props.favicon() != 'none') {
               items.add('favicon', m('div', { onclick: function onclick() {
                   _this3.props.selection('favicon');m.redraw();
-                }, role: "button", href: "#", class: "iconpicker-item", title: 'Favicon' }, [m('img', { 'class': "iconpicker-image-" + this.props.index(), style: 'width: 14px;height: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 102);
+                }, role: "button", href: "#", class: "iconpicker-item " + (this.props.selection() == 'favicon' ? "iconpicker--highlighted" : ""), title: 'Favicon' }, [m('img', { 'class': "iconpicker-image-" + this.props.index(), style: 'width: 14px;height: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 102);
               items.add('favicon-grey', m('div', { onclick: function onclick() {
                   _this3.props.selection('favicon-grey');m.redraw();
-                }, role: "button", href: "#", class: "iconpicker-item-invt", title: 'Grey Favicon' }, [m('img', { 'class': "social-greyscale-button iconpicker-image-" + this.props.index(), style: 'width: 14px;height: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 101);
+                }, role: "button", href: "#", class: "iconpicker-item-invt " + (this.props.selection() == 'favicon-grey' ? "iconpicker--highlighted" : ""), title: 'Grey Favicon' }, [m('img', { 'class': "social-greyscale-button iconpicker-image-" + this.props.index(), style: 'width: 14px;height: 14px;margin: 0 2px 0 2px;', src: this.props.favicon() })]), 101);
             }
 
             var _loop = function _loop(k) {
