@@ -34,7 +34,6 @@ export default class IconSelectorComponent extends Dropdown {
   }
 
   getButtonContent() {
-    console.log(this.props.selection());
     return [
       (/^favicon(-\w+)?$/.test(this.props.selection())) ? [<img class={this.props.selection() == 'favicon-grey' ? 'social-greyscale-button' : 'social-button'} style="width: 14px;height: 14px;" src={this.props.favicon()}></img>] : icon(this.props.selection().replace('fa-', ''), {}),
       this.props.caretIcon ? icon(this.props.caretIcon, {className: 'Button-caret'}) : ''

@@ -46,7 +46,6 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
         }, {
           key: 'getButtonContent',
           value: function getButtonContent() {
-            console.log(this.props.selection());
             return [/^favicon(-\w+)?$/.test(this.props.selection()) ? [m('img', { 'class': this.props.selection() == 'favicon-grey' ? 'social-greyscale-button' : 'social-button', style: 'width: 14px;height: 14px;', src: this.props.favicon() })] : icon(this.props.selection().replace('fa-', ''), {}), this.props.caretIcon ? icon(this.props.caretIcon, { className: 'Button-caret' }) : ''];
           }
         }, {
@@ -166,7 +165,6 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                 _this2.createButtonObject(_this2.buttons.length);
 
                 m.redraw();
-                console.log(_this2.buttons.length);
                 $('#socialgroup' + (_this2.buttons.length - 1)).delay(150).slideDown();
               } }, [m('i', { className: 'fa fa-fw fa-plus' })]), m('div', { className: 'Button Button--primary EditSocialButtons-del', style: 'margin-left: 1%;',
               onclick: function onclick() {

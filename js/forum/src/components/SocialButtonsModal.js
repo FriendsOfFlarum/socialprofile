@@ -47,7 +47,6 @@ export default class SocialButtonsModal extends Modal {
                           this.createButtonObject(this.buttons.length);
       
                           m.redraw();
-                          console.log(this.buttons.length);
                           $('#socialgroup'+(this.buttons.length - 1)).delay(150).slideDown();
                         }}, [
                         m('i', {className: 'fa fa-fw fa-plus'})
