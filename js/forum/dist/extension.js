@@ -161,12 +161,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               return [WebsiteInputComponent.component({
                 button: button
               })];
-            }), m('div', { className: 'Form-group', id: 'submit-button-group' }, [Button.component({
-              type: 'submit',
-              className: 'Button Button--primary EditSocialButtons-save',
-              loading: this.loading,
-              children: app.translator.trans('davis-socialprofile.forum.edit.submit')
-            }), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
+            }), m('div', { className: 'Form-group', id: 'submit-button-group' }, [m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
               onclick: function onclick() {
                 _this2.createButtonObject(_this2.buttons.length);
 
@@ -180,7 +175,13 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
                   _this2.buttons.splice(curdel, 1);
                   m.redraw();
                 });
-              } }, [m('i', { className: 'fa fa-fw fa-minus' })])])])])];
+              } }, [m('i', { className: 'fa fa-fw fa-minus' })]), Button.component({
+              type: 'submit',
+              style: 'float: right;',
+              className: 'Button Button--primary EditSocialButtons-save',
+              loading: this.loading,
+              children: app.translator.trans('davis-socialprofile.forum.edit.submit')
+            })])])])];
           }
         }, {
           key: 'onsubmit',

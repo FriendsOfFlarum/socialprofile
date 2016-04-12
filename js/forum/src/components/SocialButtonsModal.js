@@ -42,12 +42,6 @@ export default class SocialButtonsModal extends Modal {
                       ];
                     }),
                     m('div', {className: 'Form-group', id: 'submit-button-group'}, [
-                      Button.component({
-                        type: 'submit',
-                        className: 'Button Button--primary EditSocialButtons-save',
-                        loading: this.loading,
-                        children: app.translator.trans('davis-socialprofile.forum.edit.submit')
-                      }),
                       m('div', {className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;', 
                         onclick: () => { 
                           this.createButtonObject(this.buttons.length);
@@ -68,6 +62,13 @@ export default class SocialButtonsModal extends Modal {
                         }}, [
                         m('i', {className: 'fa fa-fw fa-minus'})
                       ]),
+                      Button.component({
+                        type: 'submit',
+                        style: 'float: right;',
+                        className: 'Button Button--primary EditSocialButtons-save',
+                        loading: this.loading,
+                        children: app.translator.trans('davis-socialprofile.forum.edit.submit')
+                      }),
                     ]),
                   ]),
                 ]),
