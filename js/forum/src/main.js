@@ -89,7 +89,7 @@ app.initializers.add('davis-socialprofile-forum', function() {
                     icon: 'cog',
                     label: app.translator.trans('davis-socialprofile.forum.edit.edit'),
                     onclick: () => {
-                        app.modal.show(new SocialButtonsModal()); //Show the edit modal
+                        app.modal.show(new SocialButtonsModal({data: this.buttonsArray})); //Show the edit modal
                     }
                 }), -1);
             }
@@ -103,7 +103,7 @@ app.initializers.add('davis-socialprofile-forum', function() {
                     icon: "plus",
                     label: app.translator.trans('davis-socialprofile.forum.edit.add'),
                     onclick: () => {
-                        app.modal.show(new SocialButtonsModal())
+                        app.modal.show(new SocialButtonsModal({data: this.buttonsArray}));
                     }
                 }), -1);
             }

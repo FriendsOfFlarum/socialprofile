@@ -22,6 +22,7 @@ System.register('Davis/SocialProfile/components/IconSelectorComponent', ['flarum
         babelHelpers.createClass(IconSelectorComponent, [{
           key: 'init',
           value: function init() {
+            babelHelpers.get(Object.getPrototypeOf(IconSelectorComponent.prototype), 'init', this).call(this);
 
             this.icons = {
               'social': ["fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play']
@@ -125,47 +126,20 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
         babelHelpers.createClass(SocialButtonsModal, [{
           key: 'init',
           value: function init() {
-            var _this2 = this;
 
             babelHelpers.get(Object.getPrototypeOf(SocialButtonsModal.prototype), 'init', this).call(this);
 
-            var userId = app.current.user.data.id;
-            var apiUrl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + userId;
-            this.buttonsArray = null;
-            m.request({ method: "GET", url: apiUrl }).then(function (result) {
-              if (result.data.attributes.hasOwnProperty("buttons")) {
-                if (result.data.attributes.buttons == "[]") {
-                  _this2.createButtonObject(0);
-                } else {
-                  _this2.socialaccs = JSON.parse(result.data.attributes.buttons);
-                  _this2.buttons = [];
-                  for (var k in _this2.socialaccs) {
-                    if (_this2.socialaccs[k]['title'] != "") {
-                      var button = _this2.socialaccs[k];
-                      _this2.createButtonObject(k, button);
-                      _this2.numberofinputs = k;
-                    }
-                  }
-                }
-              } else {
-                _this2.createButtonObject(0);
-                _this2.numberofinputs = 0;
-              }
-              for (var k in _this2.buttons) {
-                if (_this2.buttons[k].favicon() != 'none') {
-                  _this2.buttons[k].color('transparent');
-                }
-                var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                if (urlpattern.test(_this2.buttons[k].url().toLowerCase())) {
-                  var iconurl = _this2.buttons[k].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                  var iconstyle = 'a > .social-favicon-' + _this2.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;}a > .social-favicon-grey-' + _this2.buttons[k].index() + ' {background-image: url("' + iconurl + '"); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;width:100%;height:100%;-webkit-filter: grayscale(1) contrast(2) brightness(2);}';
-                  _this2.buttons[k].iconstyle(iconstyle);
-                }
-              }
-              m.redraw();
-              $('.form-group-social').delay(5).slideDown();
-            });
             this.buttons = [];
+            if (this.props.data == true) {
+              this.createButtonObject(0);
+            } else {
+              for (var k in this.props.data) {
+                if (this.props.data[k]['title'] != "") {
+                  var button = this.props.data[k];
+                  this.createButtonObject(k, button);
+                }
+              }
+            }
           }
         }, {
           key: 'className',
@@ -180,72 +154,30 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'content',
           value: function content() {
-            var _this3 = this;
+            var _this2 = this;
 
-            $(function () {
-              $('.Modal-content').css('overflow', 'visible');
-              $(document).on('click', '.action-placement', function (e) {
-                $('.action-placement').removeClass('active');
-                $(this).addClass('active');
-                e.preventDefault();
-                return false;
-              });
-              for (var k in _this3.buttons) {
-                $('#social-favicon-' + _this3.buttons[k].index()).iconpicker({
-                  icons: ['social-favicon-' + _this3.buttons[k].index(), 'social-favicon-grey-' + _this3.buttons[k].index(), "fa-globe", 'fa-amazon', 'fa-angellist', 'fa-apple', 'fa-behance', 'fa-bitbucket', 'fa-codepen', 'fa-connectdevelop', 'fa-dashcube', 'fa-delicious', 'fa-deviantart', 'fa-digg', 'fa-dribbble', 'fa-dropbox', 'fa-drupal', 'fa-facebook', 'fa-flickr', 'fa-foursquare', 'fa-get-pocket', 'fa-git', 'fa-github', 'fa-github-alt', 'fa-gittip', 'fa-google', 'fa-google-plus', 'fa-google-wallet', 'fa-gratipay', 'fa-hacker-news', 'fa-instagram', 'fa-ioxhost', 'fa-joomla', 'fa-jsfiddle', 'fa-lastfm', 'fa-leanpub', 'fa-linkedin', 'fa-meanpath', 'fa-medium', 'fa-odnoklassniki', 'fa-opencart', 'fa-pagelines', 'fa-paypal', 'fa-pied-piper-alt', 'fa-pinterest-p', 'fa-qq', 'fa-reddit', 'fa-renren', 'fa-sellsy', 'fa-share-alt', 'fa-shirtsinbulk', 'fa-simplybuilt', 'fa-skyatlas', 'fa-skype', 'fa-slack', 'fa-slideshare', 'fa-soundcloud', 'fa-spotify', 'fa-stack-exchange', 'fa-stack-overflow', 'fa-steam', 'fa-stumbleupon', 'fa-tencent-weibo', 'fa-trello', 'fa-tripadvisor', 'fa-tumblr', 'fa-twitch', 'fa-twitter', 'fa-viacoin', 'fa-vimeo', 'fa-vine', 'fa-vk', 'fa-wechat', 'fa-weibo', 'fa-weixin', 'fa-whatsapp', 'fa-wordpress', 'fa-xing', 'fa-y-combinator', 'fa-yelp', 'fa-youtube-play'],
-                  hideOnSelect: true,
-                  title: "Displayed Icon"
-                });
-                if (/social-favicon-grey-\d/.test(_this3.buttons[k].icon())) {
-                  $('.button-' + k).addClass('social-greyscale-button');
-                } else {
-                  $('.button-' + k).removeClass('social-greyscale-button');
-                }
-              }
-              $('.icp').on('iconpickerSelected', function (e) {
-                var btn_group = /btn-group="(\d+)"/.exec(e.target.outerHTML)[1];
-                $('#icon' + btn_group).val(e.iconpickerValue.replace("fa-", "")).change();
-                if (e.iconpickerValue.replace("fa-", "") == 'social-favicon-' + _this3.buttons[btn_group].index() || e.iconpickerValue.replace("fa-", "") == 'social-favicon-grey-' + _this3.buttons[btn_group].index()) {
-                  var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                  if (urlpattern.test(_this3.buttons[btn_group].url().toLowerCase())) {
-                    var iconurl = _this3.buttons[btn_group].url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    _this3.buttons[btn_group].favicon(iconurl);
-                    _this3.buttons[btn_group].color('transparent');
-                    if (/social-favicon-grey-\d/.test(e.iconpickerValue.replace("fa-", ""))) {
-                      $('.button-' + btn_group).addClass('social-greyscale-button');
-                    } else {
-                      $('.button-' + btn_group).removeClass('social-greyscale-button');
-                    }
-                  }
-                } else {
-                  _this3.buttons[btn_group].favicon('none');
-                  _this3.buttons[btn_group].color('white');
-                }
-                //m.redraw();
-                $('.icp').attr("aria-expanded", "false");
-                $('.btn-group').removeClass('open');
-              });
-            });
+            $('.Modal-content').css('overflow', 'visible');
             return [m('div', { className: 'Modal-body' }, [m('div', { className: 'Form' }, [this.buttons.map(function (button) {
               return [WebsiteInputComponent.component({
-                button: button })];
-            }), //MAY BE REDRAWING AT SIMPLE CHANGES!!!
-            m('div', { className: 'Form-group', id: 'submit-button-group' }, [Button.component({
+                button: button
+              })];
+            }), m('div', { className: 'Form-group', id: 'submit-button-group' }, [Button.component({
               type: 'submit',
               className: 'Button Button--primary EditSocialButtons-save',
               loading: this.loading,
               children: app.translator.trans('davis-socialprofile.forum.edit.submit')
             }), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
               onclick: function onclick() {
-                _this3.createButtonObject(_this3.buttons.length);
+                _this2.createButtonObject(_this2.buttons.length);
 
                 m.redraw();
-                $('#socialgroup' + _this3.buttons.length).delay(5).slideDown();
-              } }, [m('i', { className: 'fa fa-fw fa-plus' })]), m('div', { className: 'Button Button--primary EditSocialButtons-add', style: 'margin-left: 1%;',
+                console.log(_this2.buttons.length);
+                $('#socialgroup' + (_this2.buttons.length - 1)).delay(150).slideDown();
+              } }, [m('i', { className: 'fa fa-fw fa-plus' })]), m('div', { className: 'Button Button--primary EditSocialButtons-del', style: 'margin-left: 1%;',
               onclick: function onclick() {
-                var curdel = _this3.buttons.length - 1;
+                var curdel = _this2.buttons.length - 1;
                 $('#socialgroup' + curdel).slideUp('normal', function () {
-                  _this3.buttons.splice(curdel, 1);
+                  _this2.buttons.splice(curdel, 1);
                   m.redraw();
                 });
               } }, [m('i', { className: 'fa fa-fw fa-minus' })])])])])];
@@ -253,7 +185,7 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
         }, {
           key: 'onsubmit',
           value: function onsubmit(e) {
-            var _this4 = this;
+            var _this3 = this;
 
             e.preventDefault();
 
@@ -280,11 +212,11 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
               },
               data: data
             }).then(function () {
-              $('#app').trigger("refreshSocialButtons", [_this4.finbuttons]);
-              _this4.hide();
+              $('#app').trigger("refreshSocialButtons", [_this3.finbuttons]);
+              _this3.hide();
             }, function (response) {
-              _this4.loading = false;
-              _this4.handleErrors(response);
+              _this3.loading = false;
+              _this3.handleErrors(response);
             });
           }
         }, {
@@ -294,20 +226,17 @@ System.register('Davis/SocialProfile/components/SocialButtonsModal', ['flarum/co
 
             if (button == null) {
               button = {};
-              button['favicon'] = '';
+              button['favicon'] = 'none';
               button['title'] = '';
               button['url'] = '';
-              button['icon'] = '';
+              button['icon'] = 'globe';
             }
             this.buttons[key] = {};
             this.buttons[key].index = m.prop(key);
-            this.buttons[key].iconstyle = m.prop();
-            this.buttons[key].color = m.prop('white');
-            this.buttons[key].favicon = m.prop(button["favicon"] || "none");
+            this.buttons[key].favicon = m.prop(button["favicon"]);
             this.buttons[key].title = m.prop(button["title"]);
             this.buttons[key].url = m.prop(button["url"]);
-            this.buttons[key].icon = m.prop(button["icon"] || "globe");
-            this.numberofinputs = key;
+            this.buttons[key].icon = m.prop(button["icon"]);
           }
         }]);
         return SocialButtonsModal;
@@ -341,8 +270,9 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
         babelHelpers.createClass(WebsiteInputComponent, [{
           key: 'init',
           value: function init() {
-            this.attrs = babelHelpers.extends({}, this.props);
-            this.button = extract(this.attrs, 'button');
+            babelHelpers.get(Object.getPrototypeOf(WebsiteInputComponent.prototype), 'init', this).call(this);
+
+            this.button = this.props.button;
           }
         }, {
           key: 'view',
@@ -351,10 +281,22 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
 
             return m(
               'div',
-              { className: 'Form-group form-group-social', id: 'socialgroup' + this.button.index() },
-              m('input', { className: 'SocialFormControl SocialTitle', placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'), value: this.button.title(), oninput: m.withAttr('value', this.button.title) }),
-              IconSelectorComponent.component({ selection: this.button.icon, favicon: this.button.favicon, index: this.button.index }),
-              m('input', { className: 'SocialFormControl Socialurl',
+              {
+                className: 'Form-group form-group-social',
+                id: 'socialgroup' + this.button.index()
+              },
+              m('input', {
+                className: 'SocialFormControl SocialTitle',
+                placeholder: app.translator.trans('davis-socialprofile.forum.edit.title'),
+                value: this.button.title(),
+                oninput: m.withAttr('value', this.button.title) }),
+              IconSelectorComponent.component({
+                selection: this.button.icon,
+                favicon: this.button.favicon,
+                index: this.button.index
+              }),
+              m('input', {
+                className: 'SocialFormControl Socialurl',
                 placeholder: app.translator.trans('davis-socialprofile.forum.edit.url'),
                 value: this.button.url(),
                 oninput: m.withAttr('value', function (value) {
@@ -372,13 +314,15 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
                   }
                 })
               }),
-              m('input', { className: 'SocialFormControl SocialIcon',
+              m('input', {
+                className: 'SocialFormControl SocialIcon',
                 id: 'icon' + this.button.index(),
                 style: 'display: none',
                 value: this.button.icon(),
                 onchange: m.withAttr('value', this.button.icon)
               }),
-              m('input', { className: 'SocialFormControl Socialfavicon',
+              m('input', {
+                className: 'SocialFormControl Socialfavicon',
                 id: 'favicon' + this.button.index(),
                 style: 'display: none',
                 value: this.button.favicon(),
@@ -505,7 +449,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                                 icon: 'cog',
                                 label: app.translator.trans('davis-socialprofile.forum.edit.edit'),
                                 onclick: function onclick() {
-                                    app.modal.show(new SocialButtonsModal()); //Show the edit modal
+                                    app.modal.show(new SocialButtonsModal({ data: _this2.buttonsArray })); //Show the edit modal
                                 }
                             }), -1);
                         }
@@ -519,7 +463,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                                     icon: "plus",
                                     label: app.translator.trans('davis-socialprofile.forum.edit.add'),
                                     onclick: function onclick() {
-                                        app.modal.show(new SocialButtonsModal());
+                                        app.modal.show(new SocialButtonsModal({ data: _this2.buttonsArray }));
                                     }
                                 }), -1);
                             }

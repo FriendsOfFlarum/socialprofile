@@ -12,6 +12,7 @@ export default class IconSelectorComponent extends Dropdown {
   }
   
   init() {
+    super.init();
     
     this.icons = {
       'social':
