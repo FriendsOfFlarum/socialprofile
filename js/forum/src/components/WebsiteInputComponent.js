@@ -35,17 +35,24 @@ export default class WebsiteInputComponent extends Component {
           value = {this.button.url()}
           oninput = {m.withAttr('value', (value) => {
             this.button.url(value);
+            clearTimeout(this.waittilfinsihed);
+            if(this.button.icon() !== 'fa-circle-o-notch fa-spin' && this.button.favicon() !== 'none') {
+              this.button.icon('fa-circle-o-notch fa-spin');
+              this.button.favicon('none');
+            }
+            this.waittilfinsihed = setTimeout(() => {
             var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
             if(urlpattern.test(this.button.url().toLowerCase())) {
               var iconurl = (this.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico');
               this.button.favicon(iconurl);
               this.button.icon('favicon');
               m.redraw();
-            } else if (this.button.icon() == 'favicon') {
+            } else if (this.button.icon() == 'favicon' || this.button.icon() == 'fa-circle-o-notch fa-spin') {
               this.button.icon('fa-globe');
               this.button.favicon('none');
               m.redraw();
             }
+            }, 1000);
           })}
         ></input>
         <input 

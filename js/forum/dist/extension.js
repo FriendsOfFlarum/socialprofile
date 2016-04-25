@@ -300,17 +300,24 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
                 value: this.button.url(),
                 oninput: m.withAttr('value', function (value) {
                   _this2.button.url(value);
-                  var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-                  if (urlpattern.test(_this2.button.url().toLowerCase())) {
-                    var iconurl = _this2.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
-                    _this2.button.favicon(iconurl);
-                    _this2.button.icon('favicon');
-                    m.redraw();
-                  } else if (_this2.button.icon() == 'favicon') {
-                    _this2.button.icon('fa-globe');
+                  clearTimeout(_this2.waittilfinsihed);
+                  if (_this2.button.icon() !== 'fa-circle-o-notch fa-spin' && _this2.button.favicon() !== 'none') {
+                    _this2.button.icon('fa-circle-o-notch fa-spin');
                     _this2.button.favicon('none');
-                    m.redraw();
                   }
+                  _this2.waittilfinsihed = setTimeout(function () {
+                    var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+                    if (urlpattern.test(_this2.button.url().toLowerCase())) {
+                      var iconurl = _this2.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
+                      _this2.button.favicon(iconurl);
+                      _this2.button.icon('favicon');
+                      m.redraw();
+                    } else if (_this2.button.icon() == 'favicon' || _this2.button.icon() == 'fa-circle-o-notch fa-spin') {
+                      _this2.button.icon('fa-globe');
+                      _this2.button.favicon('none');
+                      m.redraw();
+                    }
+                  }, 1000);
                 })
               }),
               m('input', {
