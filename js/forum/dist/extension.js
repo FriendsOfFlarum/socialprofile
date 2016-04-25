@@ -441,7 +441,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                             _loop(k);
                         }
                         //Add the edit buttons at the end, as long as it's their own profile
-                        if (app.session.user === app.current.user) {
+                        if (app.session.user === app.current.user && app.session.user !== undefined && app.current.user !== undefined) {
                             //Add the settings button
                             items.add('settings social-button', Badge.component({
                                 type: "social social-settings",
@@ -455,7 +455,7 @@ System.register('Davis/SocialProfile/main', ['flarum/app', 'flarum/extend', 'fla
                         //It turns out they don't have any buttons
                     } else {
                             //Add an add button only if its their own profile
-                            if (app.session.user === app.current.user) {
+                            if (app.session.user === app.current.user && app.session.user !== undefined && app.current.user !== undefined) {
                                 //Add the add button
                                 items.add('settings social-button', Badge.component({
                                     type: "social null-social-settings",
