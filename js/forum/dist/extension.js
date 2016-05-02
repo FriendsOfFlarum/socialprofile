@@ -301,7 +301,7 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
                 oninput: m.withAttr('value', function (value) {
                   _this2.button.url(value);
                   clearTimeout(_this2.waittilfinsihed);
-                  if (_this2.button.icon() !== 'fa-circle-o-notch fa-spin' && _this2.button.favicon() !== 'none') {
+                  if (_this2.button.icon() !== 'fa-circle-o-notch fa-spin') {
                     _this2.button.icon('fa-circle-o-notch fa-spin');
                     _this2.button.favicon('none');
                   }
@@ -312,7 +312,7 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
                       _this2.button.favicon(iconurl);
                       _this2.button.icon('favicon');
                       m.redraw();
-                    } else if (_this2.button.icon() == 'favicon' || _this2.button.icon() == 'fa-circle-o-notch fa-spin') {
+                    } else {
                       _this2.button.icon('fa-globe');
                       _this2.button.favicon('none');
                       m.redraw();

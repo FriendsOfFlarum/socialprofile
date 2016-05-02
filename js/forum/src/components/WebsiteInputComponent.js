@@ -36,7 +36,7 @@ export default class WebsiteInputComponent extends Component {
           oninput = {m.withAttr('value', (value) => {
             this.button.url(value);
             clearTimeout(this.waittilfinsihed);
-            if(this.button.icon() !== 'fa-circle-o-notch fa-spin' && this.button.favicon() !== 'none') {
+            if(this.button.icon() !== 'fa-circle-o-notch fa-spin') {
               this.button.icon('fa-circle-o-notch fa-spin');
               this.button.favicon('none');
             }
@@ -47,7 +47,7 @@ export default class WebsiteInputComponent extends Component {
               this.button.favicon(iconurl);
               this.button.icon('favicon');
               m.redraw();
-            } else if (this.button.icon() == 'favicon' || this.button.icon() == 'fa-circle-o-notch fa-spin') {
+            } else {
               this.button.icon('fa-globe');
               this.button.favicon('none');
               m.redraw();
