@@ -1,8 +1,16 @@
-<?php namespace Davis\SocialProfile\Repository;
+<?php
+
+/*
+ * This file is part of davis/flarum-ext-socialprofile
+ *
+ * (c) Connor Davis <davis@produes.co>
+ *
+ * For the full copyright and license information, please view the MIT license
+ */
+
+namespace Davis\SocialProfile\Repository;
 
 use Davis\SocialProfile\Buttons;
-use Illuminate\Database\Eloquent\Builder;
-use Flarum\Core\User;
 
 class UserSocialRepository
 {
@@ -10,6 +18,7 @@ class UserSocialRepository
     {
         return Buttons::query();
     }
+
     public function findOrFail($id)
     {
         return Buttons::where('user_id', $id)->first();

@@ -1,7 +1,16 @@
-<?php namespace Davis\SocialProfile\Commands;
+<?php
+
+/*
+ * This file is part of davis/flarum-ext-socialprofile
+ *
+ * (c) Connor Davis <davis@produes.co>
+ *
+ * For the full copyright and license information, please view the MIT license
+ */
+
+namespace Davis\SocialProfile\Commands;
 
 use Flarum\Core\User;
-use Psr\Http\Message\UploadedFileInterface;
 
 class SaveSocialSettings
 {
