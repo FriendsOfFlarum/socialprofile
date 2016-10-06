@@ -1,4 +1,14 @@
-<?php namespace Davis\SocialProfile\Listeners;
+<?php
+
+/*
+ * This file is part of davis/flarum-ext-socialprofile
+ *
+ * (c) Connor Davis <davis@produes.co>
+ *
+ * For the full copyright and license information, please view the MIT license
+ */
+
+namespace Davis\SocialProfile\Listeners;
 
 use DirectoryIterator;
 use Flarum\Event\ConfigureClientView;
@@ -30,12 +40,12 @@ class AddClientAssets
             $event->addBootstrapper('Davis/SocialProfile/main');
         }
     }
-    
+
     public function addLocales(ConfigureLocales $event)
     {
-        foreach (new DirectoryIterator(__DIR__ .'/../../locale') as $file) {
+        foreach (new DirectoryIterator(__DIR__.'/../../locale') as $file) {
             if ($file->isFile() && in_array($file->getExtension(), ['yml', 'yaml'])) {
-                $event->locales->addTranslations($file->getBasename('.' . $file->getExtension()), $file->getPathname());
+                $event->locales->addTranslations($file->getBasename('.'.$file->getExtension()), $file->getPathname());
             }
         }
     }

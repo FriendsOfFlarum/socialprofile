@@ -1,4 +1,14 @@
-<?php namespace Davis\SocialProfile\Commands;
+<?php
+
+/*
+ * This file is part of davis/flarum-ext-socialprofile
+ *
+ * (c) Connor Davis <davis@produes.co>
+ *
+ * For the full copyright and license information, please view the MIT license
+ */
+
+namespace Davis\SocialProfile\Commands;
 
 use Davis\SocialProfile\Buttons;
 use Davis\SocialProfile\Events\SocialProfileEditted;
@@ -14,7 +24,7 @@ class SaveSocialSettingsHandler
     use AssertPermissionTrait;
 
     protected $users;
-    
+
     protected $app;
 
     public function __construct(
@@ -22,9 +32,9 @@ class SaveSocialSettingsHandler
         UserRepository $users,
         Application $app
     ) {
-        $this->events    = $events;
-        $this->users     = $users;
-        $this->app       = $app;
+        $this->events = $events;
+        $this->users = $users;
+        $this->app = $app;
     }
 
     public function handle(SaveSocialSettings $command)
@@ -37,7 +47,7 @@ class SaveSocialSettingsHandler
         $Buttons->user_id = $command->actor->id;
         $Buttons->Buttons = $command->Buttons;
 
-       $this->events->fire(
+        $this->events->fire(
             new SocialProfileEditted($command->actor, $command->Buttons)
         );
 
