@@ -4,6 +4,6 @@
   "license": "MIT",
   "version": "1.0.0",
   "devDependencies": {
-    "babel-plugin-antd": "^12.0.0",
+    "eslint-config-airbnb": "^12.0.0",
   }
 }
