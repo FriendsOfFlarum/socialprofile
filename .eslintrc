@@ -4,6 +4,8 @@
  		"import/ignore": ["node_modules", "\\.(coffee|scss|css|less|hbs|svg|json)$", "flarum"]
  	},
  	"rules": {
- 		"import/no-unresolved": "off"
+ 		"import/no-unresolved": "off",
+ 		"import/no-extraneous-dependencies": "off",
+   'import/extensions': ['error', 'never'],
  	}
  }
