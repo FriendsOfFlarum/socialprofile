@@ -1,10 +1,6 @@
 {
   "extends": "eslint-config-airbnb",
   "settings": {
-    "import/ignore": [
-      "node_modules",
-      "\\.(coffee|scss|css|less|hbs|svg|json)$",
-      "^flarum\/",
-    ],
+    "import/ignore": ["node_modules", "\.(coffee|scss|css|less|hbs|svg|json)$", "flarum\/"]
   },
 }
