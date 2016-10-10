@@ -1,7 +1,8 @@
 {
   "ignore": [
-    "js/forum/dist/extension.js",
-    "js/admin/dist/extension.js",
+    "**/dist/**",
   ],
-  "packageJsonLocation": "js/forum/package.json"
+  "critics": {
+    "lint": {"engine": "eslint"}
+  }
 }
