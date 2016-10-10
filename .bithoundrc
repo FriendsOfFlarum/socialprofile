@@ -1,0 +1,7 @@
+{
+  "ignore": [
+    "js/forum/dist/extension.js",
+    "js/admin/dist/extension.js",
+  ],
+  "packageJsonLocation": "js/forum/package.json"
+}
