@@ -1,0 +1,9 @@
+{
+  "name": "flarum-ext-socialprofile",
+  "author": "Davis",
+  "license": "MIT",
+  "version": "1.0.0",
+  "devDependencies": {
+    "eslint": "^3.7.1",
+  }
+}
