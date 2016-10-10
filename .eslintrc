@@ -1,9 +1,12 @@
-{
-	"extends": "eslint-config-airbnb",
-	"settings": {
-		"import/ignore": ['flarum']
-	},
-	"rules": {
-		"import/no-unresolved": [error, { commonjs: true, ignore: ['flarum'] }]
-	}
-}
+ {
+ 	"extends": "eslint-config-airbnb",
+ 	"settings": {
+ 		"import/ignore": ["node_modules", "\\.(coffee|scss|css|less|hbs|svg|json)$", "flarum"]
+ 	},
+ 	"rules": {
+ 		"import/no-unresolved": ["error", {
+ 			"commonjs": true,
+ 			"ignore": ["flarum"]
+ 		}]
+ 	}
+ }
