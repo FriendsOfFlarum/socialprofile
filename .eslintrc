@@ -1,7 +1,7 @@
 {
 	"extends": "eslint-config-airbnb",
 	"settings": {
-		"import/core-modules": ["flarum"]
+		"import/ignore": ['flarum']
 	},
 	"rules": {
 		"import/no-unresolved": [error, { commonjs: true, ignore: ['flarum'] }]
