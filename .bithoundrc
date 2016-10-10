@@ -1,6 +1,8 @@
 {
   "ignore": [
-    "**/dist/**",
+    "**/dist/**.**"
+  ],
+  "test": [
   ],
   "critics": {
     "lint": {"engine": "eslint"}
