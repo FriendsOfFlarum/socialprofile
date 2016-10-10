@@ -3,7 +3,7 @@
   "author": "Davis",
   "license": "MIT",
   "version": "1.0.0",
-  "dependencies": {
-    "eslint": "^3.7.1",
+  "devDependencies": {
+    "babel-plugin-antd": "^12.0.0",
   }
 }
