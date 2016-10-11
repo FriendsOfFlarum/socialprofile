@@ -5,6 +5,7 @@
 		"import/no-extraneous-dependencies": "off",
 		"react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
 		"react/react-in-jsx-scope": "off",
+		"react/prop-types": "off",
 		"import/extensions": ["error", "never"]
 	},
 	"env": {
