@@ -77,7 +77,7 @@ class UpdateProfileInDatabase
         $proposed = json_decode($proposed);
 
         foreach ($proposed as $component) {
-            if (!$this->hasMatchingComponent($current, $component)) {
+            if (! $this->hasMatchingComponent($current, $component)) {
                 return false;
             }
         }

@@ -61,13 +61,13 @@ class ProfileValidator extends AbstractValidator
             $data = json_decode($value);
 
             foreach ($data as $button) {
-                if (!isset($button->title)) {
+                if (! isset($button->title)) {
                     return false;
-                } else if (!isset($button->url)) {
+                } elseif (! isset($button->url)) {
                     return false;
-                } else if (!isset($button->icon)) {
+                } elseif (! isset($button->icon)) {
                     return false;
-                } else if (!isset($button->favicon)) {
+                } elseif (! isset($button->favicon)) {
                     return false;
                 } else {
                     $attributes = [

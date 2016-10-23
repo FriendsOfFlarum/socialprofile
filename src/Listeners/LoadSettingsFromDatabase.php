@@ -39,7 +39,7 @@ class LoadSettingsFromDatabase
     {
         if ($event->isSerializer(ForumSerializer::class)) {
             foreach ($this->fieldsToGet as $field) {
-                $event->attributes[$this->packagePrefix . $field] = $this->settings->get($this->packagePrefix . $field);
+                $event->attributes[$this->packagePrefix.$field] = $this->settings->get($this->packagePrefix.$field);
             }
         }
     }
