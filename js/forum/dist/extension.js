@@ -430,7 +430,7 @@ System.register('Davis/SocialProfile/components/WebsiteInputComponent', ['flarum
                   var urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
 
                   if (urlpattern.test(_this2.button.url().toLowerCase())) {
-                    var iconurl = _this2.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '\n                /favicon.ico';
+                    var iconurl = _this2.button.url().replace(/(:\/\/[^\/]+).*$/, '$1') + '/favicon.ico';
                     _this2.button.favicon(iconurl);
                     _this2.button.icon('favicon');
                     m.redraw();

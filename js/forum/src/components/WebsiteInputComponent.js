@@ -42,8 +42,7 @@ export default class WebsiteInputComponent extends Component {
             /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
 
             if (urlpattern.test(this.button.url().toLowerCase())) {
-              const iconurl = (`${this.button.url().replace(/(:\/\/[^\/]+).*$/, '$1')}
-                /favicon.ico`);
+              const iconurl = `${this.button.url().replace(/(:\/\/[^\/]+).*$/, '$1')}/favicon.ico`;
               this.button.favicon(iconurl);
               this.button.icon('favicon');
               m.redraw();
