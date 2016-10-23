@@ -7,5 +7,5 @@ davis-socialprofile:
       title: "Titre"
       url: "Url"
       submit: "Sauvegarder"
-  admin:
-    test: "Test"
+      delete: "Effacer"
+      deletetitle: "Bouton Supprimer"

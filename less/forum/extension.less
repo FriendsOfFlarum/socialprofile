@@ -27,7 +27,7 @@
     border-radius: 3px;
     font-size: 14px;
     box-shadow: 0 0 0 1px #ddd;
-    color: inherit;
+    color: #111;
 }
 .iconpicker-item-invt { 
     float: left;
@@ -62,7 +62,7 @@
     top: 100% !important;
     overflow: auto;
     max-height: 45vh !important;
-    min-width: 189px !important;
+    min-width: 190px !important;
     z-index: 2055;
     float: left;
     background-color: #fff;
@@ -91,8 +91,13 @@
     -webkit-appearance: none;
 }
 .Socialurl {
-    margin-left: 1%;
-    width: 82.5%;
+    margin-left: 3px;
+    width: 260px;
+}
+@media (max-width: 767px) {
+    .Socialurl {
+        width: 293px;
+    }
 }
 .social-greyscale-button {
     -webkit-filter: grayscale(1) contrast(2) brightness(2);
@@ -103,6 +108,17 @@
 }
 .icondropdown > button > i {
     display: inline-block !important;
+}
+.social-moderate--highlighted > .Badge-icon {
+    color: #F22613;
+    transition: .5s;
+    font-size: 23px;
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+}
+.social-button--highlightable:hover {
+    border-radius: 4px;
+    background: #F22613;
 }
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;

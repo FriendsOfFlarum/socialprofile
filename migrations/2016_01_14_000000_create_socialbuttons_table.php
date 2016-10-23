@@ -8,8 +8,6 @@
  * For the full copyright and license information, please view the MIT license
  */
 
-namespace Davis\SocialProfile\Migration;
-
 use Flarum\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 

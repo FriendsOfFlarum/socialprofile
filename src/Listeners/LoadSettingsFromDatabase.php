@@ -3,7 +3,7 @@
 /*
  * This file is part of davis/flarum-ext-socialprofile
  *
- * (c) Connor Davis <davis@produes.co>
+ * © Connor Davis <davis@produes.co>
  *
  * For the full copyright and license information, please view the MIT license
  */
@@ -20,7 +20,7 @@ class LoadSettingsFromDatabase
     protected $packagePrefix = 'davis.socialprofile.';
 
     protected $fieldsToGet = [
-    'test',
+        'test',
     ];
 
     protected $settings;
@@ -39,7 +39,7 @@ class LoadSettingsFromDatabase
     {
         if ($event->isSerializer(ForumSerializer::class)) {
             foreach ($this->fieldsToGet as $field) {
-                $event->attributes[$this->packagePrefix.$field] = $this->settings->get($this->packagePrefix.$field);
+                $event->attributes[$this->packagePrefix . $field] = $this->settings->get($this->packagePrefix . $field);
             }
         }
     }

@@ -1,8 +1,8 @@
 import SettingsModal from 'flarum/components/SettingsModal';
 
-export default class AnimatedTagSettingsModal extends SettingsModal {
+export default class SocialProfileSettingsModal extends SettingsModal {
   className() {
-    return 'AnimatedTagSettingsModal Modal--small';
+    return 'SocialProfileSettingsModal Modal--small';
   }
 
   title() {
@@ -10,11 +10,11 @@ export default class AnimatedTagSettingsModal extends SettingsModal {
   }
 
   form() {
-    return [
+    return (
       <div className="Form-group">
-        <label>{app.translator.trans('davis-socialprofile.admin.test')}</label>
-        <input type="text" className="FormControl" bidi={this.setting('davis.socialprofile.test')}></input>
+        <label htmlFor="test">{app.translator.trans('davis-socialprofile.admin.test')}</label>
+        <input name="test" type="text" className="FormControl" bidi={this.setting('davis.socialprofile.test')} />
       </div>
-    ];
+    );
   }
 }

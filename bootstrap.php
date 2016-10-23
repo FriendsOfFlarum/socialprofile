@@ -15,5 +15,6 @@ use Illuminate\Contracts\Events\Dispatcher;
 return function (Dispatcher $events) {
     $events->subscribe(Listeners\AddClientAssets::class);
     $events->subscribe(Listeners\LoadSettingsFromDatabase::class);
-    $events->subscribe(Listeners\AddApiAttributes::class);
+    $events->subscribe(Listeners\AddUserProfileAttributes::class);
+    $events->subscribe(Listeners\UpdateProfileInDatabase::class);
 };

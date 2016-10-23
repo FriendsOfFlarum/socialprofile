@@ -1,112 +1,89 @@
 import app from 'flarum/app';
+import Model from 'flarum/Model';
+import User from 'flarum/models/User';
 import { extend } from 'flarum/extend';
 import UserCard from 'flarum/components/UserCard';
 import Badge from 'flarum/components/Badge';
 import SocialButtonsModal from 'Davis/SocialProfile/components/SocialButtonsModal';
+import DeleteButtonModal from 'Davis/SocialProfile/components/DeleteButtonModal';
 
-app.initializers.add('davis-socialprofile-forum', function() {
+app.initializers.add('davis-socialprofile-forum', () => {
+  User.prototype.socialButtons = Model.attribute('socialButtons');
 
-    extend(UserCard.prototype, 'init', function() {
-      var user = this.props.user;
-      var apiUrl = app.forum.attribute('apiUrl') + '/profile/socialbutton/' + user.data.id;
-      this.buttonsArray = null; //Indicate we haven't retrieved the user's buttons
-      //Get buttons from database
-      app.request({method: "GET", url: apiUrl}).then(result => {
-        //Test if user has set their buttons up already
-        if(result.data.attributes.hasOwnProperty("buttons")) {
-            //Test if buttons have been set up, but the array is empty
-            if (result.data.attributes.buttons == "[]") {
-                //Since there are no buttons set, we have a blank slate
-                this.buttonsArray = true; //Indicate we have retrieved the user's buttons
-                this.isBlankSlate = true; //Indicate we don't have any buttons
+  extend(UserCard.prototype, 'init', function () {
+    $('#app').on('refreshSocialButtons', (e, buttons) => {
+      this.buttons = JSON.parse(buttons || '[]');
+      this.props.user.data.attributes.socialButtons = JSON.parse(buttons || '[]');
+      this.props.user.freshness = new Date();
+      m.redraw();
+    });
+  });
+
+  extend(UserCard.prototype, 'infoItems', function (items) {
+    this.isSelf = (app.session.user === this.props.user);
+    this.canEdit = app.session.user ? app.session.user.data.attributes.canEdit : false;
+    this.buttons = JSON.parse(this.props.user.data.attributes.socialButtons || '[]');
+
+    if (this.buttons.length) {
+      this.buttons.forEach((button, index) => {
+        if (button.title !== '' && button.icon !== '' && button.url !== '') {
+          let buttonStyle = '';
+          let buttonClassName = '';
+
+          if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
+            buttonStyle = `background-image: url("${button.favicon}");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;`;
+            if (button.icon === 'favicon-grey') {
+              buttonClassName = `${button.icon}-${index} social-button social-greyscale-button`;
             } else {
-                //The buttons array must not be empty, so lets set it
-                this.buttonsArray = JSON.parse(result.data.attributes.buttons);
-                this.isBlankSlate = false; //Indicate we do have buttons
+              buttonClassName = `${button.icon}-${index} social-button`;
             }
-        } else {
-            //This user has never set their buttons
-            this.buttonsArray = true; //Indicate we have retrieved the user's buttons
-            this.isBlankSlate = true; //Indicate we don't have any buttons
+          } else {
+            buttonStyle = '';
+            buttonClassName = `${button.icon}-${index} social-button`;
+          }
+          items.add(`${buttonClassName}${this.deleting ? ' social-button--highlightable' : ''}`, Badge.component({
+            type: `social social-icon-${index}`,
+            icon: button.icon.replace('fa-', ''),
+            label: button.title,
+            style: buttonStyle,
+            onclick: () => {
+              if (this.deleting) {
+                app.modal.show(new DeleteButtonModal({ user: this.props.user, index }));
+              } else {
+                window.open(button.url, '_blank');
+              }
+            },
+          }));
         }
-        user.freshness = new Date(); //Tell Mithril we have new data
-        m.redraw(); //Refresh the DOM
       });
-      
-      //If the buttons have been edited, we need to refresh them
-        $('#app').on('refreshSocialButtons', (e, buttons)=>{
-            var user = this.props.user; //Then is our user
-            this.buttonsArray = JSON.parse(buttons); //Parse the saved array from editing
-            this.isBlankSlate = false; //Indicate we do really have buttons
-            user.freshness = new Date(); //Tell Mithril we have new data
-            m.redraw(); //Refresh DOM
-        });
-    });
-    
-    extend(UserCard.prototype, 'infoItems', function(items) {
-        
-        // If request hasn't loaded yet, don't add any items.
-        if (!this.buttonsArray) return;
-        
-        //If there are buttons, add them
-        if (!this.isBlankSlate) {
-            //Loop through the buttonsArray
-            for (const k in this.buttonsArray) {
-                const selectedButton = this.buttonsArray[k]; //Set constant for easier selection
-                //Ensure the button has a title, icon, and url
-                if (selectedButton["title"] !== "" && selectedButton["icon"] !== "" && selectedButton["url"] !== "") {
-                    var buttonStyle, buttonClass;
-                    //If the button is using a favicon, make sure it is displayed
-                    if (selectedButton['icon'] == 'favicon' || selectedButton['icon'] == 'favicon-grey') {
-                        buttonStyle = 'background-image: url("'+selectedButton['favicon']+'");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;';
-                        //If the favicon is set to greyscale, make sure it is displayed
-                        if (selectedButton['icon'] == 'favicon-grey') {
-                            buttonClass = selectedButton["icon"] + '-' + k + ' social-button social-greyscale-button';
-                        } else {
-                            buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
-                        }
-                    } else {
-                        buttonStyle = '';
-                        buttonClass = selectedButton["icon"] + '-' + k + ' social-button';
-                    }
-                    //Acctually add the button
-                    items.add(buttonClass , Badge.component({
-                        type: "social social-icon-" + k,
-                        icon: selectedButton["icon"].replace('fa-', ''),
-                        label: selectedButton["title"],
-                        style: buttonStyle,
-                        onclick: function() {
-                            window.open(selectedButton["url"],'_blank');
-                        }
-                    }));
-                }
-            }
-            //Add the edit buttons at the end, as long as it's their own profile
-            if (app.session.user === app.current.user && app.session.user !== undefined && app.current.user !== undefined) {
-                //Add the settings button
-                items.add('settings social-button', Badge.component({
-                    type: "social social-settings",
-                    icon: 'cog',
-                    label: app.translator.trans('davis-socialprofile.forum.edit.edit'),
-                    onclick: () => {
-                        app.modal.show(new SocialButtonsModal({data: this.buttonsArray})); //Show the edit modal
-                    }
-                }), -1);
-            }
-        //It turns out they don't have any buttons
-        } else {
-            //Add an add button only if its their own profile
-            if (app.session.user === app.current.user && app.session.user !== undefined && app.current.user !== undefined) {
-                //Add the add button
-                items.add('settings social-button', Badge.component({
-                    type: "social null-social-settings",
-                    icon: "plus",
-                    label: app.translator.trans('davis-socialprofile.forum.edit.add'),
-                    onclick: () => {
-                        app.modal.show(new SocialButtonsModal({data: this.buttonsArray}));
-                    }
-                }), -1);
-            }
-        }
-    });
+      if (this.isSelf) {
+        items.add('settings social-button', Badge.component({
+          type: 'social social-settings',
+          icon: 'cog',
+          label: app.translator.trans('davis-socialprofile.forum.edit.edit'),
+          onclick: () => {
+            app.modal.show(new SocialButtonsModal({ user: this.props.user }));
+          },
+        }), -1);
+      } else if (this.canEdit) {
+        items.add('settings social-button', Badge.component({
+          type: `social social-moderate ${this.deleting ? 'social-moderate--highlighted' : ''}`,
+          icon: 'exclamation-triangle',
+          label: app.translator.trans('davis-socialprofile.forum.edit.delete'),
+          onclick: () => {
+            this.deleting = !this.deleting;
+          },
+        }), -1);
+      }
+    } else if (this.isSelf) {
+      items.add('settings social-button', Badge.component({
+        type: 'social null-social-settings',
+        icon: 'plus',
+        label: app.translator.trans('davis-socialprofile.forum.edit.add'),
+        onclick: () => {
+          app.modal.show(new SocialButtonsModal({ user: this.props.user }));
+        },
+      }), -1);
+    }
+  });
 });

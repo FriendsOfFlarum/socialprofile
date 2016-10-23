@@ -7,5 +7,5 @@ davis-socialprofile:
       title: "Надпись"
       url: "Url"
       submit: "Сохранить"
-  admin:
-    test: "Test"
+      delete: "Удалить"
+      deletetitle: "кнопка удаления"

@@ -1,23 +1,18 @@
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
-import WebsiteInputComponent from 'Davis/SocialProfile/components/WebsiteInputComponent';
 
-export default class SocialButtonsModal extends Modal {
+export default class DeleteButtonModal extends Modal {
   init() {
     super.init();
 
     this.buttons = [];
+    this.index = this.props.index;
     const buttons = JSON.parse(this.props.user.data.attributes.socialButtons || '[]');
+    this.button = buttons[this.index];
 
-    if (buttons.length) {
-      buttons.forEach((button, index) => {
-        if (button.title !== '') {
-          this.createButtonObject(index, button);
-        }
-      });
-    } else {
-      this.createButtonObject(0);
-    }
+    buttons.forEach((button, index) => {
+      this.createButtonObject(index, button);
+    });
   }
 
   className() {
@@ -25,7 +20,7 @@ export default class SocialButtonsModal extends Modal {
   }
 
   title() {
-    return app.translator.trans('davis-socialprofile.forum.edit.headtitle');
+    return app.translator.trans('davis-socialprofile.forum.edit.deletetitle');
   }
 
   content() {
@@ -33,39 +28,14 @@ export default class SocialButtonsModal extends Modal {
     return [
       m('div', { className: 'Modal-body' }, [
         m('div', { className: 'Form' }, [
-          this.buttons.map(button => WebsiteInputComponent.component({ button })),
+          m('h3', { className: 'SocialProfile-title' }, this.button.title),
+          m('p', { className: 'SocialProfile-url' }, this.button.url),
           m('div', { className: 'Form-group', id: 'submit-button-group' }, [
-            m('div', {
-              className: 'Button Button--primary EditSocialButtons-add',
-              style: 'margin-left: 1%;',
-              onclick: () => {
-                this.createButtonObject(this.buttons.length);
-
-                m.redraw();
-                $('document').ready(() => { $(`#socialgroup-${this.buttons.length - 1}`).slideDown(); });
-              },
-            }, [
-              m('i', { className: 'fa fa-fw fa-plus' }),
-            ]),
-            m('div', {
-              className: 'Button Button--primary EditSocialButtons-del',
-              style: 'margin-left: 1%;',
-              onclick: () => {
-                const curdel = (this.buttons.length - 1);
-                $(`#socialgroup-${curdel}`).slideUp('normal', () => {
-                  this.buttons.splice(curdel, 1);
-                  m.redraw();
-                });
-              },
-            }, [
-              m('i', { className: 'fa fa-fw fa-minus' }),
-            ]),
             Button.component({
               type: 'submit',
-              style: 'float: right;',
-              className: 'Button Button--primary EditSocialButtons-save',
+              className: 'Button Button--primary EditSocialButtons-delete',
               loading: this.loading,
-              children: app.translator.trans('davis-socialprofile.forum.edit.submit'),
+              children: app.translator.trans('davis-socialprofile.forum.edit.delete'),
             }),
           ]),
         ]),
@@ -95,6 +65,7 @@ export default class SocialButtonsModal extends Modal {
     e.preventDefault();
 
     this.loading = true;
+    this.buttons.splice(this.index, 1);
 
     this.props.user.save(this.data(), { errorHandler: this.onerror.bind(this) })
       .then(this.hide.bind(this))

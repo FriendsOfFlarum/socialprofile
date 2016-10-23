@@ -1,24 +1,26 @@
-System.register('davis/socialprofile/components/SocialProfileSettingsModal', ['flarum/components/SettingsModal'], function (_export) {
-  'use strict';
+'use strict';
 
-  var SettingsModal, AnimatedTagSettingsModal;
+System.register('Davis/SocialProfile/components/SocialProfileSettingsModal', ['flarum/components/SettingsModal'], function (_export, _context) {
+  "use strict";
+
+  var SettingsModal, SocialProfileSettingsModal;
   return {
     setters: [function (_flarumComponentsSettingsModal) {
-      SettingsModal = _flarumComponentsSettingsModal['default'];
+      SettingsModal = _flarumComponentsSettingsModal.default;
     }],
     execute: function () {
-      AnimatedTagSettingsModal = (function (_SettingsModal) {
-        babelHelpers.inherits(AnimatedTagSettingsModal, _SettingsModal);
+      SocialProfileSettingsModal = function (_SettingsModal) {
+        babelHelpers.inherits(SocialProfileSettingsModal, _SettingsModal);
 
-        function AnimatedTagSettingsModal() {
-          babelHelpers.classCallCheck(this, AnimatedTagSettingsModal);
-          babelHelpers.get(Object.getPrototypeOf(AnimatedTagSettingsModal.prototype), 'constructor', this).apply(this, arguments);
+        function SocialProfileSettingsModal() {
+          babelHelpers.classCallCheck(this, SocialProfileSettingsModal);
+          return babelHelpers.possibleConstructorReturn(this, (SocialProfileSettingsModal.__proto__ || Object.getPrototypeOf(SocialProfileSettingsModal)).apply(this, arguments));
         }
 
-        babelHelpers.createClass(AnimatedTagSettingsModal, [{
+        babelHelpers.createClass(SocialProfileSettingsModal, [{
           key: 'className',
           value: function className() {
-            return 'AnimatedTagSettingsModal Modal--small';
+            return 'SocialProfileSettingsModal Modal--small';
           }
         }, {
           key: 'title',
@@ -28,42 +30,38 @@ System.register('davis/socialprofile/components/SocialProfileSettingsModal', ['f
         }, {
           key: 'form',
           value: function form() {
-            return [m(
+            return m(
               'div',
               { className: 'Form-group' },
               m(
                 'label',
-                null,
+                { htmlFor: 'test' },
                 app.translator.trans('davis-socialprofile.admin.test')
               ),
-              m('input', { type: 'text', className: 'FormControl', bidi: this.setting('davis.socialprofile.test') })
-            )];
+              m('input', { name: 'test', type: 'text', className: 'FormControl', bidi: this.setting('davis.socialprofile.test') })
+            );
           }
         }]);
-        return AnimatedTagSettingsModal;
-      })(SettingsModal);
+        return SocialProfileSettingsModal;
+      }(SettingsModal);
 
-      _export('default', AnimatedTagSettingsModal);
+      _export('default', SocialProfileSettingsModal);
     }
   };
 });;
-System.register('davis/socialprofile/main', ['flarum/extend', 'flarum/app', 'davis/socialprofile/components/SocialProfileSettingsModal'], function (_export) {
-  'use strict';
+'use strict';
 
-  var extend, app, SocialProfileSettingsModal;
+System.register('Davis/SocialProfile/main', ['flarum/app'], function (_export, _context) {
+  "use strict";
+
+  var app;
   return {
-    setters: [function (_flarumExtend) {
-      extend = _flarumExtend.extend;
-    }, function (_flarumApp) {
-      app = _flarumApp['default'];
-    }, function (_davisSocialprofileComponentsSocialProfileSettingsModal) {
-      SocialProfileSettingsModal = _davisSocialprofileComponentsSocialProfileSettingsModal['default'];
+    setters: [function (_flarumApp) {
+      app = _flarumApp.default;
     }],
     execute: function () {
 
-      app.initializers.add('davis-socialprofile', function (app) {
-        //app.extensionSettings['davis-socialprofile'] = () => app.modal.show(new SocialProfileSettingsModal());
-      });
+      app.initializers.add('Davis-SocialProfile', function () {});
     }
   };
 });
