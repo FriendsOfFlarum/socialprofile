@@ -11,8 +11,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/dav-is/flarum-social-profile/issues",
-        "source": "https://github.com/dav-is/flarum-social-profile"
+        "issues": "https://github.com/dav-is/flarum-ext-socialprofile/issues",
+        "source": "https://github.com/dav-is/flarum-ext-socialprofile"
     },
     "require": {
         "flarum/core": "^0.1.0-beta.6"
