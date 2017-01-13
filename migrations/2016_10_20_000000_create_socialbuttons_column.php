@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the MIT license
  */
 
-
 use Flarum\Database\Migration;
 
 return Migration::addColumns('users', [

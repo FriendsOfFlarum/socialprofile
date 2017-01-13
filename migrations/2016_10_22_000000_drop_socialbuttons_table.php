@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the MIT license
  */
 
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
 

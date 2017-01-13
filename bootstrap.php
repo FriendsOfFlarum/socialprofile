@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the MIT license
  */
 
-
 namespace Davis\SocialProfile;
 
 use Illuminate\Contracts\Events\Dispatcher;
