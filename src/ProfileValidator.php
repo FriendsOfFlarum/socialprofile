@@ -22,7 +22,7 @@ class ProfileValidator extends AbstractValidator
         'socialButtons' => ['json', 'socialbuttons'],
         'title' => ['string', 'max:55', 'required'],
         'url' => ['url', 'max:120', 'required'],
-        'icon' => ['string', 'max:15', 'required'],
+        'icon' => ['string', 'max:35', 'required'],
         'favicon' => ['string', 'max:120', 'required'],
     ];
 
