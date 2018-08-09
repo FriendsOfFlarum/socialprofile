@@ -3,7 +3,7 @@ davis-socialprofile:
     edit:
       edit: "Edytuj"
       add: "Dodaj"
-      headtitle: "Edytuj przyciskiprzyciski"
+      headtitle: "Edytuj przyciski"
       title: "Tytuł"
       url: "Url"
       submit: "Zapisz"
