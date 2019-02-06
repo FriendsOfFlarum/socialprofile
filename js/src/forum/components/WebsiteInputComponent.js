@@ -11,7 +11,7 @@ export default class WebsiteInputComponent extends Component {
 
     view() {
         return (
-            <div className="Form-group form-gorup-social" id={`socialgroup-${this.button.index()}`}>
+            <div className="Form-group form-group-social" id={`socialgroup-${this.button.index()}`}>
                 <input
                     type="text"
                     className="SocialFormControl SocialTitle"
