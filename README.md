@@ -23,6 +23,6 @@ composer update fof/socialprofile
 - [Packagist](https://packagist.org/packages/fof/socialprofile)
 - [GitHub](https://github.com/FriendsOfFlarum/socialprofile)
 - [Donate to @datitisev](https://patreon.com/datitisev)
-- [Davis's Social Profile](hhttps://github.com/dav-is/flarum-ext-socialprofile)
+- [Davis's Social Profile](https://github.com/dav-is/flarum-ext-socialprofile)
 
 An extension by [FriendsOfFlarum](https://github.com/FriendsOfFlarum).
