@@ -1,7 +1,3 @@
-/vendor
-composer.phar
-.DS_Store
-Thumbs.db
-bower_components
 node_modules
-*.js.old
+vendor
+composer.lock

@@ -1,16 +1,17 @@
 <?php
 
 /*
- * This file is part of davis/flarum-ext-socialprofile
+ * This file is part of fof/socialprofile.
  *
- * © Connor Davis <davis@produes.co>
+ * Copyright (c) 2018 FriendsOfFlarum.
  *
- * For the full copyright and license information, please view the MIT license
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace Davis\SocialProfile\Events;
+namespace FoF\SocialProfile\Events;
 
-use Flarum\Core\User;
+use Flarum\User\User;
 
 class UserButtonsWereChanged
 {

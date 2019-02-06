@@ -1,37 +1,45 @@
 {
-    "name": "davis/flarum-ext-socialprofile",
-    "description": "Allows addition of Social Media buttons to profile",
-    "keywords": ["social", "flarum", "davis", "customization", "profile"],
-    "type": "flarum-extension",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Connor Davis",
-            "email": "davis@produes.co"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/dav-is/flarum-ext-socialprofile/issues",
-        "source": "https://github.com/dav-is/flarum-ext-socialprofile"
+  "name": "fof/socialprofile",
+  "description": "Add custom social media pages to your user profile",
+  "keywords": [
+    "flarum"
+  ],
+  "type": "flarum-extension",
+  "license": "MIT",
+  "require": {
+    "flarum/core": "^0.1.0-beta.8"
+  },
+  "replace": {
+    "davis/flarum-ext-socialprofile": "*"
+  },
+  "authors": [
+    {
+      "name": "Connor Davis",
+      "email": "davis@produes.co"
     },
-    "require": {
-        "flarum/core": "^0.1.0-beta.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "Davis\\SocialProfile\\": "src/"
-        }
-    },
-    "extra": {
-        "flarum-extension": {
-            "title": "Social Profile",
-            "icon": {
-                "image": "icon.jpg",
-                "backgroundColor": "#000",
-                "backgroundSize": "100%",
-                "backgroundRepeat": "no-repeat",
-                "backgroundPosition": "center"
-            }
-        }
+    {
+      "name": "David Sevilla Martín",
+      "email": "david.s@redevs.org",
+      "role": "Developer"
     }
+  ],
+
+  "autoload": {
+    "psr-4": {
+      "FoF\\SocialProfile\\": "src/"
+    }
+  },
+  "extra": {
+    "flarum-extension": {
+      "title": "FoF Social Profile",
+      "icon": {
+        "name": "fas fa-globe",
+        "backgroundColor": "#e74c3c",
+        "color": "#ffff"
+      }
+    },
+    "flagrow": {
+      "discuss": ""
+    }
+  }
 }
