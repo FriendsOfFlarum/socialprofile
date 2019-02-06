@@ -84,7 +84,7 @@ export default class DeleteButtonModal extends Modal {
             this.buttons[key].favicon = m.prop('none');
             this.buttons[key].title = m.prop('');
             this.buttons[key].url = m.prop('');
-            this.buttons[key].icon = m.prop('globe');
+            this.buttons[key].icon = m.prop('fas fa-globe');
         } else {
             this.buttons[key] = {};
             this.buttons[key].index = m.prop(key);
