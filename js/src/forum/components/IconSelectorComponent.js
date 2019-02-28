@@ -50,6 +50,7 @@ export default class IconSelectorComponent extends Dropdown {
                 'fab fa-lastfm',
                 'fab fa-leanpub',
                 'fab fa-linkedin',
+                'fab fa-mastodon',
                 'fab fa-medium',
                 'fab fa-odnoklassniki',
                 'fab fa-opencart',
