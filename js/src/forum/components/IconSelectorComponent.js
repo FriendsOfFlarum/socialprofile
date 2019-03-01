@@ -16,6 +16,7 @@ export default class IconSelectorComponent extends Dropdown {
 
         this.icons = {
             social: [
+                'fas fa-envelope',
                 'fas fa-globe',
                 'fab fa-amazon',
                 'fab fa-angellist',
