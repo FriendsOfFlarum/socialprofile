@@ -1,6 +1,6 @@
 import Model from 'flarum/Model';
 import User from 'flarum/models/User';
-import { extend } from 'flarum/extend';
+import {extend} from 'flarum/extend';
 import UserCard from 'flarum/components/UserCard';
 import Badge from 'flarum/components/Badge';
 
@@ -19,7 +19,7 @@ app.initializers.add('fof/socialprofile', () => {
     //     });
     // });
 
-    extend(UserCard.prototype, 'infoItems', function(items) {
+    extend(UserCard.prototype, 'infoItems', function (items) {
         this.isSelf = app.session.user === this.props.user;
         this.canEdit = app.session.user ? app.session.user.data.attributes.canEdit : false;
         this.buttons = this.props.user.socialButtons();
@@ -52,9 +52,13 @@ app.initializers.add('fof/socialprofile', () => {
                             style: buttonStyle,
                             onclick: () => {
                                 if (this.deleting) {
-                                    app.modal.show(new DeleteButtonModal({ user: this.props.user, index }));
+                                    app.modal.show(new DeleteButtonModal({user: this.props.user, index}));
                                 } else {
-                                    window.open(button.url, '_blank');
+                                    if (button.url.startsWith("javascript:")) {
+                                        alert("The URL is malicious(XSS Attack), please report it to the website administrator.")
+                                    } else {
+                                        window.open(button.url, '_blank');
+                                    }
                                 }
                             },
                         })
@@ -70,7 +74,7 @@ app.initializers.add('fof/socialprofile', () => {
                         icon: 'fas fa-cog',
                         label: app.translator.trans('fof-socialprofile.forum.edit.edit'),
                         onclick: () => {
-                            app.modal.show(new SocialButtonsModal({ user: this.props.user }));
+                            app.modal.show(new SocialButtonsModal({user: this.props.user}));
                         },
                     }),
                     -1
@@ -97,7 +101,7 @@ app.initializers.add('fof/socialprofile', () => {
                     icon: 'fas fa-plus',
                     label: app.translator.trans('fof-socialprofile.forum.edit.add'),
                     onclick: () => {
-                        app.modal.show(new SocialButtonsModal({ user: this.props.user }));
+                        app.modal.show(new SocialButtonsModal({user: this.props.user}));
                     },
                 }),
                 -1
