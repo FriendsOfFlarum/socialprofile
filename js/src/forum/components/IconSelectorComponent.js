@@ -96,6 +96,8 @@ export default class IconSelectorComponent extends Dropdown {
                 'fab fa-xbox',
                 'fab fa-xing',
                 'fab fa-y-combinator',
+                'fab fa-yandex',
+                'fab fa-yandex-international',
                 'fab fa-yelp',
                 'fab fa-youtube',
             ],
