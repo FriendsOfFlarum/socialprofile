@@ -56,9 +56,11 @@ class ProfileValidator extends AbstractValidator
 
         $data = json_decode($value);
 
+        $valid = false;
+
         foreach ($data as $button) {
             if (! isset($button->title) || ! isset($button->url) || ! isset($button->icon) || ! isset($button->favicon)) {
-                return false;
+                $valid = false;
             } else {
                 $attributes = [
                     'title' => $button->title,
@@ -67,8 +69,10 @@ class ProfileValidator extends AbstractValidator
                     'favicon' => $button->favicon,
                 ];
                 $this->assertValid($attributes);
-                return true;
+                $valid = true;
             }
         }
+
+        return $valid;
     }
 }
