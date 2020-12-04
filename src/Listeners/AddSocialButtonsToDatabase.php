@@ -11,7 +11,6 @@
 
 namespace FoF\SocialProfile\Listeners;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\Event\Saving;
 use FoF\SocialProfile\Events\UserButtonsWereChanged;
 use FoF\SocialProfile\Validators\ProfileValidator;
@@ -19,8 +18,6 @@ use Illuminate\Support\Arr;
 
 class AddSocialButtonsToDatabase
 {
-    use AssertPermissionTrait;
-
     /**
      * Validator for limited suspension.
      *
@@ -47,14 +44,14 @@ class AddSocialButtonsToDatabase
             $actor = $event->actor;
 
             if ($actor->id !== $user->id) {
-                $this->assertPermission(
+                $actor->assertPermission(
                     $this->elementsOnlyRemoved(
                         $user->social_buttons,
                         $attributes['socialButtons']
                     )
                 );
 
-                $this->assertCan($actor, 'edit', $user);
+                $actor->assertCan('edit', $user);
             }
 
             $user->social_buttons = $attributes['socialButtons'];
