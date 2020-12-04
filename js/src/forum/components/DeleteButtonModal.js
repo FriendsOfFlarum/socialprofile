@@ -32,11 +32,14 @@ export default class DeleteButtonModal extends Modal {
                     <p className="SocialProfile-url">{this.button.url}</p>
 
                     <div className="Form-group" id="submit-button-group">
-                        {Button.component({
-                            type: 'submit',
-                            className: 'Button Button--primary EditSocialButtons-delete',
-                            loading: this.loading,
-                        }, app.translator.trans('fof-socialprofile.forum.edit.delete'))}
+                        {Button.component(
+                            {
+                                type: 'submit',
+                                className: 'Button Button--primary EditSocialButtons-delete',
+                                loading: this.loading,
+                            },
+                            app.translator.trans('fof-socialprofile.forum.edit.delete')
+                        )}
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@ import SocialButtonsModal from './components/SocialButtonsModal';
 import DeleteButtonModal from './components/DeleteButtonModal';
 
 app.initializers.add('fof/socialprofile', () => {
-    User.prototype.socialButtons = Model.attribute('socialButtons', str => JSON.parse(str || '[]'));
+    User.prototype.socialButtons = Model.attribute('socialButtons', (str) => JSON.parse(str || '[]'));
 
     // extend(UserCard.prototype, 'init', function () {
     //     $('#app').on('refreshSocialButtons', (e, buttons) => {
@@ -19,7 +19,7 @@ app.initializers.add('fof/socialprofile', () => {
     //     });
     // });
 
-    extend(UserCard.prototype, 'infoItems', function(items) {
+    extend(UserCard.prototype, 'infoItems', function (items) {
         this.isSelf = app.session.user === this.attrs.user;
         this.canEdit = app.session.user ? app.session.user.data.attributes.canEdit : false;
         this.buttons = this.attrs.user.socialButtons();
@@ -31,9 +31,7 @@ app.initializers.add('fof/socialprofile', () => {
                     let buttonClassName = '';
 
                     if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
-                        buttonStyle = `background-image: url("${
-                            button.favicon
-                        }");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;`;
+                        buttonStyle = `background-image: url("${button.favicon}");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;`;
                         if (button.icon === 'favicon-grey') {
                             buttonClassName = `${button.icon}-${index} social-button social-greyscale-button`;
                         } else {

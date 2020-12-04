@@ -1,6 +1,6 @@
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
-import Stream from 'flarum/utils/Stream'
+import Stream from 'flarum/utils/Stream';
 import WebsiteInputComponent from './WebsiteInputComponent';
 
 export default class SocialButtonsModal extends Modal {
@@ -33,7 +33,7 @@ export default class SocialButtonsModal extends Modal {
         return (
             <div className="Modal-body">
                 <div className="Form">
-                    {this.buttons.map(button => WebsiteInputComponent.component({ button }))}
+                    {this.buttons.map((button) => WebsiteInputComponent.component({ button }))}
 
                     <div className="Form-group" id="submit-button-group">
                         <div
@@ -52,12 +52,15 @@ export default class SocialButtonsModal extends Modal {
                             <i className="fas fa-fw fa-minus" />
                         </div>
 
-                        {Button.component({
-                            type: 'submit',
-                            style: 'float: right;',
-                            className: 'Button Button--primary EditSocialButtons-save',
-                            loading: this.loading,
-                        }, app.translator.trans('fof-socialprofile.forum.edit.submit'))}
+                        {Button.component(
+                            {
+                                type: 'submit',
+                                style: 'float: right;',
+                                className: 'Button Button--primary EditSocialButtons-save',
+                                loading: this.loading,
+                            },
+                            app.translator.trans('fof-socialprofile.forum.edit.submit')
+                        )}
                     </div>
                 </div>
             </div>

@@ -167,7 +167,7 @@ export default class IconSelectorComponent extends Dropdown {
             );
         }
 
-        this.icons.social.forEach(curIcon => {
+        this.icons.social.forEach((curIcon) => {
             const highlighted = Stream();
 
             if (this.attrs.selection() === curIcon) {
