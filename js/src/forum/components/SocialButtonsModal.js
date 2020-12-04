@@ -1,14 +1,14 @@
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
-
+import Stream from 'flarum/utils/Stream'
 import WebsiteInputComponent from './WebsiteInputComponent';
 
 export default class SocialButtonsModal extends Modal {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
         this.buttons = [];
-        const buttons = this.props.user.socialButtons();
+        const buttons = this.attrs.user.socialButtons();
 
         if (buttons.length) {
             buttons.forEach((button, index) => {
@@ -57,8 +57,7 @@ export default class SocialButtonsModal extends Modal {
                             style: 'float: right;',
                             className: 'Button Button--primary EditSocialButtons-save',
                             loading: this.loading,
-                            children: app.translator.trans('fof-socialprofile.forum.edit.submit'),
-                        })}
+                        }, app.translator.trans('fof-socialprofile.forum.edit.submit'))}
                     </div>
                 </div>
             </div>
@@ -88,7 +87,7 @@ export default class SocialButtonsModal extends Modal {
 
         this.loading = true;
 
-        this.props.user
+        this.attrs.user
             .save(this.data(), { errorHandler: this.onerror.bind(this) })
             .then(this.hide.bind(this))
             .then($('#app').trigger('refreshSocialButtons', [this.data().socialButtons]))
@@ -120,18 +119,18 @@ export default class SocialButtonsModal extends Modal {
     createButtonObject(key, button = null) {
         if (button == null) {
             this.buttons[key] = {};
-            this.buttons[key].index = m.prop(key);
-            this.buttons[key].favicon = m.prop('none');
-            this.buttons[key].title = m.prop('');
-            this.buttons[key].url = m.prop('');
-            this.buttons[key].icon = m.prop('fas fa-globe');
+            this.buttons[key].index = Stream(key);
+            this.buttons[key].favicon = Stream('none');
+            this.buttons[key].title = Stream('');
+            this.buttons[key].url = Stream('');
+            this.buttons[key].icon = Stream('fas fa-globe');
         } else {
             this.buttons[key] = {};
-            this.buttons[key].index = m.prop(key);
-            this.buttons[key].favicon = m.prop(button.favicon);
-            this.buttons[key].title = m.prop(button.title);
-            this.buttons[key].url = m.prop(button.url);
-            this.buttons[key].icon = m.prop(button.icon);
+            this.buttons[key].index = Stream(key);
+            this.buttons[key].favicon = Stream(button.favicon);
+            this.buttons[key].title = Stream(button.title);
+            this.buttons[key].url = Stream(button.url);
+            this.buttons[key].icon = Stream(button.icon);
         }
     }
 }

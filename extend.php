@@ -14,7 +14,6 @@ namespace FoF\SocialProfile;
 use Flarum\Api\Event\Serializing;
 use Flarum\Extend;
 use Flarum\User\Event\Saving;
-use Illuminate\Events\Dispatcher;
 
 return [
     (new Extend\Frontend('forum'))
@@ -22,8 +21,7 @@ return [
         ->css(__DIR__.'/resources/less/forum.less')
         ->content(Content\AddSettingsData::class),
     new Extend\Locales(__DIR__ . '/resources/locale'),
-    function (Dispatcher $events) {
-        $events->listen(Serializing::class, Listeners\AddAttributes::class);
-        $events->listen(Saving::class, Listeners\AddSocialButtonsToDatabase::class);
-    }
+    (new Extend\Event())
+        ->listen(Serializing::class, Listeners\AddAttributes::class)
+        ->listen(Saving::class, Listeners\AddSocialButtonsToDatabase::class),
 ];

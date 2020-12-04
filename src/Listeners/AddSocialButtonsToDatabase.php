@@ -38,7 +38,7 @@ class AddSocialButtonsToDatabase
 
     public function handle(Saving $event)
     {
-        $attributes = array_get($event->data, 'attributes', []);
+        $attributes = Arr::get($event->data, 'attributes', []);
 
         if (Arr::has($attributes, 'socialButtons')) {
             $this->validator->assertValid($attributes);

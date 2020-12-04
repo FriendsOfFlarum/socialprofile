@@ -1,12 +1,12 @@
 import Component from 'flarum/Component';
-
+import withAttr from 'flarum/utils/withAttr';
 import IconSelectorComponent from './IconSelectorComponent';
 
 export default class WebsiteInputComponent extends Component {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
-        this.button = this.props.button;
+        this.button = this.attrs.button;
     }
 
     view() {
@@ -32,7 +32,7 @@ export default class WebsiteInputComponent extends Component {
                     placeholder={app.translator.trans('fof-socialprofile.forum.edit.url')}
                     tabIndex={(this.button.index() + 1) * 2}
                     value={this.button.url()}
-                    onchange={m.withAttr('value', this.onUrlChange.bind(this))}
+                    onchange={withAttr('value', this.onUrlChange.bind(this))}
                 />
 
                 <input type="hidden" className="SocialFormControl SocialIcon" id={`icon${this.button.index()}`} bidi={this.button.icon} />

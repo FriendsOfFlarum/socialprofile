@@ -1,18 +1,19 @@
 import Dropdown from 'flarum/components/Dropdown';
 import ItemList from 'flarum/utils/ItemList';
 import icon from 'flarum/helpers/icon';
+import Stream from 'flarum/utils/Stream';
 
 export default class IconSelectorComponent extends Dropdown {
-    static initProps(props) {
-        super.initProps(props);
+    static initAttrs(attrs) {
+        super.initAttrs(attrs);
 
-        props.className = 'icondropdown';
-        props.buttonClassName = 'Button Button--icon';
-        props.menuClassName = 'social-dropdown-menu';
+        attrs.className = 'icondropdown';
+        attrs.buttonClassName = 'Button Button--icon';
+        attrs.menuClassName = 'social-dropdown-menu';
     }
 
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
         this.icons = {
             social: [
@@ -99,49 +100,49 @@ export default class IconSelectorComponent extends Dropdown {
         };
     }
 
-    view() {
-        this.props.children = this.items().toArray();
+    view(vnode) {
+        vnode.children = this.items().toArray();
 
-        return super.view();
+        return super.view(vnode);
     }
 
     getButtonContent() {
         return [
-            /^favicon(-\w+)?$/.test(this.props.selection())
+            /^favicon(-\w+)?$/.test(this.attrs.selection())
                 ? [
                       <img
-                          className={this.props.selection() === 'favicon-grey' ? 'social-greyscale-button' : 'social-button'}
+                          className={this.attrs.selection() === 'favicon-grey' ? 'social-greyscale-button' : 'social-button'}
                           style={{ width: '14px', height: '14px' }}
                           alt="favicon"
-                          src={this.props.favicon()}
+                          src={this.attrs.favicon()}
                           onerror={() => {
-                              this.props.favicon('none');
+                              this.attrs.favicon('none');
                               this.select(this.icons.social[0]);
                           }}
                       />,
                   ]
-                : icon(this.props.selection(), {}),
-            this.props.caretIcon ? icon(this.props.caretIcon, { className: 'Button-caret' }) : '',
+                : icon(this.attrs.selection(), {}),
+            this.attrs.caretIcon ? icon(this.attrs.caretIcon, { className: 'Button-caret' }) : '',
         ];
     }
 
     items() {
         const items = new ItemList();
 
-        if (this.props.favicon() !== 'none') {
+        if (this.attrs.favicon() !== 'none') {
             items.add(
                 'favicon',
                 <div
                     onclick={() => this.select('favicon')}
                     role="button"
-                    className={`iconpicker-item ${this.props.selection() === 'favicon' ? 'iconpicker--highlighted' : ''}`}
+                    className={`iconpicker-item ${this.attrs.selection() === 'favicon' ? 'iconpicker--highlighted' : ''}`}
                     title="Favicon"
                 >
                     <img
-                        className={`iconpicker-image-${this.props.index()}`}
+                        className={`iconpicker-image-${this.attrs.index()}`}
                         alt="favicon"
                         style={{ width: '14px', height: '14px', margin: '0 2px 0 2px' }}
-                        src={this.props.favicon()}
+                        src={this.attrs.favicon()}
                     />
                 </div>,
                 102
@@ -152,14 +153,14 @@ export default class IconSelectorComponent extends Dropdown {
                 <div
                     onclick={() => this.select('favicon-grey')}
                     role="button"
-                    className={`iconpicker-item-invt ${this.props.selection() === 'favicon-grey' ? 'iconpicker--highlighted' : ''}`}
+                    className={`iconpicker-item-invt ${this.attrs.selection() === 'favicon-grey' ? 'iconpicker--highlighted' : ''}`}
                     title="Grey Favicon"
                 >
                     <img
-                        className={`social-greyscale-button iconpicker-image-${this.props.index()}`}
+                        className={`social-greyscale-button iconpicker-image-${this.attrs.index()}`}
                         alt="favicon"
                         style={{ width: '14px', height: '14px', margin: '0 2px 0 2px' }}
-                        src={this.props.favicon()}
+                        src={this.attrs.favicon()}
                     />
                 </div>,
                 101
@@ -167,9 +168,9 @@ export default class IconSelectorComponent extends Dropdown {
         }
 
         this.icons.social.forEach(curIcon => {
-            const highlighted = m.prop();
+            const highlighted = Stream();
 
-            if (this.props.selection() === curIcon) {
+            if (this.attrs.selection() === curIcon) {
                 highlighted('iconpicker--highlighted');
             }
 
@@ -186,6 +187,6 @@ export default class IconSelectorComponent extends Dropdown {
     }
 
     select(icon) {
-        this.props.selection(icon);
+        this.attrs.selection(icon);
     }
 }
