@@ -3,8 +3,8 @@ import Button from 'flarum/components/Button';
 import Stream from 'flarum/utils/Stream';
 
 export default class DeleteButtonModal extends Modal {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
         this.buttons = [];
         this.index = this.attrs.index;
