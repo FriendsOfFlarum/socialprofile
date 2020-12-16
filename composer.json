@@ -6,24 +6,31 @@
   ],
   "type": "flarum-extension",
   "license": "MIT",
+  "support": {
+    "issues": "https://github.com/FriendsOfFlarum/socialprofile/issues",
+    "source": "https://github.com/FriendsOfFlarum/socialprofile",
+    "forum": "https://discuss.flarum.org/d/18775"
+  },
+  "homepage": "https://friendsofflarum.org",
+  "funding": [
+    {
+      "type": "website",
+      "url": "https://opencollective.com/fof/donate"
+    }
+  ],
   "require": {
-    "flarum/core": "^0.1.0-beta.14"
+    "flarum/core": "^0.1.0-beta.15"
   },
   "replace": {
     "davis/flarum-ext-socialprofile": "*"
   },
   "authors": [
     {
-      "name": "Connor Davis",
-      "email": "davis@produes.co"
-    },
-    {
       "name": "David Sevilla Martín",
       "email": "david.s@redevs.org",
       "role": "Developer"
     }
   ],
-
   "autoload": {
     "psr-4": {
       "FoF\\SocialProfile\\": "src/"
@@ -32,6 +39,7 @@
   "extra": {
     "flarum-extension": {
       "title": "FoF Social Profile",
+      "category": "feature",
       "icon": {
         "name": "fas fa-globe",
         "backgroundColor": "#e74c3c",
@@ -39,7 +47,7 @@
       }
     },
     "flagrow": {
-      "discuss": "https://discuss.flarum.org/d/18775-friendsofflarum-social-profile"
+      "discuss": "https://discuss.flarum.org/d/18775"
     }
   }
 }
