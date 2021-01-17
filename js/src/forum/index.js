@@ -3,6 +3,7 @@ import User from 'flarum/models/User';
 import { extend } from 'flarum/extend';
 import UserCard from 'flarum/components/UserCard';
 import Badge from 'flarum/components/Badge';
+import ItemList from 'flarum/utils/ItemList';
 
 import SocialButtonsModal from './components/SocialButtonsModal';
 import DeleteButtonModal from './components/DeleteButtonModal';
@@ -24,6 +25,8 @@ app.initializers.add('fof/socialprofile', () => {
         this.canEdit = app.session.user ? app.session.user.data.attributes.canEdit : false;
         this.buttons = this.attrs.user.socialButtons();
 
+        const buttonList = new ItemList();
+
         if (this.buttons.length) {
             this.buttons.forEach((button, index) => {
                 if (button.title !== '' && button.icon !== '' && button.url !== '') {
@@ -41,7 +44,7 @@ app.initializers.add('fof/socialprofile', () => {
                         buttonStyle = '';
                         buttonClassName = `${button.icon}-${index} social-button`;
                     }
-                    items.add(
+                    buttonList.add(
                         `${buttonClassName}${this.deleting ? ' social-button--highlightable' : ''}`,
                         Badge.component({
                             type: `social social-icon-${index}`,
@@ -61,7 +64,7 @@ app.initializers.add('fof/socialprofile', () => {
             });
 
             if (this.isSelf) {
-                items.add(
+                buttonList.add(
                     'settings social-button',
                     Badge.component({
                         type: 'social social-settings',
@@ -74,7 +77,7 @@ app.initializers.add('fof/socialprofile', () => {
                     -1
                 );
             } else if (this.canEdit) {
-                items.add(
+                buttonList.add(
                     'settings social-button',
                     Badge.component({
                         type: `social social-moderate ${this.deleting ? 'social-moderate--highlighted' : ''}`,
@@ -88,7 +91,7 @@ app.initializers.add('fof/socialprofile', () => {
                 );
             }
         } else if (this.isSelf) {
-            items.add(
+            buttonList.add(
                 'settings social-button',
                 Badge.component({
                     type: 'social null-social-settings',
@@ -100,6 +103,10 @@ app.initializers.add('fof/socialprofile', () => {
                 }),
                 -1
             );
+        }
+
+        if (buttonList.toArray().length > 0) {
+            items.add('fofsocialprofile', buttonList.toArray(), -1);
         }
     });
 });
