@@ -62,6 +62,7 @@ class AddSocialButtonsToDatabase
     /**
      * @param string $current
      * @param string $proposed
+     *
      * @return bool
      */
     protected function elementsOnlyRemoved($current, $proposed)
@@ -70,7 +71,7 @@ class AddSocialButtonsToDatabase
         $proposed = json_decode($proposed);
 
         foreach ($proposed as $component) {
-            if (! Arr::has($current, $component)) {
+            if (!Arr::has($current, $component)) {
                 return false;
             }
         }

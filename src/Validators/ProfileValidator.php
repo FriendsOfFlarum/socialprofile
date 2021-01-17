@@ -20,10 +20,10 @@ class ProfileValidator extends AbstractValidator
      */
     protected $rules = [
         'socialButtons' => ['json', 'socialbuttons'],
-        'title' => ['string', 'max:55', 'required'],
-        'url' => ['url', 'max:120', 'required'],
-        'icon' => ['string', 'max:35', 'required'],
-        'favicon' => ['string', 'max:120', 'required'],
+        'title'         => ['string', 'max:55', 'required'],
+        'url'           => ['url', 'max:120', 'required'],
+        'icon'          => ['string', 'max:35', 'required'],
+        'favicon'       => ['string', 'max:120', 'required'],
     ];
 
     /**
@@ -52,20 +52,22 @@ class ProfileValidator extends AbstractValidator
 
     protected function validateSocialButtons($attribute, $value, $parameters, $validator)
     {
-        if ($value == '[]') return true;
+        if ($value == '[]') {
+            return true;
+        }
 
         $data = json_decode($value);
 
         $valid = false;
 
         foreach ($data as $button) {
-            if (! isset($button->title) || ! isset($button->url) || ! isset($button->icon) || ! isset($button->favicon)) {
+            if (!isset($button->title) || !isset($button->url) || !isset($button->icon) || !isset($button->favicon)) {
                 $valid = false;
             } else {
                 $attributes = [
-                    'title' => $button->title,
-                    'url' => $button->url,
-                    'icon' => $button->icon,
+                    'title'   => $button->title,
+                    'url'     => $button->url,
+                    'icon'    => $button->icon,
                     'favicon' => $button->favicon,
                 ];
                 $this->assertValid($attributes);

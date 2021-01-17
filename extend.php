@@ -22,7 +22,7 @@ return [
         ->css(__DIR__.'/resources/less/forum.less')
         ->content(Content\AddSettingsData::class),
 
-    new Extend\Locales(__DIR__ . '/resources/locale'),
+    new Extend\Locales(__DIR__.'/resources/locale'),
 
     (new Extend\Event())
         ->listen(Saving::class, Listeners\AddSocialButtonsToDatabase::class),

@@ -28,7 +28,7 @@ class AddSettingsData
 
     public function __invoke(Document $document)
     {
-        $key = "fof-socialprofile.test";
+        $key = 'fof-socialprofile.test';
 
         $document->payload[$key] = $this->settings->get($key);
     }

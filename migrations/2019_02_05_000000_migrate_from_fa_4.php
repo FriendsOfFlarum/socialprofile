@@ -27,11 +27,10 @@ return [
             $schema->getConnection()->table('users')
                 ->where('id', $user->id)
                 ->update([
-                    'social_buttons' => preg_replace('/"(?<!fab )(fa-\S+?)"/m', '"fab \\1"', $user->social_buttons)
+                    'social_buttons' => preg_replace('/"(?<!fab )(fa-\S+?)"/m', '"fab \\1"', $user->social_buttons),
                 ]);
         }
     },
     'down' => function (Builder $schema) {
-
     },
 ];
