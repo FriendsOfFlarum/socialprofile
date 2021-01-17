@@ -106,7 +106,14 @@ app.initializers.add('fof/socialprofile', () => {
         }
 
         if (buttonList.toArray().length > 0) {
-            items.add('fofsocialprofile', buttonList.toArray(), -1);
+            if (items.has('lastSeen')) {
+                items.replace('lastSeen', items['lastSeen'], 50);
+            }
+            if (items.has('joined')) {
+                items.replace('joined', items['joined'], 40);
+            }
+
+            items.add('fofsocialprofile', buttonList.toArray(), 20);
         }
     });
 });
