@@ -1,7 +1,7 @@
 import Dropdown from 'flarum/components/Dropdown';
 import ItemList from 'flarum/utils/ItemList';
 import icon from 'flarum/helpers/icon';
-import Stream from 'flarum/utils/Stream';
+import classList from 'flarum/utils/classList';
 
 export default class IconSelectorComponent extends Dropdown {
     static initAttrs(attrs) {
@@ -115,9 +115,12 @@ export default class IconSelectorComponent extends Dropdown {
             /^favicon(-\w+)?$/.test(this.attrs.selection())
                 ? [
                       <img
-                          className={this.attrs.selection() === 'favicon-grey' ? 'social-greyscale-button' : 'social-button'}
-                          style={{ width: '14px', height: '14px' }}
-                          alt="favicon"
+                          className={classList({
+                              'icondropdown-activeIcon': true,
+                              'social-greyscale-button': this.attrs.selection() === 'favicon-grey',
+                              'social-button': !this.attrs.selection() === 'favicon-grey',
+                          })}
+                          alt=""
                           src={this.attrs.favicon()}
                           onerror={() => {
                               this.attrs.favicon('none');
@@ -125,7 +128,7 @@ export default class IconSelectorComponent extends Dropdown {
                           }}
                       />,
                   ]
-                : icon(this.attrs.selection(), {}),
+                : icon(this.attrs.selection(), { className: 'icondropdown-activeIcon fa-fw' }),
             this.attrs.caretIcon ? icon(this.attrs.caretIcon, { className: 'Button-caret' }) : '',
         ];
     }
@@ -139,7 +142,10 @@ export default class IconSelectorComponent extends Dropdown {
                 <div
                     onclick={() => this.select('favicon')}
                     role="button"
-                    className={`iconpicker-item ${this.attrs.selection() === 'favicon' ? 'iconpicker--highlighted' : ''}`}
+                    className={classList({
+                        'iconpicker-item': true,
+                        'iconpicker--highlighted': this.attrs.selection() === 'favicon',
+                    })}
                     title="Favicon"
                 >
                     <img
@@ -157,7 +163,10 @@ export default class IconSelectorComponent extends Dropdown {
                 <div
                     onclick={() => this.select('favicon-grey')}
                     role="button"
-                    className={`iconpicker-item-invt ${this.attrs.selection() === 'favicon-grey' ? 'iconpicker--highlighted' : ''}`}
+                    className={classList({
+                        'iconpicker-item iconpicker-item--invt': true,
+                        'iconpicker--highlighted': this.attrs.selection() === 'favicon-grey',
+                    })}
                     title="Grey Favicon"
                 >
                     <img
@@ -172,16 +181,15 @@ export default class IconSelectorComponent extends Dropdown {
         }
 
         this.icons.social.forEach((curIcon) => {
-            const highlighted = Stream();
-
-            if (this.attrs.selection() === curIcon) {
-                highlighted('iconpicker--highlighted');
-            }
-
             items.add(
                 curIcon.replace(/ /, '-'),
-                <div onclick={() => this.select(curIcon)} className={`iconpicker-item ${highlighted()}`} role="button" title={`.${curIcon}`}>
-                    {icon(curIcon, { className: 'social-icon' })}
+                <div
+                    onclick={() => this.select(curIcon)}
+                    className={classList({ 'iconpicker-item': true, 'iconpicker--highlighted': this.attrs.selection() === curIcon })}
+                    role="button"
+                    title={`.${curIcon}`}
+                >
+                    {icon(curIcon, { className: 'social-icon fa-fw' })}
                 </div>,
                 100
             );
