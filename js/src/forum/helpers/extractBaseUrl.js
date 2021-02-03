@@ -11,7 +11,7 @@
  *
  * @example
  * // null
- * extractBaseUrl("javascript:alert('hello!'")
+ * extractBaseUrl("javascript:alert('hello!')")
  *
  * @param {string|null} url URL to extract base from
  */
