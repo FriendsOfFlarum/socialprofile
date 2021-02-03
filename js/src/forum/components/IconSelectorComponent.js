@@ -144,7 +144,7 @@ export default class IconSelectorComponent extends Dropdown {
                     role="button"
                     className={classList({
                         'iconpicker-item': true,
-                        'iconpicker--highlighted': this.attrs.selection() === 'favicon',
+                        'iconpicker-item--highlighted': this.attrs.selection() === 'favicon',
                     })}
                     title="Favicon"
                 >
@@ -164,8 +164,8 @@ export default class IconSelectorComponent extends Dropdown {
                     onclick={() => this.select('favicon-grey')}
                     role="button"
                     className={classList({
-                        'iconpicker-item iconpicker-item--invt': true,
-                        'iconpicker--highlighted': this.attrs.selection() === 'favicon-grey',
+                        'iconpicker-item iconpicker-item--invertColors': true,
+                        'iconpicker-item--highlighted': this.attrs.selection() === 'favicon-grey',
                     })}
                     title="Grey Favicon"
                 >
@@ -185,7 +185,7 @@ export default class IconSelectorComponent extends Dropdown {
                 curIcon.replace(/ /, '-'),
                 <div
                     onclick={() => this.select(curIcon)}
-                    className={classList({ 'iconpicker-item': true, 'iconpicker--highlighted': this.attrs.selection() === curIcon })}
+                    className={classList({ 'iconpicker-item': true, 'iconpicker-item--highlighted': this.attrs.selection() === curIcon })}
                     role="button"
                     title={`.${curIcon}`}
                 >
