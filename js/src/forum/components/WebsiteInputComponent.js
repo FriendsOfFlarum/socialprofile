@@ -68,7 +68,7 @@ export default class WebsiteInputComponent extends Component {
 
                 m.redraw();
             } else {
-                this.button.icon('fas fa-fa-globe');
+                this.button.icon('fas fa-globe');
                 this.button.favicon('none');
                 m.redraw();
             }
