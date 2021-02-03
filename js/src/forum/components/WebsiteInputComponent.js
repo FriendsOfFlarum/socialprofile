@@ -1,5 +1,7 @@
 import Component from 'flarum/Component';
 import withAttr from 'flarum/utils/withAttr';
+import extractBaseUrl from '../helpers/extractBaseUrl';
+import isValidUrl from '../helpers/isValidUrl';
 import IconSelectorComponent from './IconSelectorComponent';
 
 export default class WebsiteInputComponent extends Component {
@@ -35,9 +37,9 @@ export default class WebsiteInputComponent extends Component {
                     onchange={withAttr('value', this.onUrlChange.bind(this))}
                 />
 
-                <input type="hidden" className="SocialFormControl SocialIcon" id={`icon${this.button.index()}`} bidi={this.button.icon} />
+                <input type="hidden" className="SocialFormControl SocialIcon" id={`icon${this.button.index()}-icon`} bidi={this.button.icon} />
 
-                <input type="hidden" className="SocialFormControl Socialfavicon" id={`icon${this.button.index()}`} bidi={this.button.favicon} />
+                <input type="hidden" className="SocialFormControl Socialfavicon" id={`icon${this.button.index()}-favicon`} bidi={this.button.favicon} />
             </div>
         );
     }
@@ -45,20 +47,20 @@ export default class WebsiteInputComponent extends Component {
     onUrlChange(value) {
         this.button.url(value);
 
-        clearTimeout(this.waittilfinsihed);
+        clearTimeout(this.waitUntilFinished);
 
         if (this.button.icon() !== 'fas fa-circle-notch fa-spin') {
             this.button.icon('fas fa-circle-notch fa-spin');
             this.button.favicon('none');
         }
 
-        this.waittilfinsihed = setTimeout(() => {
-            const urlpattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+        this.waitUntilFinished = setTimeout(() => {
+            if (isValidUrl(this.button.url())) {
+                const iconurl = `${extractBaseUrl(this.button.url())}/favicon.ico`;
 
-            if (urlpattern.test(this.button.url().toLowerCase())) {
-                const iconurl = `${this.button.url().replace(/(:\/\/[^\/]+).*$/, '$1')}/favicon.ico`;
                 this.button.favicon(iconurl);
                 this.button.icon('favicon');
+
                 m.redraw();
             } else {
                 this.button.icon('fas fa-fa-globe');
