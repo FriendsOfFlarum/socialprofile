@@ -53,7 +53,10 @@ app.initializers.add('fof/socialprofile', () => {
                             style: buttonStyle,
                             onclick: () => {
                                 if (this.deleting) {
-                                    app.modal.show(DeleteButtonModal, { user: this.attrs.user, index });
+                                    app.modal.show(DeleteButtonModal, {
+                                        user: this.attrs.user,
+                                        index,
+                                    });
                                 } else {
                                     window.open(button.url, '_blank');
                                 }
