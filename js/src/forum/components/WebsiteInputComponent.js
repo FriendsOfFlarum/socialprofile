@@ -39,7 +39,12 @@ export default class WebsiteInputComponent extends Component {
 
                 <input type="hidden" className="SocialFormControl SocialIcon" id={`icon${this.button.index()}-icon`} bidi={this.button.icon} />
 
-                <input type="hidden" className="SocialFormControl Socialfavicon" id={`icon${this.button.index()}-favicon`} bidi={this.button.favicon} />
+                <input
+                    type="hidden"
+                    className="SocialFormControl Socialfavicon"
+                    id={`icon${this.button.index()}-favicon`}
+                    bidi={this.button.favicon}
+                />
             </div>
         );
     }
