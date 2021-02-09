@@ -4,21 +4,13 @@ import { extend } from 'flarum/extend';
 import UserCard from 'flarum/components/UserCard';
 import Badge from 'flarum/components/Badge';
 import ItemList from 'flarum/utils/ItemList';
+import classList from 'flarum/utils/classList';
 
 import SocialButtonsModal from './components/SocialButtonsModal';
 import DeleteButtonModal from './components/DeleteButtonModal';
 
 app.initializers.add('fof/socialprofile', () => {
     User.prototype.socialButtons = Model.attribute('socialButtons', (str) => JSON.parse(str || '[]'));
-
-    // extend(UserCard.prototype, 'init', function () {
-    //     $('#app').on('refreshSocialButtons', (e, buttons) => {
-    //         this.buttons = JSON.parse(buttons || '[]');
-    //         this.attrs.user.socialButtons(this.buttons);
-    //         this.attrs.user.freshness = new Date();
-    //         m.redraw();
-    //     });
-    // });
 
     extend(UserCard.prototype, 'infoItems', function (items) {
         this.isSelf = app.session.user === this.attrs.user;
@@ -31,23 +23,25 @@ app.initializers.add('fof/socialprofile', () => {
             this.buttons.forEach((button, index) => {
                 if (button.title !== '' && button.icon !== '' && button.url !== '') {
                     let buttonStyle = '';
-                    let buttonClassName = '';
+                    let buttonClassName = classList({
+                        [`social-button ${button.icon}-${index} social-icon-${index}`]: true,
+                        'social-greyscale-button': button.icon === 'favicon-grey',
+                    });
 
                     if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
-                        buttonStyle = `background-image: url("${button.favicon}");background-size: 60%;background-position: 50% 50%;background-repeat: no-repeat;`;
-                        if (button.icon === 'favicon-grey') {
-                            buttonClassName = `${button.icon}-${index} social-button social-greyscale-button`;
-                        } else {
-                            buttonClassName = `${button.icon}-${index} social-button`;
-                        }
-                    } else {
-                        buttonStyle = '';
-                        buttonClassName = `${button.icon}-${index} social-button`;
+                        buttonStyle = `
+                            background-image: url("${button.favicon}");
+                            background-size: 60%;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        `;
                     }
+
                     buttonList.add(
-                        `${buttonClassName}${this.deleting ? ' social-button--highlightable' : ''}`,
+                        `social-icon-${index}`,
                         Badge.component({
-                            type: `social social-icon-${index}`,
+                            className: classList({ [buttonClassName]: true, 'social-icon--deleting': this.deleting }),
+                            type: `social`,
                             icon: button.icon,
                             label: button.title,
                             style: buttonStyle,

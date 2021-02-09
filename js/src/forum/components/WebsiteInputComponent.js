@@ -16,7 +16,7 @@ export default class WebsiteInputComponent extends Component {
             <div className="Form-group form-group-social" id={`socialgroup-${this.button.index()}`}>
                 <input
                     type="text"
-                    className="SocialFormControl SocialTitle"
+                    className="SocialFormControl SocialFormControl-title"
                     placeholder={app.translator.trans('fof-socialprofile.forum.edit.title')}
                     tabIndex={(this.button.index() + 1) * 2 - 1}
                     bidi={this.button.title}
@@ -30,18 +30,18 @@ export default class WebsiteInputComponent extends Component {
 
                 <input
                     type="text"
-                    className="SocialFormControl Socialurl"
+                    className="SocialFormControl SocialFormControl-url"
                     placeholder={app.translator.trans('fof-socialprofile.forum.edit.url')}
                     tabIndex={(this.button.index() + 1) * 2}
                     value={this.button.url()}
                     onchange={withAttr('value', this.onUrlChange.bind(this))}
                 />
 
-                <input type="hidden" className="SocialFormControl SocialIcon" id={`icon${this.button.index()}-icon`} bidi={this.button.icon} />
+                <input type="hidden" className="SocialFormControl SocialFormControl-icon" id={`icon${this.button.index()}-icon`} bidi={this.button.icon} />
 
                 <input
                     type="hidden"
-                    className="SocialFormControl Socialfavicon"
+                    className="SocialFormControl SocialFormControl-favicon"
                     id={`icon${this.button.index()}-favicon`}
                     bidi={this.button.favicon}
                 />
