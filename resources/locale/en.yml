@@ -9,3 +9,4 @@ fof-socialprofile:
       submit: Save
       delete: Delete
       deletetitle: Delete Button
+      save_disabled_fetching_favicons: One or more icons are being fetched. Please wait.

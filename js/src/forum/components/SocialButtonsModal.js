@@ -30,6 +30,8 @@ export default class SocialButtonsModal extends Modal {
     }
 
     content() {
+        const areAnyIconsBeingFetched = this.buttons.some((button) => button.icon() === 'fas fa-circle-notch fa-spin');
+
         return (
             <div className="Modal-body">
                 <div className="Form">
@@ -58,6 +60,11 @@ export default class SocialButtonsModal extends Modal {
                                 style: 'float: right;',
                                 className: 'Button Button--primary EditSocialButtons-save',
                                 loading: this.loading,
+                                // Disable save button if favicons are being fetched
+                                disabled: areAnyIconsBeingFetched,
+                                title: areAnyIconsBeingFetched
+                                    ? app.translator.trans('fof-socialprofile.forum.edit.save_disabled_fetching_favicons')
+                                    : null,
                             },
                             app.translator.trans('fof-socialprofile.forum.edit.submit')
                         )}
