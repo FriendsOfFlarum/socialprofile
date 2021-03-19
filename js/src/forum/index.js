@@ -1,10 +1,10 @@
-import Model from 'flarum/Model';
-import User from 'flarum/models/User';
-import { extend } from 'flarum/extend';
-import UserCard from 'flarum/components/UserCard';
-import Badge from 'flarum/components/Badge';
-import ItemList from 'flarum/utils/ItemList';
-import classList from 'flarum/utils/classList';
+import Model from 'flarum/common/Model';
+import User from 'flarum/common/models/User';
+import { extend } from 'flarum/common/extend';
+import UserCard from 'flarum/forum/components/UserCard';
+import Badge from 'flarum/common/components/Badge';
+import ItemList from 'flarum/common/utils/ItemList';
+import classList from 'flarum/common/utils/classList';
 
 import SocialButtonsModal from './components/SocialButtonsModal';
 import DeleteButtonModal from './components/DeleteButtonModal';

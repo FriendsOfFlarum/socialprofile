@@ -1,7 +1,7 @@
-import Dropdown from 'flarum/components/Dropdown';
-import ItemList from 'flarum/utils/ItemList';
-import icon from 'flarum/helpers/icon';
-import classList from 'flarum/utils/classList';
+import Dropdown from 'flarum/common/components/Dropdown';
+import ItemList from 'flarum/common/utils/ItemList';
+import icon from 'flarum/common/helpers/icon';
+import classList from 'flarum/common/utils/classList';
 
 export default class IconSelectorComponent extends Dropdown {
     static initAttrs(attrs) {

@@ -42,7 +42,7 @@ class ProfileValidator extends AbstractValidator
     protected function makeValidator(array $attributes)
     {
         $this->validator->extend('socialbuttons', function ($attribute, $value, $parameters, $validator) {
-            return app(ProfileValidator::class)->validateSocialButtons($attribute, $value, $parameters, $validator);
+            return resolve(ProfileValidator::class)->validateSocialButtons($attribute, $value, $parameters, $validator);
         });
 
         $validator = parent::makeValidator($attributes);

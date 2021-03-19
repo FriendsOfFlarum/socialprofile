@@ -1,5 +1,5 @@
-import Component from 'flarum/Component';
-import withAttr from 'flarum/utils/withAttr';
+import Component from 'flarum/common/Component';
+import withAttr from 'flarum/common/utils/withAttr';
 import extractBaseUrl from '../helpers/extractBaseUrl';
 import isValidUrl from '../helpers/isValidUrl';
 import IconSelectorComponent from './IconSelectorComponent';
@@ -37,7 +37,12 @@ export default class WebsiteInputComponent extends Component {
                     onchange={withAttr('value', this.onUrlChange.bind(this))}
                 />
 
-                <input type="hidden" className="SocialFormControl SocialFormControl-icon" id={`icon${this.button.index()}-icon`} bidi={this.button.icon} />
+                <input
+                    type="hidden"
+                    className="SocialFormControl SocialFormControl-icon"
+                    id={`icon${this.button.index()}-icon`}
+                    bidi={this.button.icon}
+                />
 
                 <input
                     type="hidden"
