@@ -28,7 +28,7 @@ class AddSocialButtonsToDatabase
     protected $validator;
 
     /**
-     * @param  ProfileValidator  $validator
+     * @param ProfileValidator $validator
      */
     public function __construct(ProfileValidator $validator)
     {

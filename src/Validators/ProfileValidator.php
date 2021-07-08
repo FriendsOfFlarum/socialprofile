@@ -21,10 +21,10 @@ class ProfileValidator extends AbstractValidator
      */
     protected $rules = [
         'socialButtons' => ['json', 'socialbuttons'],
-        'title' => ['string', 'max:55', 'required'],
-        'url' => ['url', 'max:120', 'required'],
-        'icon' => ['string', 'max:35', 'required'],
-        'favicon' => ['string', 'max:120', 'required'],
+        'title'         => ['string', 'max:55', 'required'],
+        'url'           => ['url', 'max:120', 'required'],
+        'icon'          => ['string', 'max:35', 'required'],
+        'favicon'       => ['string', 'max:120', 'required'],
     ];
 
     /**
@@ -64,9 +64,9 @@ class ProfileValidator extends AbstractValidator
                 $valid = false;
             } else {
                 $attributes = [
-                    'title' => $button->title,
-                    'url' => $button->url,
-                    'icon' => $button->icon,
+                    'title'   => $button->title,
+                    'url'     => $button->url,
+                    'icon'    => $button->icon,
                     'favicon' => $button->favicon,
                 ];
                 $this->assertValid($attributes);

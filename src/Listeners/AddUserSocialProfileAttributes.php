@@ -23,12 +23,12 @@ class AddUserSocialProfileAttributes
         if ($actor->can('viewSocialProfile', $user)) {
             $attributes += [
                 'canViewSocialProfile' => true,
-                'canEditSocialProfile' => $actor->can('editSocialProfile', $user)
+                'canEditSocialProfile' => $actor->can('editSocialProfile', $user),
             ];
         }
 
         $attributes += [
-            'socialButtons' => $user->social_buttons
+            'socialButtons' => $user->social_buttons,
         ];
 
         return $attributes;
