@@ -22,13 +22,17 @@ return [
         ->css(__DIR__.'/resources/less/forum.less')
         ->content(Content\AddSettingsData::class),
 
+    (new Extend\Frontend('admin'))
+        ->js(__DIR__.'/js/dist/admin.js'),
+
     new Extend\Locales(__DIR__.'/resources/locale'),
 
     (new Extend\Event())
         ->listen(Saving::class, Listeners\AddSocialButtonsToDatabase::class),
 
     (new Extend\ApiSerializer(UserSerializer::class))
-        ->attribute('socialButtons', function (UserSerializer $serializer, User $user) {
-            return $user->social_buttons;
-        }),
+        ->attributes(Listeners\AddUserSocialProfileAttributes::class),
+
+    (new Extend\Policy())
+        ->modelPolicy(User::class, Access\UserPolicy::class),
 ];

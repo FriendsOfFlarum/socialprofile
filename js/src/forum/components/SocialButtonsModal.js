@@ -2,6 +2,7 @@ import Modal from 'flarum/common/components/Modal';
 import Button from 'flarum/common/components/Button';
 import Stream from 'flarum/common/utils/Stream';
 import WebsiteInputComponent from './WebsiteInputComponent';
+import icon from 'flarum/common/helpers/icon';
 
 export default class SocialButtonsModal extends Modal {
     oninit(vnode) {
@@ -38,20 +39,12 @@ export default class SocialButtonsModal extends Modal {
                     {this.buttons.map((button) => WebsiteInputComponent.component({ button }))}
 
                     <div className="Form-group" id="submit-button-group">
-                        <div
-                            className="Button Button--primary EditSocialButtons-add"
-                            style="margin-left: 1%;"
-                            onclick={this.addSocialButton.bind(this)}
-                        >
-                            <i className="fas fa-fw fa-plus" />
+                        <div className="Button Button--primary EditSocialButtons-add" onclick={this.addSocialButton.bind(this)}>
+                            {icon('fas fa-fw fa-plus')}
                         </div>
 
-                        <div
-                            className="Button Button--primary EditSocialButtons-del"
-                            style="margin-left: 1%;"
-                            onclick={this.delSocialButton.bind(this)}
-                        >
-                            <i className="fas fa-fw fa-minus" />
+                        <div className="Button Button--primary EditSocialButtons-del" onclick={this.delSocialButton.bind(this)}>
+                            {icon('fas fa-fw fa-minus')}
                         </div>
 
                         {Button.component(

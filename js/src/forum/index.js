@@ -7,14 +7,18 @@ import ItemList from 'flarum/common/utils/ItemList';
 import classList from 'flarum/common/utils/classList';
 
 import SocialButtonsModal from './components/SocialButtonsModal';
-import DeleteButtonModal from './components/DeleteButtonModal';
 
 app.initializers.add('fof/socialprofile', () => {
     User.prototype.socialButtons = Model.attribute('socialButtons', (str) => JSON.parse(str || '[]'));
 
     extend(UserCard.prototype, 'infoItems', function (items) {
-        this.isSelf = app.session.user === this.attrs.user;
-        this.canEdit = app.session.user ? app.session.user.data.attributes.canEdit : false;
+        const user = this.attrs.user;
+
+        if (!user.attribute('canViewSocialProfile')) {
+            return;
+        }
+
+        this.canEdit = user.attribute('canEditSocialProfile');
         this.buttons = this.attrs.user.socialButtons();
 
         const buttonList = new ItemList();
@@ -40,27 +44,20 @@ app.initializers.add('fof/socialprofile', () => {
                     buttonList.add(
                         `social-icon-${index}`,
                         Badge.component({
-                            className: classList({ [buttonClassName]: true, 'social-icon--deleting': this.deleting }),
+                            className: buttonClassName,
                             type: `social`,
                             icon: button.icon,
                             label: button.title,
                             style: buttonStyle,
                             onclick: () => {
-                                if (this.deleting) {
-                                    app.modal.show(DeleteButtonModal, {
-                                        user: this.attrs.user,
-                                        index,
-                                    });
-                                } else {
-                                    window.open(button.url, '_blank');
-                                }
+                                window.open(button.url, '_blank');
                             },
                         })
                     );
                 }
             });
 
-            if (this.isSelf) {
+            if (this.canEdit) {
                 buttonList.add(
                     'settings social-button',
                     Badge.component({
@@ -73,21 +70,8 @@ app.initializers.add('fof/socialprofile', () => {
                     }),
                     -1
                 );
-            } else if (this.canEdit) {
-                buttonList.add(
-                    'settings social-button',
-                    Badge.component({
-                        type: `social social-moderate ${this.deleting ? 'social-moderate--highlighted' : ''}`,
-                        icon: 'fas fa-exclamation-triangle',
-                        label: app.translator.trans('fof-socialprofile.forum.edit.delete'),
-                        onclick: () => {
-                            this.deleting = !this.deleting;
-                        },
-                    }),
-                    -1
-                );
             }
-        } else if (this.isSelf) {
+        } else if (this.canEdit) {
             buttonList.add(
                 'settings social-button',
                 Badge.component({

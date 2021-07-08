@@ -1,19 +1,19 @@
 {
-  "name": "@fof/socialprofile",
-  "version": "0.0.0",
-  "private": true,
-  "dependencies": {
-    "flarum-webpack-config": "^0.1.0-beta.10",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^4.5.0"
-  },
-  "scripts": {
-    "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production",
-    "lint": "prettier --single-quote --trailing-comma es5 --print-width 150 --tab-width 4 --write src"
-  },
-  "devDependencies": {
-    "flarum": "0.1.0-beta.16",
-    "prettier": "^2.3.0"
-  }
+    "name": "@fof/socialprofile",
+    "version": "0.0.0",
+    "private": true,
+    "dependencies": {
+        "flarum-webpack-config": "^1.0.0",
+        "webpack": "^4.46.0",
+        "webpack-cli": "^4.7.2"
+    },
+    "scripts": {
+        "dev": "webpack --mode development --watch",
+        "build": "webpack --mode production",
+        "lint": "prettier --write src"
+    },
+    "devDependencies": {
+        "flarum-tsconfig": "^1.0.0",
+        "prettier": "^2.3.0"
+    }
 }

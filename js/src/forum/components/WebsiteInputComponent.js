@@ -11,12 +11,12 @@ export default class WebsiteInputComponent extends Component {
         this.button = this.attrs.button;
     }
 
-    view() {
+    view(vnode) {
         return (
             <div className="Form-group form-group-social" id={`socialgroup-${this.button.index()}`}>
                 <input
                     type="text"
-                    className="SocialFormControl SocialFormControl-title"
+                    className="FormControl SocialFormControl SocialFormControl-title"
                     placeholder={app.translator.trans('fof-socialprofile.forum.edit.title')}
                     tabIndex={(this.button.index() + 1) * 2 - 1}
                     bidi={this.button.title}
@@ -30,7 +30,7 @@ export default class WebsiteInputComponent extends Component {
 
                 <input
                     type="text"
-                    className="SocialFormControl SocialFormControl-url"
+                    className="FormControl SocialFormControl SocialFormControl-url"
                     placeholder={app.translator.trans('fof-socialprofile.forum.edit.url')}
                     tabIndex={(this.button.index() + 1) * 2}
                     value={this.button.url()}
