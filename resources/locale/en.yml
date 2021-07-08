@@ -1,8 +1,8 @@
 fof-socialprofile:
   forum:
     edit:
-      edit: Edit
-      add: Add
+      edit: Edit your social media buttons
+      add: Add buttons to your social media
       headtitle: Edit Buttons
       title: Title
       url: URL
