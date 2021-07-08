@@ -21,7 +21,6 @@
     "dropdown       urlTextField";
   grid-template-columns: min-content auto;
   grid-gap: 4px;
-  gap: 4px;
   margin-bottom: 12px;
 
   padding-bottom: 12px;
@@ -81,25 +80,25 @@
       padding: 4px;
       text-align: center;
       cursor: pointer;
-      border-radius: 3px;
+      border: 1px solid @muted-more-color;
+      border-radius: @border-radius;
       font-size: 18px;
-      box-shadow: 0 0 0 1px #ddd;
-      color: #111;
+      color: @text-color;
 
       &:hover,
       &:focus,
       &:active {
-        background-color: #f1f1f1;
+        background-color: fade(@muted-more-color, 20%);
       }
 
       &--highlighted {
-        background-color: #4d698e;
+        background-color: @primary-color;
         color: white;
 
         &:hover,
         &:focus,
         &:active {
-          background-color: #364a65;
+          background-color: darken(@primary-color, 5%);
         }
       }
     }
@@ -137,15 +136,15 @@
 }
 
 .social-moderate--highlighted > .Badge-icon {
-  color: #f22613;
+  color: @error-color;
   transition: 0.5s;
   font-size: 23px;
   animation: fa-spin 2s infinite linear;
 }
 
 .social-button--highlightable:hover {
-  border-radius: 4px;
-  background: #f22613;
+  border-radius: @error-color;
+  background: @control-danger-bg;
 }
 
 .fa-pulse {
