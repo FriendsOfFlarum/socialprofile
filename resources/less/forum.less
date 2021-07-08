@@ -132,19 +132,13 @@
 }
 
 .social-greyscale-button {
-  filter: grayscale(1) brightness(1.5);
-}
-
-.social-moderate--highlighted > .Badge-icon {
-  color: @error-color;
-  transition: 0.5s;
-  font-size: 23px;
-  animation: fa-spin 2s infinite linear;
-}
-
-.social-button--highlightable:hover {
-  border-radius: @error-color;
-  background: @control-danger-bg;
+  .mixin(@config-dark-mode);
+  .mixin(false) {
+    filter: grayscale(1) brightness(1.5);
+  }
+  .mixin(true) {
+    filter: grayscale(1) brightness(100);
+  }
 }
 
 .fa-pulse {
