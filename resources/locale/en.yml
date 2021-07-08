@@ -1,4 +1,10 @@
 fof-socialprofile:
+  admin:
+    permissions:
+      view: View social profile
+      editOwn: Edit own social profile
+      editAny: Edit any social profile
+
   forum:
     edit:
       edit: Edit your social media buttons

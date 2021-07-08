@@ -12,6 +12,7 @@
 namespace FoF\SocialProfile\Validators;
 
 use Flarum\Foundation\AbstractValidator;
+use Illuminate\Validation\Validator;
 
 class ProfileValidator extends AbstractValidator
 {
@@ -20,16 +21,16 @@ class ProfileValidator extends AbstractValidator
      */
     protected $rules = [
         'socialButtons' => ['json', 'socialbuttons'],
-        'title'         => ['string', 'max:55', 'required'],
-        'url'           => ['url', 'max:120', 'required'],
-        'icon'          => ['string', 'max:35', 'required'],
-        'favicon'       => ['string', 'max:120', 'required'],
+        'title' => ['string', 'max:55', 'required'],
+        'url' => ['url', 'max:120', 'required'],
+        'icon' => ['string', 'max:35', 'required'],
+        'favicon' => ['string', 'max:120', 'required'],
     ];
 
     /**
      * {@inheritdoc}
      */
-    protected function getMessages()
+    protected function getMessages(): array
     {
         return [
             'socialButtons.socialbuttons' => 'The data you sent is missing required variables.',
@@ -39,15 +40,13 @@ class ProfileValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected function makeValidator(array $attributes)
+    protected function makeValidator(array $attributes): Validator
     {
         $this->validator->extend('socialbuttons', function ($attribute, $value, $parameters, $validator) {
             return resolve(ProfileValidator::class)->validateSocialButtons($attribute, $value, $parameters, $validator);
         });
 
-        $validator = parent::makeValidator($attributes);
-
-        return $validator;
+        return parent::makeValidator($attributes);
     }
 
     protected function validateSocialButtons($attribute, $value, $parameters, $validator)
@@ -65,9 +64,9 @@ class ProfileValidator extends AbstractValidator
                 $valid = false;
             } else {
                 $attributes = [
-                    'title'   => $button->title,
-                    'url'     => $button->url,
-                    'icon'    => $button->icon,
+                    'title' => $button->title,
+                    'url' => $button->url,
+                    'icon' => $button->icon,
                     'favicon' => $button->favicon,
                 ];
                 $this->assertValid($attributes);

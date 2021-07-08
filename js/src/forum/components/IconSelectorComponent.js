@@ -115,11 +115,10 @@ export default class IconSelectorComponent extends Dropdown {
             /^favicon(-\w+)?$/.test(this.attrs.selection())
                 ? [
                       <img
-                          className={classList({
-                              'icondropdown-activeIcon': true,
-                              'social-greyscale-button': this.attrs.selection() === 'favicon-grey',
-                              'social-button': !this.attrs.selection() === 'favicon-grey',
-                          })}
+                          className={classList([
+                              'icondropdown-activeIcon',
+                              this.attrs.selection() === 'favicon-grey' ? 'social-greyscale-button' : 'social-button',
+                          ])}
                           alt=""
                           src={this.attrs.favicon()}
                           onerror={() => {
@@ -142,10 +141,7 @@ export default class IconSelectorComponent extends Dropdown {
                 <div
                     onclick={() => this.select('favicon')}
                     role="button"
-                    className={classList({
-                        'iconpicker-item': true,
-                        'iconpicker-item--highlighted': this.attrs.selection() === 'favicon',
-                    })}
+                    className={classList(['iconpicker-item', this.attrs.selection() === 'favicon' && 'iconpicker-item--highlighted'])}
                     title="Favicon"
                 >
                     <img
@@ -163,10 +159,11 @@ export default class IconSelectorComponent extends Dropdown {
                 <div
                     onclick={() => this.select('favicon-grey')}
                     role="button"
-                    className={classList({
-                        'iconpicker-item iconpicker-item--invertColors': true,
-                        'iconpicker-item--highlighted': this.attrs.selection() === 'favicon-grey',
-                    })}
+                    className={classList([
+                        'iconpicker-item',
+                        'iconpicker-item--invertColors',
+                        this.attrs.selection() === 'favicon-grey' && 'iconpicker-item--highlighted',
+                    ])}
                     title="Grey Favicon"
                 >
                     <img
@@ -185,7 +182,7 @@ export default class IconSelectorComponent extends Dropdown {
                 curIcon.replace(/ /, '-'),
                 <div
                     onclick={() => this.select(curIcon)}
-                    className={classList({ 'iconpicker-item': true, 'iconpicker-item--highlighted': this.attrs.selection() === curIcon })}
+                    className={classList(['iconpicker-item', this.attrs.selection() === curIcon && 'iconpicker-item--highlighted'])}
                     role="button"
                     title={`.${curIcon}`}
                 >
