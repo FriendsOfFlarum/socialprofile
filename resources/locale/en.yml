@@ -16,3 +16,5 @@ fof-socialprofile:
       delete: Delete
       deletetitle: Delete Button
       save_disabled_fetching_favicons: One or more icons are being fetched. Please wait.
+      favicon: Favicon
+      grey_favicon: Grey Favicon

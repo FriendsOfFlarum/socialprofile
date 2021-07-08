@@ -142,7 +142,7 @@ export default class IconSelectorComponent extends Dropdown {
                     onclick={() => this.select('favicon')}
                     role="button"
                     className={classList(['iconpicker-item', this.attrs.selection() === 'favicon' && 'iconpicker-item--highlighted'])}
-                    title="Favicon"
+                    title={app.translator.trans('fof-socialprofile.forum.edit.favicon')}
                 >
                     <img
                         className={`iconpicker-image-${this.attrs.index()}`}
@@ -164,7 +164,7 @@ export default class IconSelectorComponent extends Dropdown {
                         'iconpicker-item--invertColors',
                         this.attrs.selection() === 'favicon-grey' && 'iconpicker-item--highlighted',
                     ])}
-                    title="Grey Favicon"
+                    title={app.translator.trans('fof-socialprofile.forum.edit.grey_favicon')}
                 >
                     <img
                         className={`social-greyscale-button iconpicker-image-${this.attrs.index()}`}
