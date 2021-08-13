@@ -13,7 +13,7 @@ use Flarum\Database\Migration;
 use Flarum\Group\Group;
 
 return Migration::addPermissions([
-    'fof-socialprofile.view' => Group::MEMBER_ID,
+    'fof-socialprofile.view'    => Group::MEMBER_ID,
     'fof-socialprofile.editOwn' => Group::MEMBER_ID,
-    'fof-socialprofile.editAny' => Group::MODERATOR_ID
+    'fof-socialprofile.editAny' => Group::MODERATOR_ID,
 ]);

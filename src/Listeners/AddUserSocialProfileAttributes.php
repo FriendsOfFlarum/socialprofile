@@ -21,7 +21,7 @@ class AddUserSocialProfileAttributes
         $actor = $serializer->getActor();
 
         $attributes['canViewSocialProfile'] = $actor->can('viewSocialProfile', $user);
-        
+
         if ($attributes['canViewSocialProfile']) {
             $attributes['socialButtons'] = $user->social_buttons;
             $attributes['canEditSocialProfile'] = $actor->can('editSocialProfile', $user);
