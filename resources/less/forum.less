@@ -10,7 +10,7 @@
 }
 
 .social-settings > .fa-cog {
-  border-left: 1px solid white;
+  border-left: 1px solid @body-bg;
   width: 120%;
 }
 
@@ -36,8 +36,8 @@
     padding: 0 13px;
     font-size: 13px;
     line-height: 36px;
-    background-color: #fff;
-    color: #111;
+    background-color: @body-bg;
+    color: @text-color;
     border: 2px solid transparent;
     border-radius: 4px;
     transition: border-color 0.15s, background-color 0.15s;
@@ -93,23 +93,23 @@
       cursor: pointer;
       border-radius: 3px;
       font-size: 18px;
-      box-shadow: 0 0 0 1px #ddd;
-      color: #111;
+      box-shadow: 0 0 0 1px @text-color;
+      color: @text-color;
 
       &:hover,
       &:focus,
       &:active {
-        background-color: #f1f1f1;
+        background-color: darken(fadein(@control-bg, 2%), 2%);
       }
 
       &--highlighted {
-        background-color: #4d698e;
-        color: white;
-
+        &,
         &:hover,
         &:focus,
         &:active {
-          background-color: #364a65;
+          background-color: @primary-color;
+          color: contrast(@primary-color);
+          box-shadow: 0 0 0 2px @text-color;
         }
       }
     }
@@ -126,7 +126,7 @@
   max-height: 45vh;
   min-height: 100px;
   z-index: 2055;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid @shadow-color;
   transition: none;
 
   padding: 8px;
@@ -147,7 +147,7 @@
 }
 
 .social-moderate--highlighted > .Badge-icon {
-  color: #f22613;
+  color: @control-danger-color;
   transition: 0.5s;
   font-size: 23px;
   animation: fa-spin 2s infinite linear;
@@ -155,7 +155,7 @@
 
 .social-button--highlightable:hover {
   border-radius: 4px;
-  background: #f22613;
+  background: @control-danger-color;
 }
 
 .fa-pulse {
