@@ -22,6 +22,12 @@ return [
         ->css(__DIR__.'/resources/less/forum.less')
         ->content(Content\AddSettingsData::class),
 
+    (new Extend\Frontend('admin'))
+        ->js(__DIR__.'/js/dist/admin.js'),
+
+    (new Extend\Settings())
+        ->serializeToForum('fof-socialprofile.allow_external_favicons', 'fof-socialprofile.allow_external_favicons', 'boolval', true),
+
     new Extend\Locales(__DIR__.'/resources/locale'),
 
     (new Extend\Event())

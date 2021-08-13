@@ -1,3 +1,4 @@
+import app from 'flarum/forum/app';
 import Component from 'flarum/common/Component';
 import withAttr from 'flarum/common/utils/withAttr';
 import extractBaseUrl from '../helpers/extractBaseUrl';
@@ -9,6 +10,8 @@ export default class WebsiteInputComponent extends Component {
         super.oninit(vnode);
 
         this.button = this.attrs.button;
+
+        this.allowsExternal = app.forum.attribute('fof-socialprofile.allow_external_favicons');
     }
 
     view() {
@@ -26,6 +29,7 @@ export default class WebsiteInputComponent extends Component {
                     selection: this.button.icon,
                     favicon: this.button.favicon,
                     index: this.button.index,
+                    allowsExternal: this.allowsExternal,
                 })}
 
                 <input
@@ -56,6 +60,10 @@ export default class WebsiteInputComponent extends Component {
 
     onUrlChange(value) {
         this.button.url(value);
+
+        if (!this.allowsExternal) {
+            return;
+        }
 
         clearTimeout(this.waitUntilFinished);
 

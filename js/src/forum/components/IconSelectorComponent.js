@@ -111,24 +111,28 @@ export default class IconSelectorComponent extends Dropdown {
     }
 
     getButtonContent() {
+        const ic = (str) => icon(str, { className: 'icondropdown-activeIcon fa-fw' });
+
         return [
             /^favicon(-\w+)?$/.test(this.attrs.selection())
-                ? [
-                      <img
-                          className={classList({
-                              'icondropdown-activeIcon': true,
-                              'social-greyscale-button': this.attrs.selection() === 'favicon-grey',
-                              'social-button': !this.attrs.selection() === 'favicon-grey',
-                          })}
-                          alt=""
-                          src={this.attrs.favicon()}
-                          onerror={() => {
-                              this.attrs.favicon('none');
-                              this.select(this.icons.social[0]);
-                          }}
-                      />,
-                  ]
-                : icon(this.attrs.selection(), { className: 'icondropdown-activeIcon fa-fw' }),
+                ? this.attrs.allowsExternal
+                    ? [
+                          <img
+                              className={classList({
+                                  'icondropdown-activeIcon': true,
+                                  'social-greyscale-button': this.attrs.selection() === 'favicon-grey',
+                                  'social-button': !this.attrs.selection() === 'favicon-grey',
+                              })}
+                              alt=""
+                              src={this.attrs.favicon()}
+                              onerror={() => {
+                                  this.attrs.favicon('none');
+                                  this.select(this.icons.social[0]);
+                              }}
+                          />,
+                      ]
+                    : ic('fas fa-globe')
+                : ic(this.attrs.selection()),
             this.attrs.caretIcon ? icon(this.attrs.caretIcon, { className: 'Button-caret' }) : '',
         ];
     }
@@ -136,7 +140,7 @@ export default class IconSelectorComponent extends Dropdown {
     items() {
         const items = new ItemList();
 
-        if (this.attrs.favicon() !== 'none') {
+        if (this.attrs.favicon() !== 'none' && this.attrs.allowsExternal) {
             items.add(
                 'favicon',
                 <div

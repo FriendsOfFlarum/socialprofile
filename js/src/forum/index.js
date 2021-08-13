@@ -1,3 +1,4 @@
+import app from 'flarum/forum/app';
 import Model from 'flarum/common/Model';
 import User from 'flarum/common/models/User';
 import { extend } from 'flarum/common/extend';
@@ -29,12 +30,16 @@ app.initializers.add('fof/socialprofile', () => {
                     });
 
                     if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
-                        buttonStyle = `
-                            background-image: url("${button.favicon}");
-                            background-size: 60%;
-                            background-position: center;
-                            background-repeat: no-repeat;
-                        `;
+                        if (app.forum.attribute('fof-socialprofile.allow_external_favicons')) {
+                            buttonStyle = `
+                                background-image: url("${button.favicon}");
+                                background-size: 60%;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                            `;
+                        } else {
+                            buttonClassName += ' fas fa-globe';
+                        }
                     }
 
                     buttonList.add(
