@@ -21,27 +21,16 @@
     "dropdown       urlTextField";
   grid-template-columns: min-content auto;
   grid-gap: 4px;
-  gap: 4px;
   margin-bottom: 12px;
 
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  border-bottom: 1px solid fade(@secondary-color, 20%);
 
   .Button--icon .Button-caret {
     display: inline-block;
   }
 
   .SocialFormControl {
-    height: 36px;
-    padding: 0 13px;
-    font-size: 13px;
-    line-height: 36px;
-    background-color: @body-bg;
-    color: @text-color;
-    border: 2px solid transparent;
-    border-radius: 4px;
-    transition: border-color 0.15s, background-color 0.15s;
-
     &-title {
       grid-area: titleTextField;
     }
@@ -91,7 +80,8 @@
       padding: 4px;
       text-align: center;
       cursor: pointer;
-      border-radius: 3px;
+      border: 1px solid @muted-more-color;
+      border-radius: @border-radius;
       font-size: 18px;
       box-shadow: 0 0 0 1px @text-color;
       color: @text-color;
@@ -99,17 +89,17 @@
       &:hover,
       &:focus,
       &:active {
-        background-color: darken(fadein(@control-bg, 2%), 2%);
+        background-color: fade(@muted-more-color, 20%);
       }
 
       &--highlighted {
-        &,
+        background-color: @primary-color;
+        color: contrast(@primary-color);
+
         &:hover,
         &:focus,
         &:active {
-          background-color: @primary-color;
-          color: contrast(@primary-color);
-          box-shadow: 0 0 0 2px @text-color;
+          background-color: darken(@primary-color, 5%);
         }
       }
     }
@@ -132,7 +122,6 @@
   padding: 8px;
   grid-template-columns: repeat(3, minmax(10px, 1fr));
   grid-gap: 8px;
-  gap: 8px;
 
   > li {
     // Force square
@@ -140,37 +129,27 @@
     padding-bottom: 100%;
     position: relative;
   }
+
+  @media @phone {
+    grid-template-columns: repeat(4, minmax(10px, 1fr));
+  }
 }
 
 .social-greyscale-button {
-  filter: grayscale(1) brightness(1.5);
-}
-
-.social-moderate--highlighted > .Badge-icon {
-  color: @control-danger-color;
-  transition: 0.5s;
-  font-size: 23px;
-  animation: fa-spin 2s infinite linear;
-}
-
-.social-button--highlightable:hover {
-  border-radius: 4px;
-  background: @control-danger-color;
-}
-
-.fa-pulse {
-  animation: fa-spin 1s infinite steps(8);
-
-  @keyframes fa-spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(1turn);
-    }
+  .mixin(@config-dark-mode);
+  .mixin(false) {
+    filter: grayscale(1) brightness(1.5);
+  }
+  .mixin(true) {
+    filter: grayscale(1) brightness(100);
   }
 }
 
 .SocialButtonsModal .Modal-content {
   overflow: visible;
+}
+
+.EditSocialButtons-add,
+.EditSocialButtons-del {
+  margin-left: 1%;
 }

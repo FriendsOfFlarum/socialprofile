@@ -14,12 +14,12 @@ export default class WebsiteInputComponent extends Component {
         this.allowsExternal = app.forum.attribute('fof-socialprofile.allow_external_favicons');
     }
 
-    view() {
+    view(vnode) {
         return (
             <div className="Form-group form-group-social" id={`socialgroup-${this.button.index()}`}>
                 <input
                     type="text"
-                    className="SocialFormControl SocialFormControl-title"
+                    className="FormControl SocialFormControl SocialFormControl-title"
                     placeholder={app.translator.trans('fof-socialprofile.forum.edit.title')}
                     tabIndex={(this.button.index() + 1) * 2 - 1}
                     bidi={this.button.title}
@@ -34,7 +34,7 @@ export default class WebsiteInputComponent extends Component {
 
                 <input
                     type="text"
-                    className="SocialFormControl SocialFormControl-url"
+                    className="FormControl SocialFormControl SocialFormControl-url"
                     placeholder={app.translator.trans('fof-socialprofile.forum.edit.url')}
                     tabIndex={(this.button.index() + 1) * 2}
                     value={this.button.url()}
@@ -43,7 +43,7 @@ export default class WebsiteInputComponent extends Component {
 
                 <input
                     type="hidden"
-                    className="SocialFormControl SocialFormControl-icon"
+                    className="FormControl SocialFormControl SocialFormControl-icon"
                     id={`icon${this.button.index()}-icon`}
                     bidi={this.button.icon}
                 />
