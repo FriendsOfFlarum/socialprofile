@@ -50,23 +50,15 @@ app.initializers.add('fof/socialprofile', () => {
 
                     buttonList.add(
                         `social-icon-${index}`,
-                        Badge.component({
-                            className: classList({ [buttonClassName]: true, 'social-icon--deleting': this.deleting }),
-                            type: `social`,
-                            icon: button.icon,
-                            label: button.title,
-                            style: buttonStyle,
-                            onclick: () => {
-                                if (this.deleting) {
-                                    app.modal.show(DeleteButtonModal, {
-                                        user: this.attrs.user,
-                                        index,
-                                    });
-                                } else {
-                                    window.open(button.url, '_blank');
-                                }
-                            },
-                        })
+                        <a href={button.url} target="_blank" rel="noreferrer noopener nofollow">
+                            {Badge.component({
+                                className: classList({ [buttonClassName]: true, 'social-icon--deleting': this.deleting }),
+                                type: `social`,
+                                icon: button.icon,
+                                label: button.title,
+                                style: buttonStyle,
+                            })}
+                        </a>
                     );
                 }
             });
