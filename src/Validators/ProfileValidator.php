@@ -12,6 +12,7 @@
 namespace FoF\SocialProfile\Validators;
 
 use Flarum\Foundation\AbstractValidator;
+use Illuminate\Validation\Validator;
 
 class ProfileValidator extends AbstractValidator
 {
@@ -29,7 +30,7 @@ class ProfileValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected function getMessages()
+    protected function getMessages(): array
     {
         return [
             'socialButtons.socialbuttons' => 'The data you sent is missing required variables.',
@@ -39,15 +40,13 @@ class ProfileValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected function makeValidator(array $attributes)
+    protected function makeValidator(array $attributes): Validator
     {
         $this->validator->extend('socialbuttons', function ($attribute, $value, $parameters, $validator) {
             return resolve(ProfileValidator::class)->validateSocialButtons($attribute, $value, $parameters, $validator);
         });
 
-        $validator = parent::makeValidator($attributes);
-
-        return $validator;
+        return parent::makeValidator($attributes);
     }
 
     protected function validateSocialButtons($attribute, $value, $parameters, $validator)

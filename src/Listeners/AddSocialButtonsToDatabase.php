@@ -33,6 +33,10 @@ class AddSocialButtonsToDatabase
         $this->validator = $validator;
     }
 
+    /**
+     * @throws PermissionDeniedException
+     * @throws ValidationException
+     */
     public function handle(Saving $event)
     {
         $attributes = Arr::get($event->data, 'attributes', []);
@@ -44,38 +48,11 @@ class AddSocialButtonsToDatabase
             $actor = $event->actor;
 
             if ($actor->id !== $user->id) {
-                $actor->assertPermission(
-                    $this->elementsOnlyRemoved(
-                        $user->social_buttons,
-                        $attributes['socialButtons']
-                    )
-                );
-
-                $actor->assertCan('edit', $user);
+                $actor->assertCan('editSocialProfile', $user);
             }
 
             $user->social_buttons = $attributes['socialButtons'];
-            $user->raise(new UserButtonsWereChanged($user));
+            $user->raise(new UserButtonsWereChanged($user, $actor));
         }
-    }
-
-    /**
-     * @param string $current
-     * @param string $proposed
-     *
-     * @return bool
-     */
-    protected function elementsOnlyRemoved($current, $proposed)
-    {
-        $current = json_decode($current);
-        $proposed = json_decode($proposed);
-
-        foreach ($proposed as $component) {
-            if (!Arr::has($current, $component)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

@@ -1,4 +1,13 @@
 fof-socialprofile:
+  admin:
+    permissions:
+      view: View social profile
+      editOwn: Edit own social profile
+      editAny: Edit any social profile
+    
+    settings:
+      allow_external_favicons_label: Allow external website icons
+      
   forum:
     edit:
       edit: Edit

@@ -34,7 +34,8 @@ return [
         ->listen(Saving::class, Listeners\AddSocialButtonsToDatabase::class),
 
     (new Extend\ApiSerializer(UserSerializer::class))
-        ->attribute('socialButtons', function (UserSerializer $serializer, User $user) {
-            return $user->social_buttons;
-        }),
+        ->attributes(Listeners\AddUserSocialProfileAttributes::class),
+
+    (new Extend\Policy())
+        ->modelPolicy(User::class, Access\UserPolicy::class),
 ];
