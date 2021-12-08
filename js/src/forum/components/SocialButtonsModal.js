@@ -12,7 +12,7 @@ export default class SocialButtonsModal extends Modal {
 
         if (buttons.length) {
             buttons.forEach((button, index) => {
-                if (button.title !== '') {
+                if (button && button.title) {
                     this.createButtonObject(index, button);
                 }
             });
@@ -77,15 +77,18 @@ export default class SocialButtonsModal extends Modal {
     data() {
         const buttons = [];
 
-        this.buttons.forEach((button, index) => {
-            if (button.title() !== '') {
-                buttons[index] = {};
-                buttons[index].title = button.title();
-                buttons[index].url = button.url();
-                buttons[index].icon = button.icon();
-                buttons[index].favicon = button.favicon();
+        this.buttons.forEach((button) => {
+            if (button && button.title() && button.url()) {
+                buttons.push({
+                    title: button.title(),
+                    url: button.url(),
+                    icon: button.icon(),
+                    favicon: button.favicon(),
+                });
             }
         });
+
+        console.log(JSON.stringify(buttons));
 
         return {
             socialButtons: JSON.stringify(buttons),

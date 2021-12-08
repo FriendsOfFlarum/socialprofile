@@ -28,7 +28,7 @@ app.initializers.add('fof/socialprofile', () => {
 
         if (this.buttons.length) {
             this.buttons.forEach((button, index) => {
-                if (button.title !== '' && button.icon !== '' && button.url !== '') {
+                if (button && button.title && button.icon && button.url) {
                     let buttonStyle = '';
                     let buttonClassName = classList({
                         [`social-button ${button.icon}-${index} social-icon-${index}`]: true,
