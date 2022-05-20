@@ -16,17 +16,17 @@
  * @param {string|null} url URL to extract base from
  */
 export default function extractBaseUrl(url) {
-    let urlInstance;
+  let urlInstance;
 
-    try {
-        urlInstance = new URL(url);
-    } catch (_) {
-        return null;
-    }
-
-    if (['http:', 'https:'].includes(urlInstance.protocol)) {
-        return urlInstance.origin;
-    }
-
+  try {
+    urlInstance = new URL(url);
+  } catch (_) {
     return null;
+  }
+
+  if (['http:', 'https:'].includes(urlInstance.protocol)) {
+    return urlInstance.origin;
+  }
+
+  return null;
 }
