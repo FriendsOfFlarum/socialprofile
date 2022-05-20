@@ -94,10 +94,10 @@ app.initializers.add('fof/socialprofile', () => {
 
     if (buttonList.toArray().length > 0) {
       if (items.has('lastSeen')) {
-        items.replace('lastSeen', items['lastSeen'], 50);
+        items.setPriority('lastSeen', 100);
       }
       if (items.has('joined')) {
-        items.replace('joined', items['joined'], 40);
+        items.setPriority('joined', 90);
       }
 
       items.add('fofsocialprofile', buttonList.toArray(), 20);
