@@ -10,97 +10,97 @@ import classList from 'flarum/common/utils/classList';
 import SocialButtonsModal from './components/SocialButtonsModal';
 
 app.initializers.add('fof/socialprofile', () => {
-    User.prototype.socialButtons = Model.attribute('socialButtons', (str) => JSON.parse(str || '[]'));
-    User.prototype.canViewSocialProfile = Model.attribute('canViewSocialProfile');
-    User.prototype.canEditSocialProfile = Model.attribute('canEditSocialProfile');
+  User.prototype.socialButtons = Model.attribute('socialButtons', (str) => JSON.parse(str || '[]'));
+  User.prototype.canViewSocialProfile = Model.attribute('canViewSocialProfile');
+  User.prototype.canEditSocialProfile = Model.attribute('canEditSocialProfile');
 
-    extend(UserCard.prototype, 'infoItems', function (items) {
-        const user = this.attrs.user;
+  extend(UserCard.prototype, 'infoItems', function (items) {
+    const user = this.attrs.user;
 
-        if (!user.canViewSocialProfile()) {
-            return;
-        }
+    if (!user.canViewSocialProfile()) {
+      return;
+    }
 
-        this.canEdit = user.canEditSocialProfile();
-        this.buttons = this.attrs.user.socialButtons();
+    this.canEdit = user.canEditSocialProfile();
+    this.buttons = this.attrs.user.socialButtons();
 
-        const buttonList = new ItemList();
+    const buttonList = new ItemList();
 
-        if (this.buttons.length) {
-            this.buttons.forEach((button, index) => {
-                if (button && button.title && button.icon && button.url) {
-                    let buttonStyle = '';
-                    let buttonClassName = classList({
-                        [`social-button ${button.icon}-${index} social-icon-${index}`]: true,
-                        'social-greyscale-button': button.icon === 'favicon-grey',
-                    });
+    if (this.buttons.length) {
+      this.buttons.forEach((button, index) => {
+        if (button && button.title && button.icon && button.url) {
+          let buttonStyle = '';
+          let buttonClassName = classList({
+            [`social-button ${button.icon}-${index} social-icon-${index}`]: true,
+            'social-greyscale-button': button.icon === 'favicon-grey',
+          });
 
-                    if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
-                        if (app.forum.attribute('fof-socialprofile.allow_external_favicons')) {
-                            buttonStyle = `
+          if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
+            if (app.forum.attribute('fof-socialprofile.allow_external_favicons')) {
+              buttonStyle = `
                                 background-image: url("${button.favicon}");
                                 background-size: 60%;
                                 background-position: center;
                                 background-repeat: no-repeat;
                             `;
-                        } else {
-                            buttonClassName += ' fas fa-globe';
-                        }
-                    }
-
-                    buttonList.add(
-                        `social-icon-${index}`,
-                        <a href={button.url} target="_blank" rel="noreferrer noopener nofollow">
-                            {Badge.component({
-                                className: classList({ [buttonClassName]: true, 'social-icon--deleting': this.deleting }),
-                                type: `social`,
-                                icon: button.icon,
-                                label: button.title,
-                                style: buttonStyle,
-                            })}
-                        </a>
-                    );
-                }
-            });
-
-            if (this.canEdit) {
-                buttonList.add(
-                    'settings social-button',
-                    Badge.component({
-                        type: 'social social-settings',
-                        icon: 'fas fa-cog',
-                        label: app.translator.trans('fof-socialprofile.forum.edit.edit'),
-                        onclick: () => {
-                            app.modal.show(SocialButtonsModal, { user: this.attrs.user });
-                        },
-                    }),
-                    -1
-                );
+            } else {
+              buttonClassName += ' fas fa-globe';
             }
-        } else if (this.canEdit) {
-            buttonList.add(
-                'settings social-button',
-                Badge.component({
-                    type: 'social null-social-settings',
-                    icon: 'fas fa-plus',
-                    label: app.translator.trans('fof-socialprofile.forum.edit.add'),
-                    onclick: () => {
-                        app.modal.show(SocialButtonsModal, { user: this.attrs.user });
-                    },
-                }),
-                -1
-            );
+          }
+
+          buttonList.add(
+            `social-icon-${index}`,
+            <a href={button.url} target="_blank" rel="noreferrer noopener nofollow">
+              {Badge.component({
+                className: classList({ [buttonClassName]: true, 'social-icon--deleting': this.deleting }),
+                type: `social`,
+                icon: button.icon,
+                label: button.title,
+                style: buttonStyle,
+              })}
+            </a>
+          );
         }
+      });
 
-        if (buttonList.toArray().length > 0) {
-            if (items.has('lastSeen')) {
-                items.replace('lastSeen', items['lastSeen'], 50);
-            }
-            if (items.has('joined')) {
-                items.replace('joined', items['joined'], 40);
-            }
+      if (this.canEdit) {
+        buttonList.add(
+          'settings social-button',
+          Badge.component({
+            type: 'social social-settings',
+            icon: 'fas fa-cog',
+            label: app.translator.trans('fof-socialprofile.forum.edit.edit'),
+            onclick: () => {
+              app.modal.show(SocialButtonsModal, { user: this.attrs.user });
+            },
+          }),
+          -1
+        );
+      }
+    } else if (this.canEdit) {
+      buttonList.add(
+        'settings social-button',
+        Badge.component({
+          type: 'social null-social-settings',
+          icon: 'fas fa-plus',
+          label: app.translator.trans('fof-socialprofile.forum.edit.add'),
+          onclick: () => {
+            app.modal.show(SocialButtonsModal, { user: this.attrs.user });
+          },
+        }),
+        -1
+      );
+    }
 
-            items.add('fofsocialprofile', buttonList.toArray(), 20);
-        }
-    });
+    if (buttonList.toArray().length > 0) {
+      if (items.has('lastSeen')) {
+        items.replace('lastSeen', items['lastSeen'], 50);
+      }
+      if (items.has('joined')) {
+        items.replace('joined', items['joined'], 40);
+      }
+
+      items.add('fofsocialprofile', buttonList.toArray(), 20);
+    }
+  });
 });
