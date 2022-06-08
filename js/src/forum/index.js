@@ -43,8 +43,6 @@ app.initializers.add('fof/socialprofile', () => {
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
               };
-
-              console.log(buttonStyle);
             } else {
               buttonClassName += ' fas fa-globe';
             }

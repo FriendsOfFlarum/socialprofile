@@ -79,8 +79,6 @@ export default class SocialButtonsModal extends Modal {
       }
     });
 
-    console.log(JSON.stringify(buttons));
-
     return {
       socialButtons: JSON.stringify(buttons),
     };
