@@ -6,7 +6,7 @@ fof-socialprofile:
       editAny: Edit any social profile
     
     settings:
-      allow_external_favicons_label: Allow external website icons
+      allow_external_favicons_label: "Allow external website icons (uses DuckDuckGo's favicon API)"
       
   forum:
     edit:
