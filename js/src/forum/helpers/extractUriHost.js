@@ -1,12 +1,12 @@
 /**
- * Extracts the base URL of a specified URL. Returns `null` if the URL is invalid.
+ * Extracts the host of a specified URI. Returns `null` if the URL is invalid.
  *
  * @example
- * // https://www.google.com
+ * // www.google.com
  * extractBaseUrl("https://www.google.com/search?q=flarum")
  *
  * @example
- * // https://discuss.flarum.org
+ * // discuss.flarum.org
  * extractBaseUrl("https://discuss.flarum.org/u/admin")
  *
  * @example
@@ -15,7 +15,7 @@
  *
  * @param {string|null} url URL to extract base from
  */
-export default function extractBaseUrl(url) {
+export default function extractUriHost(url) {
   let urlInstance;
 
   try {
@@ -25,7 +25,7 @@ export default function extractBaseUrl(url) {
   }
 
   if (['http:', 'https:'].includes(urlInstance.protocol)) {
-    return urlInstance.origin;
+    return urlInstance.host;
   }
 
   return null;

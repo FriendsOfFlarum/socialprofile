@@ -1,7 +1,7 @@
 import app from 'flarum/forum/app';
 import Component from 'flarum/common/Component';
 import withAttr from 'flarum/common/utils/withAttr';
-import extractBaseUrl from '../helpers/extractBaseUrl';
+import extractUriHost from '../helpers/extractUriHost';
 import isValidUrl from '../helpers/isValidUrl';
 import IconSelectorComponent from './IconSelectorComponent';
 
@@ -74,7 +74,7 @@ export default class WebsiteInputComponent extends Component {
 
     this.waitUntilFinished = setTimeout(() => {
       if (isValidUrl(this.button.url())) {
-        const iconurl = `${extractBaseUrl(this.button.url())}/favicon.ico`;
+        const iconurl = `https://icons.duckduckgo.com/ip3/${extractUriHost(this.button.url())}.ico`;
 
         this.button.favicon(iconurl);
         this.button.icon('favicon');
