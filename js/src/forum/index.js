@@ -29,7 +29,7 @@ app.initializers.add('fof/socialprofile', () => {
     if (this.buttons.length) {
       this.buttons.forEach((button, index) => {
         if (button && button.title && button.icon && button.url) {
-          let buttonStyle = '';
+          let buttonStyle = {};
           let buttonClassName = classList({
             [`social-button ${button.icon}-${index} social-icon-${index}`]: true,
             'social-greyscale-button': button.icon === 'favicon-grey',
@@ -37,12 +37,14 @@ app.initializers.add('fof/socialprofile', () => {
 
           if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
             if (app.forum.attribute('fof-socialprofile.allow_external_favicons')) {
-              buttonStyle = `
-                                background-image: url("${button.favicon}");
-                                background-size: 60%;
-                                background-position: center;
-                                background-repeat: no-repeat;
-                            `;
+              buttonStyle = {
+                backgroundImage: `url("${button.favicon}")`,
+                backgroundSize: '60%',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              };
+
+              console.log(buttonStyle);
             } else {
               buttonClassName += ' fas fa-globe';
             }
@@ -93,7 +95,6 @@ app.initializers.add('fof/socialprofile', () => {
     }
 
     if (buttonList.toArray().length > 0) {
-
       items.add('fofsocialprofile', buttonList.toArray(), 20);
     }
   });
