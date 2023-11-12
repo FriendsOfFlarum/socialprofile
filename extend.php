@@ -25,6 +25,9 @@ return [
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js'),
 
+    (new Extend\Model(User::class))
+        ->cast('social_buttons', 'string'),
+
     (new Extend\Settings())
         ->serializeToForum('fof-socialprofile.allow_external_favicons', 'fof-socialprofile.allow_external_favicons', 'boolval', true),
 

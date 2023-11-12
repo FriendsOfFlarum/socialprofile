@@ -11,7 +11,9 @@
 
 namespace FoF\SocialProfile\Listeners;
 
+use Flarum\Foundation\ValidationException;
 use Flarum\User\Event\Saving;
+use Flarum\User\Exception\PermissionDeniedException;
 use FoF\SocialProfile\Events\UserButtonsWereChanged;
 use FoF\SocialProfile\Validators\ProfileValidator;
 use Illuminate\Support\Arr;
