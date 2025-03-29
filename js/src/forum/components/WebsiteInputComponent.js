@@ -30,6 +30,7 @@ export default class WebsiteInputComponent extends Component {
           favicon: this.button.favicon,
           index: this.button.index,
           allowsExternal: this.allowsExternal,
+          url: this.button.url,
         })}
 
         <input
@@ -74,17 +75,14 @@ export default class WebsiteInputComponent extends Component {
 
     this.waitUntilFinished = setTimeout(() => {
       if (isValidUrl(this.button.url())) {
-        const iconurl = `https://icons.duckduckgo.com/ip3/${extractUriHost(this.button.url())}.ico`;
-
-        this.button.favicon(iconurl);
         this.button.icon('favicon');
-
-        m.redraw();
+        this.button.favicon('external');
       } else {
         this.button.icon('fas fa-globe');
         this.button.favicon('none');
-        m.redraw();
       }
+
+      m.redraw();
     }, 1000);
   }
 }

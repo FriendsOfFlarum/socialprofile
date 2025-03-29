@@ -29,7 +29,9 @@ return [
         ->cast('social_buttons', 'string'),
 
     (new Extend\Settings())
-        ->serializeToForum('fof-socialprofile.allow_external_favicons', 'fof-socialprofile.allow_external_favicons', 'boolval', true),
+        ->serializeToForum('fof-socialprofile.allow_external_favicons', 'fof-socialprofile.allow_external_favicons', 'boolval', true)
+        ->serializeToForum('fof-socialprofile.favicon_provider', 'fof-socialprofile.favicon_provider', 'strval')
+        ->default('fof-socialprofile.favicon_provider', 'duckduckgo'),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 

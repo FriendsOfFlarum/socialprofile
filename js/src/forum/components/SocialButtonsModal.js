@@ -74,7 +74,6 @@ export default class SocialButtonsModal extends Modal {
           title: button.title(),
           url: button.url(),
           icon: button.icon(),
-          favicon: button.favicon(),
         });
       }
     });
@@ -129,7 +128,7 @@ export default class SocialButtonsModal extends Modal {
     } else {
       this.buttons[key] = {};
       this.buttons[key].index = Stream(key);
-      this.buttons[key].favicon = Stream(button.favicon);
+      this.buttons[key].favicon = Stream(button.icon?.startsWith('favicon') ? 'external' : 'none');
       this.buttons[key].title = Stream(button.title);
       this.buttons[key].url = Stream(button.url);
       this.buttons[key].icon = Stream(button.icon);

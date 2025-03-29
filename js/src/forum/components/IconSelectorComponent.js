@@ -2,6 +2,7 @@ import Dropdown from 'flarum/common/components/Dropdown';
 import ItemList from 'flarum/common/utils/ItemList';
 import icon from 'flarum/common/helpers/icon';
 import classList from 'flarum/common/utils/classList';
+import getFaviconUrl from '../helpers/getFaviconUrl';
 
 export default class IconSelectorComponent extends Dropdown {
   static initAttrs(attrs) {
@@ -105,6 +106,8 @@ export default class IconSelectorComponent extends Dropdown {
   }
 
   view(vnode) {
+    this.faviconUrl = getFaviconUrl(this.attrs.url());
+
     vnode.children = this.items().toArray();
 
     return super.view(vnode);
@@ -124,7 +127,7 @@ export default class IconSelectorComponent extends Dropdown {
                   'social-button': !this.attrs.selection() === 'favicon-grey',
                 })}
                 alt=""
-                src={this.attrs.favicon()}
+                src={this.faviconUrl}
                 onerror={() => {
                   this.attrs.favicon('none');
                   this.select(this.icons.social[0]);
@@ -140,6 +143,8 @@ export default class IconSelectorComponent extends Dropdown {
   items() {
     const items = new ItemList();
 
+    // Previously, favicon() would be the URL to the favicon or 'none'.
+    // Now, it is either 'none' or 'external'.
     if (this.attrs.favicon() !== 'none' && this.attrs.allowsExternal) {
       items.add(
         'favicon',
@@ -156,7 +161,7 @@ export default class IconSelectorComponent extends Dropdown {
             className={`iconpicker-image-${this.attrs.index()}`}
             alt="favicon"
             style={{ width: '14px', height: '14px', margin: '0 2px 0 2px' }}
-            src={this.attrs.favicon()}
+            src={this.faviconUrl}
           />
         </div>,
         102
@@ -177,7 +182,7 @@ export default class IconSelectorComponent extends Dropdown {
             className={`social-greyscale-button iconpicker-image-${this.attrs.index()}`}
             alt="favicon"
             style={{ width: '14px', height: '14px', margin: '0 2px 0 2px' }}
-            src={this.attrs.favicon()}
+            src={this.faviconUrl}
           />
         </div>,
         101

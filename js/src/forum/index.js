@@ -8,6 +8,7 @@ import ItemList from 'flarum/common/utils/ItemList';
 import classList from 'flarum/common/utils/classList';
 
 import SocialButtonsModal from './components/SocialButtonsModal';
+import getFaviconUrl from './helpers/getFaviconUrl';
 
 app.initializers.add('fof/socialprofile', () => {
   User.prototype.socialButtons = Model.attribute('socialButtons', (str) => JSON.parse(str || '[]'));
@@ -38,7 +39,7 @@ app.initializers.add('fof/socialprofile', () => {
           if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
             if (app.forum.attribute('fof-socialprofile.allow_external_favicons')) {
               buttonStyle = {
-                backgroundImage: `url("${button.favicon}")`,
+                backgroundImage: `url("${getFaviconUrl(button.url)}")`,
                 backgroundSize: '60%',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',

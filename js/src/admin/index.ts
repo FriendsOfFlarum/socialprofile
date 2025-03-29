@@ -8,6 +8,16 @@ app.initializers.add('fof-socialprfile', () => {
       type: 'switch',
       label: app.translator.trans('fof-socialprofile.admin.settings.allow_external_favicons_label'),
     })
+    .registerSetting({
+      setting: 'fof-socialprofile.favicon_provider',
+      type: 'dropdown',
+      label: app.translator.trans('fof-socialprofile.admin.settings.favicon_provider_label'),
+      options: {
+        google: 'Google',
+        duckduckgo: 'DuckDuckGo',
+        yandex: 'Yandex',
+      },
+    })
     .registerPermission(
       {
         icon: 'fas fa-globe',
