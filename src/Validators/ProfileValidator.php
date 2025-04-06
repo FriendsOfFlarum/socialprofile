@@ -22,9 +22,8 @@ class ProfileValidator extends AbstractValidator
     protected $rules = [
         'socialButtons' => ['json', 'socialbuttons'],
         'title'         => ['string', 'max:55', 'required'],
-        'url'           => ['url', 'max:120', 'required'],
+        'url'           => ['required', 'max:120', 'url'],
         'icon'          => ['string', 'max:35', 'required'],
-        'favicon'       => ['string', 'max:120', 'required'],
     ];
 
     /**
@@ -46,6 +45,10 @@ class ProfileValidator extends AbstractValidator
             return resolve(ProfileValidator::class)->validateSocialButtons($attribute, $value, $parameters, $validator);
         });
 
+        $this->validator->extend('url', function ($attribute, $value, $parameters, $validator) {
+            return filter_var($value, FILTER_VALIDATE_URL);
+        });
+
         return parent::makeValidator($attributes);
     }
 
@@ -60,14 +63,13 @@ class ProfileValidator extends AbstractValidator
         $valid = false;
 
         foreach ($data as $button) {
-            if (!isset($button->title) || !isset($button->url) || !isset($button->icon) || !isset($button->favicon)) {
+            if (!isset($button->title, $button->url, $button->icon)) {
                 $valid = false;
             } else {
                 $attributes = [
                     'title'   => $button->title,
                     'url'     => $button->url,
                     'icon'    => $button->icon,
-                    'favicon' => $button->favicon,
                 ];
                 $this->assertValid($attributes);
                 $valid = true;

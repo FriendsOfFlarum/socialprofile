@@ -4,10 +4,11 @@ fof-socialprofile:
       view: View social profile
       editOwn: Edit own social profile
       editAny: Edit any social profile
-    
+
     settings:
-      allow_external_favicons_label: "Allow external website icons (uses DuckDuckGo's favicon API)"
-      
+      allow_external_favicons_label: "Allow external website icons (uses external provider's favicon API)"
+      favicon_provider_label: External Favicon Provider
+
   forum:
     edit:
       edit: Edit your social media buttons
