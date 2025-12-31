@@ -1,10 +1,8 @@
 /**
  * Verifies if a string is a valid URL (http/https only).
- *
- * @param {string} url URL to test
  */
-export default function isValidUrl(url) {
-  let urlInstance;
+export default function isValidUrl(url: string): boolean {
+  let urlInstance: URL;
 
   try {
     urlInstance = new URL(url);

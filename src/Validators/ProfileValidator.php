@@ -12,14 +12,13 @@
 namespace FoF\SocialProfile\Validators;
 
 use Flarum\Foundation\AbstractValidator;
-use Illuminate\Validation\Validator;
 
 class ProfileValidator extends AbstractValidator
 {
     /**
      * {@inheritdoc}
      */
-    protected $rules = [
+    protected array $rules = [
         'socialButtons' => ['json', 'socialbuttons'],
         'title'         => ['string', 'max:55', 'required'],
         'url'           => ['required', 'max:120', 'url'],
@@ -39,7 +38,7 @@ class ProfileValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected function makeValidator(array $attributes): Validator
+    protected function makeValidator(array $attributes): \Illuminate\Validation\Validator
     {
         $this->validator->extend('socialbuttons', function ($attribute, $value, $parameters, $validator) {
             return resolve(ProfileValidator::class)->validateSocialButtons($attribute, $value, $parameters, $validator);
@@ -52,7 +51,7 @@ class ProfileValidator extends AbstractValidator
         return parent::makeValidator($attributes);
     }
 
-    protected function validateSocialButtons($attribute, $value, $parameters, $validator)
+    protected function validateSocialButtons(string $attribute, mixed $value, array $parameters, \Illuminate\Validation\Validator $validator): bool
     {
         if ($value == '[]') {
             return true;

@@ -15,23 +15,7 @@ use Flarum\User\User;
 
 class UserButtonsWereChanged
 {
-    /**
-     * @var User
-     */
-    public $user;
-
-    /**
-     * @var User
-     */
-    public $actor;
-
-    /**
-     * @param User $user
-     * @param User $actor
-     */
-    public function __construct(User $user, User $actor)
+    public function __construct(public User $user, public User $actor)
     {
-        $this->user = $user;
-        $this->actor = $actor;
     }
 }

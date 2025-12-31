@@ -1,20 +1,39 @@
 import app from 'flarum/forum/app';
-import Component from 'flarum/common/Component';
+import Component, { ComponentAttrs } from 'flarum/common/Component';
 import withAttr from 'flarum/common/utils/withAttr';
+import Stream from 'flarum/common/utils/Stream';
+import Mithril from 'mithril';
+
 import extractUriHost from '../helpers/extractUriHost';
 import isValidUrl from '../helpers/isValidUrl';
 import IconSelectorComponent from './IconSelectorComponent';
 
-export default class WebsiteInputComponent extends Component {
-  oninit(vnode) {
+export interface ButtonData {
+  index: Stream<number>;
+  favicon: Stream<string>;
+  title: Stream<string>;
+  url: Stream<string>;
+  icon: Stream<string>;
+}
+
+export interface WebsiteInputAttrs extends ComponentAttrs {
+  button: ButtonData;
+}
+
+export default class WebsiteInputComponent extends Component<WebsiteInputAttrs> {
+  private button!: ButtonData;
+  private allowsExternal!: boolean;
+  private waitUntilFinished?: number;
+
+  oninit(vnode: Mithril.Vnode<WebsiteInputAttrs>) {
     super.oninit(vnode);
 
     this.button = this.attrs.button;
 
-    this.allowsExternal = app.forum.attribute('fof-socialprofile.allow_external_favicons');
+    this.allowsExternal = app.forum.attribute<boolean>('fof-socialprofile.allow_external_favicons') || false;
   }
 
-  view(vnode) {
+  view(vnode: Mithril.Vnode<WebsiteInputAttrs>) {
     return (
       <div className="Form-group form-group-social" id={`socialgroup-${this.button.index()}`}>
         <input
@@ -59,7 +78,7 @@ export default class WebsiteInputComponent extends Component {
     );
   }
 
-  onUrlChange(value) {
+  onUrlChange(value: string): void {
     this.button.url(value);
 
     if (!this.allowsExternal) {
@@ -83,6 +102,6 @@ export default class WebsiteInputComponent extends Component {
       }
 
       m.redraw();
-    }, 1000);
+    }, 1000) as any;
   }
 }

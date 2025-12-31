@@ -16,17 +16,11 @@ use Flarum\Settings\SettingsRepositoryInterface;
 
 class AddSettingsData
 {
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    private $settings;
-
-    public function __construct(SettingsRepositoryInterface $settings)
+    public function __construct(private SettingsRepositoryInterface $settings)
     {
-        $this->settings = $settings;
     }
 
-    public function __invoke(Document $document)
+    public function __invoke(Document $document): void
     {
         $key = 'fof-socialprofile.test';
 
