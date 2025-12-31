@@ -10,7 +10,7 @@
 }
 
 .social-settings > .fa-cog {
-  border-left: 1px solid @body-bg;
+  border-left: 1px solid var(--body-bg);
   width: 120%;
 }
 
@@ -80,20 +80,20 @@
       padding: 4px;
       text-align: center;
       cursor: pointer;
-      border: 1px solid @muted-more-color;
-      border-radius: @border-radius;
+      border: 1px solid var(--muted-more-color);
+      border-radius: var(--border-radius);
       font-size: 18px;
-      box-shadow: 0 0 0 1px @text-color;
-      color: @text-color;
+      box-shadow: 0 0 0 1px var(--text-color);
+      color: var(--text-color);
 
       &:hover,
       &:focus,
       &:active {
-        background-color: fade(@muted-more-color, 20%);
+        background-color: var(--muted-more-color-fade-20);
       }
 
       &--highlighted {
-        background-color: @primary-color;
+        background-color: var(--primary-color);
         color: contrast(@primary-color);
 
         &:hover,
@@ -116,7 +116,7 @@
   max-height: 45vh;
   min-height: 100px;
   z-index: 2055;
-  border: 1px solid @shadow-color;
+  border: 1px solid var(--shadow-color);
   transition: none;
 
   padding: 8px;
@@ -136,7 +136,7 @@
 }
 
 .social-greyscale-button {
-  .mixin(@config-dark-mode);
+  .mixin(@config-dark-mode); /* @TODO: use [data-theme^=dark] and [data-theme^=light] instead */
   .mixin(false) {
     filter: grayscale(1) brightness(1.5);
   }
@@ -152,4 +152,11 @@
 .EditSocialButtons-add,
 .EditSocialButtons-del {
   margin-left: 1%;
+}
+
+[data-theme^=light] {
+  --muted-more-color-fade-20: fade(@muted-more-color-light, 20%);
+}
+[data-theme^=dark] {
+  --muted-more-color-fade-20: fade(@muted-more-color-dark, 20%);
 }
