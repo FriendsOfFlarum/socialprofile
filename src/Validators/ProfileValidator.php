@@ -12,7 +12,6 @@
 namespace FoF\SocialProfile\Validators;
 
 use Flarum\Foundation\AbstractValidator;
-use Illuminate\Validation\Validator;
 
 class ProfileValidator extends AbstractValidator
 {

@@ -12,8 +12,6 @@
 namespace FoF\SocialProfile\Api;
 
 use Flarum\Api\Context;
-use Flarum\Api\Endpoint;
-use Flarum\Api\Resource\AbstractDatabaseResource;
 use Flarum\Api\Schema;
 use Flarum\User\User;
 use FoF\SocialProfile\Events\UserButtonsWereChanged;
@@ -42,7 +40,7 @@ class UserResourceFields
                     return $context->getActor()->can('editSocialProfile', $user);
                 })
                 ->visible(fn (User $user, Context $context) => $context->getActor()->can('viewSocialProfile', $user))
-                ->set(function (User $user, string|null $value, Context $context) {
+                ->set(function (User $user, ?string $value, Context $context) {
                     // Validate the social buttons
                     $this->validator->assertValid(['socialButtons' => $value]);
 
