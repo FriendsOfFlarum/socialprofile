@@ -1,6 +1,6 @@
 import Dropdown from 'flarum/common/components/Dropdown';
 import ItemList from 'flarum/common/utils/ItemList';
-import icon from 'flarum/common/helpers/icon';
+import Icon from 'flarum/common/components/Icon';
 import classList from 'flarum/common/utils/classList';
 import getFaviconUrl from '../helpers/getFaviconUrl';
 
@@ -114,7 +114,7 @@ export default class IconSelectorComponent extends Dropdown {
   }
 
   getButtonContent() {
-    const ic = (str) => icon(str, { className: 'icondropdown-activeIcon fa-fw' });
+    const ic = (str) => <Icon name={str} className="icondropdown-activeIcon fa-fw" />;
 
     return [
       /^favicon(-\w+)?$/.test(this.attrs.selection())
@@ -136,7 +136,7 @@ export default class IconSelectorComponent extends Dropdown {
             ]
           : ic('fas fa-globe')
         : ic(this.attrs.selection()),
-      this.attrs.caretIcon ? icon(this.attrs.caretIcon, { className: 'Button-caret' }) : '',
+      this.attrs.caretIcon ? <Icon name={this.attrs.caretIcon} className="Button-caret" /> : '',
     ];
   }
 
@@ -198,7 +198,7 @@ export default class IconSelectorComponent extends Dropdown {
           role="button"
           title={`.${curIcon}`}
         >
-          {icon(curIcon, { className: 'social-icon fa-fw' })}
+          <Icon name={curIcon} className="social-icon fa-fw" />
         </div>,
         100
       );

@@ -1,9 +1,10 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
-import Modal from 'flarum/common/components/Modal';
+import FormModal from 'flarum/common/components/FormModal';
 import Button from 'flarum/common/components/Button';
 import Stream from 'flarum/common/utils/Stream';
 
-export default class DeleteButtonModal extends Modal {
+export default class DeleteButtonModal extends FormModal {
   oninit(vnode) {
     super.oninit(vnode);
 
@@ -28,10 +29,9 @@ export default class DeleteButtonModal extends Modal {
   content() {
     return (
       <div className="Modal-body">
-        <div className="Form">
+        <Form>
           <h3 className="SocialProfile-title">{this.button.title}</h3>
           <p className="SocialProfile-url">{this.button.url}</p>
-
           <div className="Form-group" id="submit-button-group">
             {Button.component(
               {
@@ -42,7 +42,7 @@ export default class DeleteButtonModal extends Modal {
               app.translator.trans('fof-socialprofile.forum.edit.delete')
             )}
           </div>
-        </div>
+        </Form>
       </div>
     );
   }

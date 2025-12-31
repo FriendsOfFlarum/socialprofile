@@ -1,7 +1,7 @@
 import app from 'flarum/admin/app';
 
 app.initializers.add('fof-socialprfile', () => {
-  app.extensionData
+  app.registry
     .for('fof-socialprofile')
     .registerSetting({
       setting: 'fof-socialprofile.allow_external_favicons',

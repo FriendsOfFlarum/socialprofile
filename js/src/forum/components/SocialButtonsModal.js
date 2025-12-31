@@ -1,10 +1,11 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
-import Modal from 'flarum/common/components/Modal';
+import FormModal from 'flarum/common/components/FormModal';
 import Button from 'flarum/common/components/Button';
 import Stream from 'flarum/common/utils/Stream';
 import WebsiteInputComponent from './WebsiteInputComponent';
 
-export default class SocialButtonsModal extends Modal {
+export default class SocialButtonsModal extends FormModal {
   oninit(vnode) {
     super.oninit(vnode);
 
@@ -35,32 +36,32 @@ export default class SocialButtonsModal extends Modal {
 
     return (
       <div className="Modal-body">
-        <div className="Form">
-          {this.buttons.map((button) => WebsiteInputComponent.component({ button }))}
-
+        <Form>
+          {this.buttons.map((button) =>
+            WebsiteInputComponent.component({
+              button,
+            })
+          )}
           <div className="Form-group" id="submit-button-group">
             <div className="Button Button--primary EditSocialButtons-add" style="margin-left: 1%;" onclick={this.addSocialButton.bind(this)}>
               <i className="fas fa-fw fa-plus" />
             </div>
-
             <div className="Button Button--primary EditSocialButtons-del" style="margin-left: 1%;" onclick={this.delSocialButton.bind(this)}>
               <i className="fas fa-fw fa-minus" />
             </div>
-
             {Button.component(
               {
                 type: 'submit',
                 style: 'float: right;',
                 className: 'Button Button--primary EditSocialButtons-save',
                 loading: this.loading,
-                // Disable save button if favicons are being fetched
                 disabled: areAnyIconsBeingFetched,
                 title: areAnyIconsBeingFetched ? app.translator.trans('fof-socialprofile.forum.edit.save_disabled_fetching_favicons') : null,
               },
               app.translator.trans('fof-socialprofile.forum.edit.submit')
             )}
           </div>
-        </div>
+        </Form>
       </div>
     );
   }
