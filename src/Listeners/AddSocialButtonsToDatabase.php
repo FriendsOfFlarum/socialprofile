@@ -20,19 +20,8 @@ use Illuminate\Support\Arr;
 
 class AddSocialButtonsToDatabase
 {
-    /**
-     * Validator for limited suspension.
-     *
-     * @var ProfileValidator
-     */
-    protected $validator;
-
-    /**
-     * @param ProfileValidator $validator
-     */
-    public function __construct(ProfileValidator $validator)
+    public function __construct(protected ProfileValidator $validator)
     {
-        $this->validator = $validator;
     }
 
     /**

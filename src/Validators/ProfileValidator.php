@@ -19,7 +19,7 @@ class ProfileValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected $rules = [
+    protected array $rules = [
         'socialButtons' => ['json', 'socialbuttons'],
         'title'         => ['string', 'max:55', 'required'],
         'url'           => ['required', 'max:120', 'url'],
@@ -39,7 +39,7 @@ class ProfileValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected function makeValidator(array $attributes): Validator
+    protected function makeValidator(array $attributes): \Illuminate\Validation\Validator
     {
         $this->validator->extend('socialbuttons', function ($attribute, $value, $parameters, $validator) {
             return resolve(ProfileValidator::class)->validateSocialButtons($attribute, $value, $parameters, $validator);
