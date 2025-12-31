@@ -20,7 +20,7 @@ class AddSettingsData
     {
     }
 
-    public function __invoke(Document $document)
+    public function __invoke(Document $document): void
     {
         $key = 'fof-socialprofile.test';
 

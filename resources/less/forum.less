@@ -1,17 +1,46 @@
 .Badge--social {
-  background: transparent;
   border: none;
   box-shadow: none;
   cursor: pointer;
+  padding: 6px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  // Only set transparent background when NOT using favicons
+  &:not(.social-button) {
+    background: transparent;
+  }
+
+  // Hide the icon element when using favicon backgrounds
+  &.social-button {
+    .Badge-icon {
+      display: none;
+    }
+  }
 }
 
 .UserCard-info > .social-button {
-  margin-right: 0;
+  margin-right: 4px;
 }
 
-.social-settings > .fa-cog {
-  border-left: 1px solid var(--body-bg);
-  width: 120%;
+// Wrapper for social buttons
+.item-fofsocialprofile {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+
+  > a {
+    display: inline-block;
+  }
+}
+
+.Badge--social.social-settings {
+  margin-left: 4px;
+  padding-left: 8px;
+  border-left: 1px solid var(--muted-color);
 }
 
 .form-group-social {
@@ -132,16 +161,6 @@
 
   @media @phone {
     grid-template-columns: repeat(4, minmax(10px, 1fr));
-  }
-}
-
-.social-greyscale-button {
-  .mixin(@config-dark-mode); /* @TODO: use [data-theme^=dark] and [data-theme^=light] instead */
-  .mixin(false) {
-    filter: grayscale(1) brightness(1.5);
-  }
-  .mixin(true) {
-    filter: grayscale(1) brightness(100);
   }
 }
 

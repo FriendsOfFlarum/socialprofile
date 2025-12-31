@@ -52,7 +52,7 @@ class ProfileValidator extends AbstractValidator
         return parent::makeValidator($attributes);
     }
 
-    protected function validateSocialButtons($attribute, $value, $parameters, $validator)
+    protected function validateSocialButtons(string $attribute, mixed $value, array $parameters, \Illuminate\Validation\Validator $validator): bool
     {
         if ($value == '[]') {
             return true;

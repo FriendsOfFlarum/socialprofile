@@ -12,14 +12,12 @@
  * @example
  * // null
  * extractBaseUrl("javascript:alert('hello!')")
- *
- * @param {string|null} url URL to extract base from
  */
-export default function extractUriHost(url) {
-  let urlInstance;
+export default function extractUriHost(url: string | null): string | null {
+  let urlInstance: URL;
 
   try {
-    urlInstance = new URL(url);
+    urlInstance = new URL(url || '');
   } catch (_) {
     return null;
   }

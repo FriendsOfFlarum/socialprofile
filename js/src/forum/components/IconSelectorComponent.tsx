@@ -1,19 +1,33 @@
-import Dropdown from 'flarum/common/components/Dropdown';
+import Dropdown, { IDropdownAttrs } from 'flarum/common/components/Dropdown';
 import ItemList from 'flarum/common/utils/ItemList';
 import Icon from 'flarum/common/components/Icon';
 import classList from 'flarum/common/utils/classList';
+import Stream from 'flarum/common/utils/Stream';
+import Mithril from 'mithril';
+
 import getFaviconUrl from '../helpers/getFaviconUrl';
 
-export default class IconSelectorComponent extends Dropdown {
-  static initAttrs(attrs) {
+export interface IconSelectorAttrs extends IDropdownAttrs {
+  selection: Stream<string>;
+  favicon: Stream<string>;
+  url: Stream<string>;
+  index: Stream<number>;
+  allowsExternal: boolean;
+}
+
+export default class IconSelectorComponent extends Dropdown<IconSelectorAttrs> {
+  private icons!: { social: string[] };
+  private faviconUrl: string | null = null;
+
+  static initAttrs(attrs: IconSelectorAttrs) {
     super.initAttrs(attrs);
 
-    attrs.className = 'icondropdown';
+    (attrs as any).className = 'icondropdown';
     attrs.buttonClassName = 'Button Button--icon';
     attrs.menuClassName = 'social-dropdown-menu';
   }
 
-  oninit(vnode) {
+  oninit(vnode: Mithril.Vnode<IconSelectorAttrs>) {
     super.oninit(vnode);
 
     this.icons = {
@@ -105,16 +119,16 @@ export default class IconSelectorComponent extends Dropdown {
     };
   }
 
-  view(vnode) {
+  view(vnode: Mithril.Vnode<IconSelectorAttrs>) {
     this.faviconUrl = getFaviconUrl(this.attrs.url());
 
-    vnode.children = this.items().toArray();
+    vnode.children = this.items().toArray() as any;
 
     return super.view(vnode);
   }
 
   getButtonContent() {
-    const ic = (str) => <Icon name={str} className="icondropdown-activeIcon fa-fw" />;
+    const ic = (str: string) => <Icon name={str} className="icondropdown-activeIcon fa-fw" />;
 
     return [
       /^favicon(-\w+)?$/.test(this.attrs.selection())
@@ -124,7 +138,7 @@ export default class IconSelectorComponent extends Dropdown {
                 className={classList({
                   'icondropdown-activeIcon': true,
                   'social-greyscale-button': this.attrs.selection() === 'favicon-grey',
-                  'social-button': !this.attrs.selection() === 'favicon-grey',
+                  'social-button': this.attrs.selection() !== 'favicon-grey',
                 })}
                 alt=""
                 src={this.faviconUrl}
@@ -140,8 +154,8 @@ export default class IconSelectorComponent extends Dropdown {
     ];
   }
 
-  items() {
-    const items = new ItemList();
+  items(): ItemList<Mithril.Children> {
+    const items = new ItemList<Mithril.Children>();
 
     // Previously, favicon() would be the URL to the favicon or 'none'.
     // Now, it is either 'none' or 'external'.
@@ -207,7 +221,7 @@ export default class IconSelectorComponent extends Dropdown {
     return items;
   }
 
-  select(icon) {
+  select(icon: string): void {
     this.attrs.selection(icon);
   }
 }

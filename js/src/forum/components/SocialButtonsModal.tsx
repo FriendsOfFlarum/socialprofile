@@ -1,12 +1,22 @@
 import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
-import FormModal from 'flarum/common/components/FormModal';
+import FormModal, { IFormModalAttrs } from 'flarum/common/components/FormModal';
 import Button from 'flarum/common/components/Button';
 import Stream from 'flarum/common/utils/Stream';
-import WebsiteInputComponent from './WebsiteInputComponent';
+import User from 'flarum/common/models/User';
+import type Mithril from 'mithril';
 
-export default class SocialButtonsModal extends FormModal {
-  oninit(vnode) {
+import WebsiteInputComponent, { ButtonData } from './WebsiteInputComponent';
+import type { SocialButton } from '../extend';
+
+export interface SocialButtonsModalAttrs extends IFormModalAttrs {
+  user: User;
+}
+
+export default class SocialButtonsModal extends FormModal<SocialButtonsModalAttrs> {
+  private buttons: ButtonData[] = [];
+
+  oninit(vnode: Mithril.Vnode<SocialButtonsModalAttrs>) {
     super.oninit(vnode);
 
     this.buttons = [];
@@ -23,15 +33,15 @@ export default class SocialButtonsModal extends FormModal {
     }
   }
 
-  className() {
+  className(): string {
     return 'SocialButtonsModal Modal--small';
   }
 
-  title() {
+  title(): Mithril.Children {
     return app.translator.trans('fof-socialprofile.forum.edit.headtitle');
   }
 
-  content() {
+  content(): Mithril.Children {
     const areAnyIconsBeingFetched = this.buttons.some((button) => button.icon() === 'fas fa-circle-notch fa-spin');
 
     return (
@@ -66,8 +76,8 @@ export default class SocialButtonsModal extends FormModal {
     );
   }
 
-  data() {
-    const buttons = [];
+  data(): { socialButtons: string } {
+    const buttons: SocialButton[] = [];
 
     this.buttons.forEach((button) => {
       if (button && button.title() && button.url()) {
@@ -84,7 +94,7 @@ export default class SocialButtonsModal extends FormModal {
     };
   }
 
-  onsubmit(e) {
+  onsubmit(e: Event): void {
     e.preventDefault();
 
     this.loading = true;
@@ -92,14 +102,16 @@ export default class SocialButtonsModal extends FormModal {
     this.attrs.user
       .save(this.data(), { errorHandler: this.onerror.bind(this) })
       .then(this.hide.bind(this))
-      .then($('#app').trigger('refreshSocialButtons', [this.data().socialButtons]))
+      .then(() => {
+        $('#app').trigger('refreshSocialButtons', [this.data().socialButtons]);
+      })
       .catch(() => {
         this.loading = false;
         m.redraw();
       });
   }
 
-  addSocialButton() {
+  addSocialButton(): void {
     this.createButtonObject(this.buttons.length);
 
     m.redraw();
@@ -109,7 +121,7 @@ export default class SocialButtonsModal extends FormModal {
     });
   }
 
-  delSocialButton() {
+  delSocialButton(): void {
     const curdel = this.buttons.length - 1;
 
     $(`#socialgroup-${curdel}`).slideUp('normal', () => {
@@ -118,21 +130,23 @@ export default class SocialButtonsModal extends FormModal {
     });
   }
 
-  createButtonObject(key, button = null) {
+  createButtonObject(key: number, button: SocialButton | null = null): void {
     if (button == null) {
-      this.buttons[key] = {};
-      this.buttons[key].index = Stream(key);
-      this.buttons[key].favicon = Stream('none');
-      this.buttons[key].title = Stream('');
-      this.buttons[key].url = Stream('');
-      this.buttons[key].icon = Stream('fas fa-globe');
+      this.buttons[key] = {
+        index: Stream(key),
+        favicon: Stream('none'),
+        title: Stream(''),
+        url: Stream(''),
+        icon: Stream('fas fa-globe'),
+      };
     } else {
-      this.buttons[key] = {};
-      this.buttons[key].index = Stream(key);
-      this.buttons[key].favicon = Stream(button.icon?.startsWith('favicon') ? 'external' : 'none');
-      this.buttons[key].title = Stream(button.title);
-      this.buttons[key].url = Stream(button.url);
-      this.buttons[key].icon = Stream(button.icon);
+      this.buttons[key] = {
+        index: Stream(key),
+        favicon: Stream(button.icon?.startsWith('favicon') ? 'external' : 'none'),
+        title: Stream(button.title),
+        url: Stream(button.url),
+        icon: Stream(button.icon),
+      };
     }
   }
 }
