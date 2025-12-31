@@ -15,6 +15,10 @@ use Flarum\Api\Serializer\UserSerializer;
 use Flarum\Extend;
 use Flarum\User\Event\Saving;
 use Flarum\User\User;
+use Flarum\Api\Context;
+use Flarum\Api\Endpoint;
+use Flarum\Api\Resource;
+use Flarum\Api\Schema;
 
 return [
     (new Extend\Frontend('forum'))
@@ -38,6 +42,7 @@ return [
     (new Extend\Event())
         ->listen(Saving::class, Listeners\AddSocialButtonsToDatabase::class),
 
+    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
     (new Extend\ApiSerializer(UserSerializer::class))
         ->attributes(Listeners\AddUserSocialProfileAttributes::class),
 
