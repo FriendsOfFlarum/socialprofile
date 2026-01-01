@@ -31,12 +31,46 @@
   display: inline-flex !important;
   align-items: center;
   gap: 4px;
+  transform: translateY(8px); // Align container vertically
 
   > a {
     display: inline-block;
   }
+
+  // Fix background, shadows and borders for all badges in social container
+  .Badge--social {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0;
+  }
+
+  // Fix size for regular social buttons
+  .social-button {
+    width: 25px;
+    height: 25px;
+    min-width: 25px;
+    padding: 0;
+  }
+
+  // Fix size and positioning for settings button
+  .social-settings {
+    width: 25px;
+    height: 25px;
+    min-width: 25px;
+    padding: 0;
+    margin-left: 4px;
+    border-left: none !important; // Remove separator line
+    box-shadow: none !important;
+    transform: translate(-10px, -2px); // Adjust positioning
+  }
+
+  // Special case for null social settings
+  .Badge--social.null-social-settings {
+    transform: translateY(-8px);
+  }
 }
 
+// Original .social-settings rule (kept for other contexts outside .item-fofsocialprofile)
 .Badge--social.social-settings {
   margin-left: 4px;
   padding-left: 8px;
