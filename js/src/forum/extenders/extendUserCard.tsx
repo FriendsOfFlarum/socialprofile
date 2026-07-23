@@ -34,6 +34,9 @@ export default function extendUserCard() {
 
           if (button.icon === 'favicon' || button.icon === 'favicon-grey') {
             if (app.forum.attribute<boolean>('fof-socialprofile.allow_external_favicons')) {
+              // Favicon buttons render the icon via a background image, so the
+              // Badge's own icon element must be hidden (see forum.less).
+              buttonClassName += ' social-favicon-button';
               buttonStyle = {
                 backgroundImage: `url("${getFaviconUrl(button.url)}")`,
                 backgroundSize: '60%',

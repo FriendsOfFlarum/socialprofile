@@ -9,18 +9,35 @@
   align-items: center;
   justify-content: center;
 
+  // The badge boxes are all identically sized and aligned. The favicon buttons
+  // (centered background image) sit at the true box center. FA glyph icons are
+  // rendered in an inline-block <i> that aligns to the text line, not the box
+  // center — measured ~7px high under FA 7 — so they drift off relative to the
+  // favicons. Make the glyph element a flex box that fills the badge and centers
+  // its own content, so the glyph's center matches the box center (and thus the
+  // favicon images). Version-agnostic; works for bundled FA and FA Kit.
+  .Badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    line-height: 1;
+  }
+
   // Only set transparent background when NOT using favicons
-  &:not(.social-button) {
+  &:not(.social-favicon-button) {
     background: transparent;
   }
 
   // Hide the icon element when using favicon backgrounds
-  &.social-button {
+  &.social-favicon-button {
     .Badge-icon {
       display: none;
     }
   }
 }
+
 
 .UserCard-info > .social-button {
   margin-right: 4px;
@@ -31,10 +48,10 @@
   display: inline-flex !important;
   align-items: center;
   gap: 4px;
-  transform: translateY(8px); // Align container vertically
 
   > a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
   }
 
   // Fix background, shadows and borders for all badges in social container
@@ -61,7 +78,7 @@
     margin-left: 4px;
     border-left: none !important; // Remove separator line
     box-shadow: none !important;
-    transform: translate(-10px, -2px); // Adjust positioning
+    transform: translateX(-10px); // Close gap to the other icons
   }
 
   // Special case for null social settings
